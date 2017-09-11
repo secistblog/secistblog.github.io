@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="kali," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="keywords" content="kali">
+<meta property="og:type" content="article">
+<meta property="og:title" content="黑手第三篇----DuckHunterHID for mac">
+<meta property="og:url" content="http://yoursite.com/DuckHunterHID.html">
+<meta property="og:site_name" content="即刻安全">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/maxresdefault.jpg">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1zdsvb8.jpg">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/3B83EDEB-6401-47BD-97AC-F67EBA4912F1.png">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/9DA2E76E-459B-4295-902B-3EF8FF5F87B2.png">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1CF817DC-6562-446F-9850-D88922A5E14E.png">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/6A323763-0ACE-4230-8638-42AE41A643C9.png">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/432C200A-9E1E-423E-A928-CC24DC452D75.png">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/82B4B55D-25D0-4B43-91B9-3C587FF2B470.png">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/4F756B21-2BF7-4F64-929B-D1F2044789F8.png">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/FF774580-92C6-4BFE-A2C0-3AE59A011A21.png">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1BB5C440-F798-4F15-B2F3-3830EFD44FA9.png">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/3F33287D-827C-4CC0-BFEE-FFA398CE9FBE.png">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/DD63EB85-CE67-447A-A17E-D7E16EF7BB22.png">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1833878B-24B2-48BD-8438-0EDD524619D7.png">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/7DD01722-EC8C-43AD-94F9-3D7BF4A7398D.png">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/9E207E32-F824-4000-BC11-7207FDA27AC1.png">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1492519263301.jpg">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/625CE7389F506CD27830E0AC9450F043.jpg">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/926EC2F4CAA40850C68695B568ED7C5E.jpg">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/958E71B5A3E801BBD876231B610B9B67.jpg">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/0C3A8A27E4B981F504D4EA54E2BE8BFC.jpg">
+<meta property="og:updated_time" content="2017-04-18T13:32:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="黑手第三篇----DuckHunterHID for mac">
+<meta name="twitter:image" content="http://ojg8j426f.bkt.clouddn.com/maxresdefault.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/DuckHunterHID.html"/>
+
+
+
+
+
+  <title>黑手第三篇----DuckHunterHID for mac | 即刻安全</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">即刻安全</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">即刻安全|致力于网络安全的研究学习平台</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/DuckHunterHID.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Secist‘blog | 即刻安全是一个专注于网络安全的研究学习平台">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="即刻安全">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">黑手第三篇----DuckHunterHID for mac</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-18T11:51:51+00:00">
+                2017-04-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kali/" itemprop="url" rel="index">
+                    <span itemprop="name">kali</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://ojg8j426f.bkt.clouddn.com/maxresdefault.jpg" alt="enter description here"><br><a id="more"></a><br>  继上一篇nethunter 的HID键盘攻击之后，我打算在我的mac上进行HID攻击，（<a href="http://www.ggsec.cn/nethuner-HID.html" target="_blank" rel="external">http://www.ggsec.cn/nethuner-HID.html</a> ） 这次使用到的是USB-DuckHunter-HID，下面请看背景知识回顾—————–》<br>&nbsp;</p>
+<p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=31209890&auto=0&height=66"></iframe><br>0x00</p>
+<h2 id="HID-键盘攻击"><a href="#HID-键盘攻击" class="headerlink" title="HID 键盘攻击"></a>HID 键盘攻击</h2><p>在这个视频键盘HID攻击被证明。<br>它可以在几秒钟内通过USB将目标解锁机器。它通过模拟键盘和鼠标，盲目地键入受控命令，轻击鼠标指针并使鼠标点击武器。<br>这是什么？<br>几乎每台包括台式机，笔记本电脑，平板电脑和智能手机的电脑都通过键盘输入人类。这就是为什么有一个称为HID或人机接口设备的无处不在的USB标准的规范。简单地说，声称是Keyboard HID的任何USB设备将被大多数现代操作系统自动检测和接受。无论是Windows，Mac，Linux还是Android设备，键盘都是King。</p>
+<p>通过利用这种固有的信任，脚本敲击的速度超过每分钟1000字，传统的对策可以被这个不知疲倦的骑兵绕过 - USB攻击。<br>&nbsp;<br>&nbsp;</p>
+<h2 id="DuckHunter-HID"><a href="#DuckHunter-HID" class="headerlink" title="DuckHunter HID"></a>DuckHunter HID</h2><p>DuckHunter HID选项允许您快速方便地将USB Rubber Ducky脚本转换为NetHunter HID攻击格式。您可以从示例预设菜单中选择一个选项，或从Duck Toolkit站点中选择更多选择的预配置脚本。<br>进攻安全人员再次出现。受欢迎的Pentesting发行版Kali Linux的构建者为Android设备推出了一款名为Kali NetHunter的新工具。该工具是一种移动分销，旨在在Android手机上安装并运行时通过USB危及系统。</p>
+<p>该工具可以通过HID风格的攻击伪装成键盘，发出命令以打开其他攻击中的管理外壳，包括BadUSB中间人风格的攻击。该工具的图片目前可用于Nexus设备，但其他Android设备的构建可能正在进行中。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1zdsvb8.jpg" alt="enter description here"></p>
+<p>&nbsp;<br>&nbsp;</p>
+<h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2><p>   <span style="color: #ff0000;"> 首先我们来看下，黑手（kali_nethunter）的duck_HID 给我们提供了哪些默认的脚本。</span></p>
+<ol>
+<li>首先呢 我们可以看到在nethunter客户端上可以看到有（DuckHunter HID ）字样，其实他就是模拟黄鸭，USB Rubber Ducky脚本转换为NetHunter HID攻击格式。<br>&nbsp;<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/3B83EDEB-6401-47BD-97AC-F67EBA4912F1.png" alt="enter description here"><br>&nbsp;<br>&nbsp;<br>在默认的选项我们可以看到他给我们提供了默认的几个选项，其中有两个脚本呢 是针对Mac OSX 的HID攻击，攻击后呢<br>返回一个shell连接，这里其中有perl和Ruby两个脚本，我们就选择其中一个选择ruby。<br><img src="http://ojg8j426f.bkt.clouddn.com/9DA2E76E-459B-4295-902B-3EF8FF5F87B2.png" alt="enter description here"><br>&nbsp;<br>&nbsp;<h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2>选择ruby脚本。我们来简单的看下代码的意思<br><img src="http://ojg8j426f.bkt.clouddn.com/1CF817DC-6562-446F-9850-D88922A5E14E.png" alt="enter description here"><br>&nbsp;<br>&nbsp;<br>0X03<br>1.COMMAND SPACE—–在mac的快捷键表示为搜索框搜索<br><img src="http://ojg8j426f.bkt.clouddn.com/6A323763-0ACE-4230-8638-42AE41A643C9.png" alt="enter description here"><br>&nbsp;<br>2.STRING terminal  ENTER——–输入字符串terminal 搜索终端，并按下回车<br><img src="http://ojg8j426f.bkt.clouddn.com/432C200A-9E1E-423E-A928-CC24DC452D75.png" alt="enter description here"><br>&nbsp;<br>3.Command+n就是新建的快捷键，功能是新建一个项目，在不同程序有不同的新建项目种类。<br><img src="http://ojg8j426f.bkt.clouddn.com/82B4B55D-25D0-4B43-91B9-3C587FF2B470.png" alt="enter description here"><br>&nbsp;<br>4.在终端下输入字符串使用ruby socket建立服务端<br><img src="http://ojg8j426f.bkt.clouddn.com/4F756B21-2BF7-4F64-929B-D1F2044789F8.png" alt="enter description here"><br>&nbsp;<br>5.当然了在这段代码也我们提示了 使用netcat（nc ）建立监听 并返回会话，他这里0.0.0.0提示我们更改我们黑手nethunter的ip地址。<br>如：<br>查看黑手使用的ip<br><img src="http://ojg8j426f.bkt.clouddn.com/FF774580-92C6-4BFE-A2C0-3AE59A011A21.png" alt="enter description here"><br>&nbsp;<br>&nbsp;<br><strong><span style="color: #008000;">更改ip</span><br><img src="http://ojg8j426f.bkt.clouddn.com/1BB5C440-F798-4F15-B2F3-3830EFD44FA9.png" alt="enter description here"><br>&nbsp;<br>&nbsp;<br><strong><span style="color: #008000;">保存脚本</span><br><img src="http://ojg8j426f.bkt.clouddn.com/3F33287D-827C-4CC0-BFEE-FFA398CE9FBE.png" alt="enter description here"><br>&nbsp;<br>&nbsp;<h2 id="0X04"><a href="#0X04" class="headerlink" title="0X04"></a>0X04</h2>1.<strong><span style="color: #008000;">并且在终端中使用nc命令建立监听 </span>———nc -vv -l -p 1337<br><img src="http://ojg8j426f.bkt.clouddn.com/DD63EB85-CE67-447A-A17E-D7E16EF7BB22.png" alt="enter description here"></strong></strong></strong></li>
+</ol>
+<p>&nbsp;<br>&nbsp;<br>2 .点击三角按钮，<strong><span style="color: #008000;">执行攻击</span>。<br><img src="http://ojg8j426f.bkt.clouddn.com/1833878B-24B2-48BD-8438-0EDD524619D7.png" alt="enter description here"></strong></p>
+<p>&nbsp;<br>&nbsp;<br>3.<strong><span style="color: #008000;">返回shell连接</span><br>&nbsp;<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/7DD01722-EC8C-43AD-94F9-3D7BF4A7398D.png" alt="enter description here"><br>&nbsp;<br>&nbsp;<br><span style="color: #008000;">最终结果：</span><br><img src="http://ojg8j426f.bkt.clouddn.com/9E207E32-F824-4000-BC11-7207FDA27AC1.png" alt="enter description here"><br>&nbsp;<br>&nbsp;<br>更多项目可在github–USBDucky 项目中寻找你需要的PAYLOAD。<br><a href="https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payloads" target="_blank" rel="external">https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payloads</a><br>&nbsp;<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1492519263301.jpg" alt="enter description here"></strong></p>
+<h2 id="视频演示"><a href="#视频演示" class="headerlink" title="视频演示"></a>视频演示</h2><p>可观看个人演示的视频</p>
+<p><div style="width:640px;height:480px;margin:0 auto;" id="ivaLive"></div></p>
+<script type="text/javascript" src="http://7xjfim.com2.z0.glb.qiniucdn.com/Iva.js"></script>
+<script>
+    var ivaInstance = new Iva('ivaLive', {
+        appkey: 'By9WGzBIx', //应用标示
+        video: 'http://oc78wb8cz.bkt.clouddn.com/DuckHunterHID.mp4', //视频
+        title: 'test', //视频标题，后台视频管理中的标题
+        cover: '' //视频封面，只有在autoplay:false才可生效
+    });
+</script>
+<script src="//cytroncdn.videojj.com/latest/Iva.js"></script>
+
+<p><img src="http://ojg8j426f.bkt.clouddn.com/625CE7389F506CD27830E0AC9450F043.jpg" alt="enter description here"><br>&nbsp;<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/926EC2F4CAA40850C68695B568ED7C5E.jpg" alt="enter description here"><br>&nbsp;<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/958E71B5A3E801BBD876231B610B9B67.jpg" alt="enter description here"><br>&nbsp;<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/0C3A8A27E4B981F504D4EA54E2BE8BFC.jpg" alt="enter description here"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kali/" rel="tag"># kali</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/fimap_metasploitable2 .html" rel="next" title="Fimap_Metasploitable2漏洞攻击">
+                <i class="fa fa-chevron-left"></i> Fimap_Metasploitable2漏洞攻击
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/InjectProc.html" rel="prev" title="InjectProc&Metasploit">
+                InjectProc&Metasploit <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <p class="site-author-name" itemprop="name">Secist‘blog | 即刻安全是一个专注于网络安全的研究学习平台</p>
+            <p class="site-description motion-element" itemprop="description">kali|linux|sec|Web|MSF|Win</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#HID-键盘攻击"><span class="nav-number">1.</span> <span class="nav-text">HID 键盘攻击</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DuckHunter-HID"><span class="nav-number">2.</span> <span class="nav-text">DuckHunter HID</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01"><span class="nav-number">3.</span> <span class="nav-text">0x01</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02"><span class="nav-number">4.</span> <span class="nav-text">0x02</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0X04"><span class="nav-number">5.</span> <span class="nav-text">0X04</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视频演示"><span class="nav-number">6.</span> <span class="nav-text">视频演示</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Secist‘blog | 即刻安全是一个专注于网络安全的研究学习平台</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

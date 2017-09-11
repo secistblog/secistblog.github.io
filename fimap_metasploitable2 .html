@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="kali," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="keywords" content="kali">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fimap_Metasploitable2漏洞攻击">
+<meta property="og:url" content="http://yoursite.com/fimap_metasploitable2 .html">
+<meta property="og:site_name" content="即刻安全">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/hack-like-pro-linux-basics-for-aspiring-hacker-part-10-manipulating-text.1280x600.jpg">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/88D2C627-A21A-4D32-BA8F-A99B10295CEA.png">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/ED9EF7FC-9179-4DEC-8518-943F955A63E9.png">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/E8C58339-2B1A-4DBF-9838-1D184DA11C86.png">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1A11FB48-777A-4832-83F5-F9030962F822.png">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/5EA09A65-D9CE-465E-9691-11EDBB932620.png">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/B7414489-7646-473D-B6C8-FF55C9DBA1AE.png">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/49F45637-F5EF-45F6-A1D5-07A5F624F421.png">
+<meta property="og:updated_time" content="2017-04-17T05:14:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Fimap_Metasploitable2漏洞攻击">
+<meta name="twitter:image" content="http://ojg8j426f.bkt.clouddn.com/hack-like-pro-linux-basics-for-aspiring-hacker-part-10-manipulating-text.1280x600.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/fimap_metasploitable2 .html"/>
+
+
+
+
+
+  <title>Fimap_Metasploitable2漏洞攻击 | 即刻安全</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">即刻安全</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">即刻安全|致力于网络安全的研究学习平台</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/fimap_metasploitable2 .html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Secist‘blog | 即刻安全是一个专注于网络安全的研究学习平台">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="即刻安全">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Fimap_Metasploitable2漏洞攻击</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-19T17:18:54+00:00">
+                2017-03-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/kali/" itemprop="url" rel="index">
+                    <span itemprop="name">kali</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="http://ojg8j426f.bkt.clouddn.com/hack-like-pro-linux-basics-for-aspiring-hacker-part-10-manipulating-text.1280x600.jpg" alt="enter description here"><br><a id="more"></a></p>
+<p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=31090440&auto=0&height=66"></iframe></p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Fimap是一款本地及远程的文件包含漏洞检测工具，并能对检测到的漏洞进行利用，带了一个google的语法搜索功能，这款工具只针对文件包含漏洞的检测及利用.<br>&nbsp;<br>&nbsp;<br>本次使用到的环境：docker_kali      攻击者<br>                                metasploitable2 靶机环境<br>&nbsp;</p>
+<h2 id="kali中自带的工具-fimap"><a href="#kali中自带的工具-fimap" class="headerlink" title="kali中自带的工具:fimap"></a>kali中自带的工具:fimap</h2><pre><code>&lt;p&gt; -H，--harvest
+模式为新URL收集URL。 需要一个根网址（-u）开始在那里爬网。   还需要（-w）为质量模式编写URL列表
+&amp;nbsp;    
+  -d，--depth = CRAWLDEPTH
+  您希望在收获模式（-H）下爬网目标网站的CRAWLDEPTH（递归级别）。默认值为1.
+   &amp;nbsp;
+  -x，--exploit
+  启动一个交互式会话，您可以在其中, 选择一个目标并执行某些操作
+  &amp;nbsp;
+ -C，--enable-color
+    --force-run忽略实例检查，只要运行fimap。&lt;/p&gt;
+  &amp;nbsp;
+</code></pre><p>例子：</p>
+<pre><code>1. 简单扫描
+    ./fimap.py -u &apos;http://localhost/test.php?file=bang&amp;id=23&apos;
+2. 使用列表进行扫描
+    ./fimap.py -m -l &apos;/tmp/urllist.txt&apos;
+3. 使用谷歌语法搜索
+    ./fimap.py -g -q &apos;inurl:include.php&apos;
+4. 收集递归等级为3和的网页的所有链接  将URL写入 /tmp/urllist
+    ./fimap.py -H -u &apos;http://localhost&apos; -d 3 -w /tmp/urllist
+    参考资料：http://tools.kali.org/web-applications/fimap
+</code></pre><h2 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h2><p><div style="width:640px;height:480px;margin:0 auto;" id="ivaLive"></div></p>
+<script type="text/javascript" src="http://7xjfim.com2.z0.glb.qiniucdn.com/Iva.js"></script>
+<script>
+    var ivaInstance = new Iva('ivaLive', {
+        appkey: 'By9WGzBIx', //应用标示
+        video: 'http://oc78wb8cz.bkt.clouddn.com/fimap_metasploitasble2.mp4', //视频
+        title: 'test', //视频标题，后台视频管理中的标题
+        cover: '' //视频封面，只有在autoplay:false才可生效
+    });
+</script>
+<script src="//cytroncdn.videojj.com/latest/Iva.js"></script>
+
+<p>&nbsp;<br>&nbsp;<br>1.本次使用到的是metaspolitable2 靶机环境 ，我们打开浏览器输入该靶机的 ip<br>&nbsp;<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/88D2C627-A21A-4D32-BA8F-A99B10295CEA.png" alt="enter description here"><br>&nbsp;<br>&nbsp;<br>2.使用fimap的例子4 进行尝试检测 ：</p>
+<p><pre>fimap -H -u <a href="http://localhost" target="_blank" rel="external">http://localhost</a> -d 3 -w /tmp/urllist </pre><br>               <img src="http://ojg8j426f.bkt.clouddn.com/ED9EF7FC-9179-4DEC-8518-943F955A63E9.png" alt="enter description here"><br> &nbsp;<br> &nbsp;<br>  3.在上图中可以看到，对dvwa/dav/twiki/等进行扫描，图中对Mutillidae扫描的列表比较多。<br></p>
+<p><pre>mutillidae是一个免费，开源的Web应用程序，提供专门被允许的安全测试和入侵的Web应用程序。它是由Adrian “Irongeek” Crenshaw和Jeremy “webpwnized” Druin.开发的一款自由和开放源码的Web应用程序。其中包含了丰富的渗透测试项目，如SQL注入、跨站脚本、clickjacking、本地文件包含、远程代码执行等.</pre><br><br>对检测到的漏洞进行攻击，并忽略实例检查：<br> <pre>fimap -x  –force-run</pre><br> <img src="http://ojg8j426f.bkt.clouddn.com/E8C58339-2B1A-4DBF-9838-1D184DA11C86.png" alt="enter description here"><br>  &nbsp;<br>  &nbsp;</p>
+<p> 4.填写目标序列号1 。进入漏洞url列表，选择漏洞id 如选择1。<br><img src="http://ojg8j426f.bkt.clouddn.com/1A11FB48-777A-4832-83F5-F9030962F822.png" alt="enter description here"><br> &nbsp;<br> &nbsp;<br>5、执行攻击 选择攻击模式。如选择1<br><img src="http://ojg8j426f.bkt.clouddn.com/5EA09A65-D9CE-465E-9691-11EDBB932620.png" alt="enter description here"><br> &nbsp;<br> &nbsp;<br> 使用fimap 反弹shell 得到回话、<br> <img src="http://ojg8j426f.bkt.clouddn.com/B7414489-7646-473D-B6C8-FF55C9DBA1AE.png" alt="enter description here"><br> &nbsp;<br> &nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/49F45637-F5EF-45F6-A1D5-07A5F624F421.png" alt="enter description here"></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kali/" rel="tag"># kali</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/bypassuac-win10.html" rel="next" title="metaspolit_bypassuac_win10">
+                <i class="fa fa-chevron-left"></i> metaspolit_bypassuac_win10
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/DuckHunterHID.html" rel="prev" title="黑手第三篇----DuckHunterHID for mac">
+                黑手第三篇----DuckHunterHID for mac <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <p class="site-author-name" itemprop="name">Secist‘blog | 即刻安全是一个专注于网络安全的研究学习平台</p>
+            <p class="site-description motion-element" itemprop="description">kali|linux|sec|Web|MSF|Win</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#kali中自带的工具-fimap"><span class="nav-number">2.</span> <span class="nav-text">kali中自带的工具:fimap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#视频"><span class="nav-number">3.</span> <span class="nav-text">视频</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Secist‘blog | 即刻安全是一个专注于网络安全的研究学习平台</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Gemini</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
