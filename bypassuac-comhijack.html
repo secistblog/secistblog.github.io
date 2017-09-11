@@ -115,7 +115,7 @@
 <meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1502454885362.jpg">
 <meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1502455024735.jpg">
 <meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1502455140138.jpg">
-<meta property="og:updated_time" content="2017-08-11T12:39:16.000Z">
+<meta property="og:updated_time" content="2017-09-11T16:41:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bypassuac_Comhijack ---kali linux">
 <meta name="twitter:image" content="http://ojg8j426f.bkt.clouddn.com/2ADD67C458C4CF66997F4D366E247747.png">
@@ -477,6 +477,22 @@
 <p><img src="http://ojg8j426f.bkt.clouddn.com/1502454478100.jpg" alt="enter description here"><br>&nbsp;</p>
 <p>3.使用bypassuac_comhijack<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1502454553056.jpg" alt="enter description here"><br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1502454631936.jpg" alt="enter description here"><br>&nbsp;<br>看到需要设置的是会话序列号，我这里设置 session 为 1，并且执行payload的时候，会报错，让我们看看需要更改的地方？<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1502454757164.jpg" alt="enter description here"><br>&nbsp;<br>因为目标虚拟机win10镜像本身是x64架构的，所以我们这里需要更改payload<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1502454854556.jpg" alt="enter description here"><br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1502454868195.jpg" alt="enter description here"><br>&nbsp;<br>并且更改端口<br><img src="http://ojg8j426f.bkt.clouddn.com/1502454885362.jpg" alt="enter description here"><br>&nbsp;<br>（PS:如果目标机是32位的话，不用更改PAYLOAD 只需更改端口即可）</p>
 <p>4.得到session 2<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1502455024735.jpg" alt="enter description here"><br>&nbsp;<br>这里可以看到 我getuid的时候 是demon 用户<br>当我getsystem的时候 ，得到了system权限。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1502455140138.jpg" alt="enter description here"></p>
+<p><div id="container"></div></p>
+<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+  var gitment = new Gitment({
+    owner: 'secistblog',
+    repo: 'secistblog.github.io',
+    oauth: {
+      client_id: '31ca58bed60fa9231b5f',
+      client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3',
+    },
+  })
+  gitment.render('container')
+</script>
+
+
 
       
     </div>

@@ -109,7 +109,7 @@
 <meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/5EA09A65-D9CE-465E-9691-11EDBB932620.png">
 <meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/B7414489-7646-473D-B6C8-FF55C9DBA1AE.png">
 <meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/49F45637-F5EF-45F6-A1D5-07A5F624F421.png">
-<meta property="og:updated_time" content="2017-04-17T05:14:43.000Z">
+<meta property="og:updated_time" content="2017-09-11T16:41:57.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Fimap_Metasploitable2漏洞攻击">
 <meta name="twitter:image" content="http://ojg8j426f.bkt.clouddn.com/hack-like-pro-linux-basics-for-aspiring-hacker-part-10-manipulating-text.1280x600.jpg">
@@ -485,6 +485,23 @@
 <p><pre>fimap -H -u <a href="http://localhost" target="_blank" rel="external">http://localhost</a> -d 3 -w /tmp/urllist </pre><br>               <img src="http://ojg8j426f.bkt.clouddn.com/ED9EF7FC-9179-4DEC-8518-943F955A63E9.png" alt="enter description here"><br> &nbsp;<br> &nbsp;<br>  3.在上图中可以看到，对dvwa/dav/twiki/等进行扫描，图中对Mutillidae扫描的列表比较多。<br></p>
 <p><pre>mutillidae是一个免费，开源的Web应用程序，提供专门被允许的安全测试和入侵的Web应用程序。它是由Adrian “Irongeek” Crenshaw和Jeremy “webpwnized” Druin.开发的一款自由和开放源码的Web应用程序。其中包含了丰富的渗透测试项目，如SQL注入、跨站脚本、clickjacking、本地文件包含、远程代码执行等.</pre><br><br>对检测到的漏洞进行攻击，并忽略实例检查：<br> <pre>fimap -x  –force-run</pre><br> <img src="http://ojg8j426f.bkt.clouddn.com/E8C58339-2B1A-4DBF-9838-1D184DA11C86.png" alt="enter description here"><br>  &nbsp;<br>  &nbsp;</p>
 <p> 4.填写目标序列号1 。进入漏洞url列表，选择漏洞id 如选择1。<br><img src="http://ojg8j426f.bkt.clouddn.com/1A11FB48-777A-4832-83F5-F9030962F822.png" alt="enter description here"><br> &nbsp;<br> &nbsp;<br>5、执行攻击 选择攻击模式。如选择1<br><img src="http://ojg8j426f.bkt.clouddn.com/5EA09A65-D9CE-465E-9691-11EDBB932620.png" alt="enter description here"><br> &nbsp;<br> &nbsp;<br> 使用fimap 反弹shell 得到回话、<br> <img src="http://ojg8j426f.bkt.clouddn.com/B7414489-7646-473D-B6C8-FF55C9DBA1AE.png" alt="enter description here"><br> &nbsp;<br> &nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/49F45637-F5EF-45F6-A1D5-07A5F624F421.png" alt="enter description here"></p>
+<p><div id="container"></div></p>
+<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+  var gitment = new Gitment({
+    owner: 'secistblog',
+    repo: 'secistblog.github.io',
+    oauth: {
+      client_id: '31ca58bed60fa9231b5f',
+      client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3',
+    },
+  })
+  gitment.render('container')
+</script>
+
+
+
 
       
     </div>
