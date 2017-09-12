@@ -259,7 +259,7 @@
     <link href="http://yoursite.com/Discuss1.html"/>
     <id>http://yoursite.com/Discuss1.html</id>
     <published>2015-09-12T12:02:49.000Z</published>
-    <updated>2017-09-12T12:47:41.000Z</updated>
+    <updated>2017-09-12T13:00:51.000Z</updated>
     
     <content type="html"><![CDATA[<p><img src="http://ojg8j426f.bkt.clouddn.com/%E5%A3%81%E7%BA%B8.jpg" alt="enter description here"><br><a id="more"></a><br>&nbsp;</p><p>这次新开了一个目的也是一个 增加一个留言板块，增进探讨和提问解决 与更多人参与讨论，方便一起解决,有什么问题可以交个我来进行生成md文档 ，上传本次问题，与更多朋友参与一起讨论探讨，方便解决问题！！</p><pre><code>Demon 2017.9.12</code></pre><p>&nbsp;</p><iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="330" height="86" src="//music.163.com/outchain/player?type=2&id=3941024&auto=0&height=66"></iframe><p><div id="container"></div></p><p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p><script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script><script>  var gitment = new Gitment({    owner: 'secistblog',    repo: 'secistblog.github.io',    oauth: {      client_id: '31ca58bed60fa9231b5f',      client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3',    },  })  gitment.render('container')</script>]]></content>
     
@@ -269,10 +269,10 @@
     
     </summary>
     
-      <category term="提问板块" scheme="http://yoursite.com/categories/%E6%8F%90%E9%97%AE%E6%9D%BF%E5%9D%97/"/>
+      <category term="Discuss" scheme="http://yoursite.com/categories/Discuss/"/>
     
     
-      <category term="提问板块" scheme="http://yoursite.com/tags/%E6%8F%90%E9%97%AE%E6%9D%BF%E5%9D%97/"/>
+      <category term="Discuss" scheme="http://yoursite.com/tags/Discuss/"/>
     
   </entry>
   
