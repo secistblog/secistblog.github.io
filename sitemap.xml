@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/Loop-Bug.html</loc>
+    
+    <lastmod>2017-09-12T15:33:27.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/RDP.html</loc>
     
     <lastmod>2017-09-12T15:17:40.000Z</lastmod>
