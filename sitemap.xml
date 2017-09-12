@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/msf-web-delivery.html</loc>
+    
+    <lastmod>2017-09-12T14:02:36.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/nethuner-HID.html</loc>
     
     <lastmod>2017-09-12T13:58:29.000Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>http://yoursite.com/nop-payload.html</loc>
     
     <lastmod>2017-09-12T13:55:18.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://yoursite.com/msf-web-delivery.html</loc>
-    
-    <lastmod>2017-09-12T13:55:08.000Z</lastmod>
     
   </url>
   
