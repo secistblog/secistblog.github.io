@@ -2,9 +2,16 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/SQLi-Xss.html</loc>
+    
+    <lastmod>2017-09-13T11:31:13.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/Loop-Bug.html</loc>
     
-    <lastmod>2017-09-12T15:33:27.000Z</lastmod>
+    <lastmod>2017-09-12T15:36:35.000Z</lastmod>
     
   </url>
   
